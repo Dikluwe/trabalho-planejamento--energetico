@@ -1,0 +1,1032 @@
+New "Transformer.TRF_6_1030A" phases=1 windings=3 buses=["1911.3.1" "ET6_1030.1.4" "ET6_1030.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.900000 %noloadloss=0.500000
+New "Reactor.TRF_6_1030A_R" phases=1 bus1="ET6_1030.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_878A" phases=1 windings=3 buses=["MRT_3231TRF_6_878A.3" "ET6_878.1.4" "ET6_878.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_878A_R" phases=1 bus1="ET6_878.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_878A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_878A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_878A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_878A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_878A" phases=1 bus1="3231.3" bus2="MRT_3231TRF_6_878A.3" linecode="LC_MRT_TRF_6_878A_1" length=0.001 units=km 
+
+
+New "Transformer.TRF_16_1585A" phases=3 windings=2 buses=["3511.1.2.3" "ET16_1585.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_16_1585A_R" phases=1 bus1="ET16_1585.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_3545A" phases=1 windings=3 buses=["MRT_7321TRF_16_3545A.2" "ET16_3545.1.4" "ET16_3545.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_3545A_R" phases=1 bus1="ET16_3545.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_3545A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3545A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3545A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3545A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_3545A" phases=1 bus1="7321.2" bus2="MRT_7321TRF_16_3545A.2" linecode="LC_MRT_TRF_16_3545A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_1143A" phases=3 windings=2 buses=["7341.1.2.3" "ET16_1143.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_16_1143A_R" phases=1 bus1="ET16_1143.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_6460A" phases=1 windings=3 buses=["MRT_7381TRF_16_6460A.3" "ET16_6460.1.4" "ET16_6460.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[25 25 25] %loadloss=1.420000 %noloadloss=0.320000
+New "Reactor.TRF_16_6460A_R" phases=1 bus1="ET16_6460.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_6460A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6460A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6460A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6460A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_6460A" phases=1 bus1="7381.3" bus2="MRT_7381TRF_16_6460A.3" linecode="LC_MRT_TRF_16_6460A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_725A" phases=1 windings=3 buses=["7721.3.1" "ET6_725.1.4" "ET6_725.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.900000 %noloadloss=0.500000
+New "Reactor.TRF_6_725A_R" phases=1 bus1="ET6_725.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_3820A" phases=1 windings=3 buses=["MRT_8911TRF_6_3820A.3" "ET6_3820.1.4" "ET6_3820.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_6_3820A_R" phases=1 bus1="ET6_3820.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3820A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3820A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3820A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3820A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3820A" phases=1 bus1="8911.3" bus2="MRT_8911TRF_6_3820A.3" linecode="LC_MRT_TRF_6_3820A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3538A" phases=1 windings=3 buses=["MRT_9031TRF_6_3538A.1" "ET6_3538.1.4" "ET6_3538.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_3538A_R" phases=1 bus1="ET6_3538.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3538A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3538A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3538A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3538A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3538A" phases=1 bus1="9031.1" bus2="MRT_9031TRF_6_3538A.1" linecode="LC_MRT_TRF_6_3538A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_4910A" phases=3 windings=2 buses=["9051.1.2.3" "ET6_4910.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_4910A_R" phases=1 bus1="ET6_4910.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_1870A" phases=1 windings=3 buses=["MRT_9071TRF_6_1870A.3" "ET6_1870.1.4" "ET6_1870.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_6_1870A_R" phases=1 bus1="ET6_1870.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1870A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1870A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1870A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1870A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1870A" phases=1 bus1="9071.3" bus2="MRT_9071TRF_6_1870A.3" linecode="LC_MRT_TRF_6_1870A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_127A" phases=1 windings=3 buses=["MRT_9111TRF_6_127A.1" "ET6_127.1.4" "ET6_127.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_6_127A_R" phases=1 bus1="ET6_127.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_127A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_127A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_127A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_127A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_127A" phases=1 bus1="9111.1" bus2="MRT_9111TRF_6_127A.1" linecode="LC_MRT_TRF_6_127A_1" length=0.001 units=km 
+
+
+New "Transformer.TRF_6_1541A" phases=3 windings=2 buses=["9751.1.2.3" "ET6_1541.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_6_1541A_R" phases=1 bus1="ET6_1541.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_1503A" phases=1 windings=3 buses=["MRT_10441TRF_6_1503A.1" "ET6_1503.1.4" "ET6_1503.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_1503A_R" phases=1 bus1="ET6_1503.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1503A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1503A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1503A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1503A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1503A" phases=1 bus1="10441.1" bus2="MRT_10441TRF_6_1503A.1" linecode="LC_MRT_TRF_6_1503A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_6272A" phases=1 windings=3 buses=["MRT_10551TRF_6_6272A.1" "ET6_6272.1.4" "ET6_6272.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_6_6272A_R" phases=1 bus1="ET6_6272.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_6272A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_6272A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_6272A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_6272A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_6272A" phases=1 bus1="10551.1" bus2="MRT_10551TRF_6_6272A.1" linecode="LC_MRT_TRF_6_6272A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_128A" phases=1 windings=3 buses=["MRT_10571TRF_6_128A.1" "ET6_128.1.4" "ET6_128.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_6_128A_R" phases=1 bus1="ET6_128.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_128A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_128A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_128A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_128A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_128A" phases=1 bus1="10571.1" bus2="MRT_10571TRF_6_128A.1" linecode="LC_MRT_TRF_6_128A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_1260A" phases=1 windings=3 buses=["MRT_10791TRF_6_1260A.1" "ET6_1260.1.4" "ET6_1260.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_1260A_R" phases=1 bus1="ET6_1260.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1260A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1260A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1260A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1260A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1260A" phases=1 bus1="10791.1" bus2="MRT_10791TRF_6_1260A.1" linecode="LC_MRT_TRF_6_1260A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_1350A" phases=3 windings=2 buses=["10801.1.2.3" "ET6_1350.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[45 45] %loadloss=1.611111 %noloadloss=0.411111
+New "Reactor.TRF_6_1350A_R" phases=1 bus1="ET6_1350.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_808A" phases=3 windings=2 buses=["10871.1.2.3" "ET6_808.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_6_808A_R" phases=1 bus1="ET6_808.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_1475A" phases=1 windings=3 buses=["MRT_11251TRF_6_1475A.1" "ET6_1475.1.4" "ET6_1475.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_6_1475A_R" phases=1 bus1="ET6_1475.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1475A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1475A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1475A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1475A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1475A" phases=1 bus1="11251.1" bus2="MRT_11251TRF_6_1475A.1" linecode="LC_MRT_TRF_6_1475A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_1138A" phases=1 windings=3 buses=["MRT_11291TRF_6_1138A.2" "ET6_1138.1.4" "ET6_1138.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_1138A_R" phases=1 bus1="ET6_1138.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1138A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1138A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1138A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1138A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1138A" phases=1 bus1="11291.2" bus2="MRT_11291TRF_6_1138A.2" linecode="LC_MRT_TRF_6_1138A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_1146A" phases=1 windings=3 buses=["MRT_11411TRF_6_1146A.2" "ET6_1146.1.4" "ET6_1146.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_1146A_R" phases=1 bus1="ET6_1146.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1146A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1146A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1146A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1146A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1146A" phases=1 bus1="11411.2" bus2="MRT_11411TRF_6_1146A.2" linecode="LC_MRT_TRF_6_1146A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_2916A" phases=1 windings=3 buses=["MRT_13941TRF_16_2916A.2" "ET16_2916.1.4" "ET16_2916.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_2916A_R" phases=1 bus1="ET16_2916.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_2916A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_2916A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_2916A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_2916A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_2916A" phases=1 bus1="13941.2" bus2="MRT_13941TRF_16_2916A.2" linecode="LC_MRT_TRF_16_2916A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_1140A" phases=1 windings=3 buses=["MRT_13971TRF_16_1140A.2" "ET16_1140.1.4" "ET16_1140.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_1140A_R" phases=1 bus1="ET16_1140.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_1140A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_1140A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_1140A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_1140A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_1140A" phases=1 bus1="13971.2" bus2="MRT_13971TRF_16_1140A.2" linecode="LC_MRT_TRF_16_1140A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_5474A" phases=1 windings=3 buses=["MRT_14031TRF_16_5474A.2" "ET16_5474.1.4" "ET16_5474.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_5474A_R" phases=1 bus1="ET16_5474.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_5474A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5474A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5474A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5474A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_5474A" phases=1 bus1="14031.2" bus2="MRT_14031TRF_16_5474A.2" linecode="LC_MRT_TRF_16_5474A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_3548A" phases=1 windings=3 buses=["MRT_17881TRF_16_3548A.2" "ET16_3548.1.4" "ET16_3548.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_3548A_R" phases=1 bus1="ET16_3548.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_3548A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3548A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3548A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3548A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_3548A" phases=1 bus1="17881.2" bus2="MRT_17881TRF_16_3548A.2" linecode="LC_MRT_TRF_16_3548A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_1141A" phases=1 windings=3 buses=["MRT_17961TRF_16_1141A.3" "ET16_1141.1.4" "ET16_1141.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_16_1141A_R" phases=1 bus1="ET16_1141.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_1141A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_1141A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_1141A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_1141A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_1141A" phases=1 bus1="17961.3" bus2="MRT_17961TRF_16_1141A.3" linecode="LC_MRT_TRF_16_1141A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_810A" phases=3 windings=2 buses=["18001.1.2.3" "ET6_810.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_810A_R" phases=1 bus1="ET6_810.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_300A" phases=1 windings=3 buses=["MRT_18501TRF_16_300A.1" "ET16_300.1.4" "ET16_300.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_16_300A_R" phases=1 bus1="ET16_300.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_300A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_300A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_300A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_300A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_300A" phases=1 bus1="18501.1" bus2="MRT_18501TRF_16_300A.1" linecode="LC_MRT_TRF_16_300A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_3130A" phases=3 windings=2 buses=["18551.1.2.3" "ET16_3130.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_16_3130A_R" phases=1 bus1="ET16_3130.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_11_4955A" phases=1 windings=3 buses=["MRT_21881TRF_11_4955A.1" "ET11_4955.1.4" "ET11_4955.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_11_4955A_R" phases=1 bus1="ET11_4955.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_11_4955A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_4955A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_4955A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_4955A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_11_4955A" phases=1 bus1="21881.1" bus2="MRT_21881TRF_11_4955A.1" linecode="LC_MRT_TRF_11_4955A_1" length=0.001 units=km 
+
+New "Transformer.TRF_11_131A" phases=1 windings=3 buses=["21941.3.1" "ET11_131.1.4" "ET11_131.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.900000 %noloadloss=0.500000
+New "Reactor.TRF_11_131A_R" phases=1 bus1="ET11_131.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_1048A" phases=3 windings=2 buses=["23121.1.2.3" "ET6_1048.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_6_1048A_R" phases=1 bus1="ET6_1048.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_129A" phases=1 windings=3 buses=["MRT_26361TRF_6_129A.1" "ET6_129.1.4" "ET6_129.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_129A_R" phases=1 bus1="ET6_129.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_129A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_129A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_129A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_129A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_129A" phases=1 bus1="26361.1" bus2="MRT_26361TRF_6_129A.1" linecode="LC_MRT_TRF_6_129A_1" length=0.001 units=km 
+
+New "Transformer.TRF_34_1018A" phases=1 windings=3 buses=["MRT_26791TRF_34_1018A.2" "ET34_1018.1.4" "ET34_1018.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[5 5 5] %loadloss=1.900000 %noloadloss=0.600000
+New "Reactor.TRF_34_1018A_R" phases=1 bus1="ET34_1018.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_34_1018A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_1018A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_1018A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_1018A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_34_1018A" phases=1 bus1="26791.2" bus2="MRT_26791TRF_34_1018A.2" linecode="LC_MRT_TRF_34_1018A_1" length=0.001 units=km 
+
+
+New "Transformer.TRF_16_5730A" phases=1 windings=3 buses=["MRT_27271TRF_16_5730A.2" "ET16_5730.1.4" "ET16_5730.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[25 25 25] %loadloss=1.420000 %noloadloss=0.320000
+New "Reactor.TRF_16_5730A_R" phases=1 bus1="ET16_5730.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_5730A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5730A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5730A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5730A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_5730A" phases=1 bus1="27271.2" bus2="MRT_27271TRF_16_5730A.2" linecode="LC_MRT_TRF_16_5730A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_1144A" phases=1 windings=3 buses=["MRT_27781TRF_16_1144A.2" "ET16_1144.1.4" "ET16_1144.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_16_1144A_R" phases=1 bus1="ET16_1144.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_1144A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_1144A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_1144A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_1144A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_1144A" phases=1 bus1="27781.2" bus2="MRT_27781TRF_16_1144A.2" linecode="LC_MRT_TRF_16_1144A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_6273A" phases=3 windings=2 buses=["28741.1.2.3" "ET6_6273.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_6273A_R" phases=1 bus1="ET6_6273.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_1238A" phases=1 windings=3 buses=["MRT_29681TRF_6_1238A.1" "ET6_1238.1.4" "ET6_1238.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_6_1238A_R" phases=1 bus1="ET6_1238.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1238A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1238A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1238A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1238A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1238A" phases=1 bus1="29681.1" bus2="MRT_29681TRF_6_1238A.1" linecode="LC_MRT_TRF_6_1238A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_731A" phases=3 windings=2 buses=["30621.1.2.3" "ET6_731.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_6_731A_R" phases=1 bus1="ET6_731.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_732A" phases=3 windings=2 buses=["30701.1.2.3" "ET6_732.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_732A_R" phases=1 bus1="ET6_732.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_6082A" phases=1 windings=3 buses=["MRT_30771TRF_16_6082A.1" "ET16_6082.1.4" "ET16_6082.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_16_6082A_R" phases=1 bus1="ET16_6082.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_6082A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6082A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6082A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6082A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_6082A" phases=1 bus1="30771.1" bus2="MRT_30771TRF_16_6082A.1" linecode="LC_MRT_TRF_16_6082A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_537A" phases=1 windings=3 buses=["30941.3.1" "ET16_537.1.4" "ET16_537.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[5 5 5] %loadloss=2.100000 %noloadloss=0.700000
+New "Reactor.TRF_16_537A_R" phases=1 bus1="ET16_537.4" R=15 X=0 basefreq=60
+
+
+New "Transformer.TRF_16_3996A" phases=1 windings=3 buses=["MRT_31721TRF_16_3996A.3" "ET16_3996.1.4" "ET16_3996.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_16_3996A_R" phases=1 bus1="ET16_3996.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_3996A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3996A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3996A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3996A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_3996A" phases=1 bus1="31721.3" bus2="MRT_31721TRF_16_3996A.3" linecode="LC_MRT_TRF_16_3996A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_1095A" phases=1 windings=3 buses=["MRT_36971TRF_16_1095A.3" "ET16_1095.1.4" "ET16_1095.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_16_1095A_R" phases=1 bus1="ET16_1095.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_1095A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_1095A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_1095A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_1095A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_1095A" phases=1 bus1="36971.3" bus2="MRT_36971TRF_16_1095A.3" linecode="LC_MRT_TRF_16_1095A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_730A" phases=3 windings=2 buses=["37501.1.2.3" "ET6_730.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_6_730A_R" phases=1 bus1="ET6_730.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_34_1649A" phases=1 windings=3 buses=["MRT_37771TRF_34_1649A.2" "ET34_1649.1.4" "ET34_1649.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[5 5 5] %loadloss=1.900000 %noloadloss=0.600000
+New "Reactor.TRF_34_1649A_R" phases=1 bus1="ET34_1649.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_34_1649A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_1649A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_1649A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_1649A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_34_1649A" phases=1 bus1="37771.2" bus2="MRT_37771TRF_34_1649A.2" linecode="LC_MRT_TRF_34_1649A_1" length=0.001 units=km 
+
+New "Transformer.TRF_34_5029A" phases=1 windings=3 buses=["MRT_37851TRF_34_5029A.2" "ET34_5029.1.4" "ET34_5029.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_34_5029A_R" phases=1 bus1="ET34_5029.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_34_5029A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_5029A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_5029A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_5029A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_34_5029A" phases=1 bus1="37851.2" bus2="MRT_37851TRF_34_5029A.2" linecode="LC_MRT_TRF_34_5029A_1" length=0.001 units=km 
+
+New "Transformer.TRF_34_1581A" phases=1 windings=3 buses=["MRT_37951TRF_34_1581A.2" "ET34_1581.1.4" "ET34_1581.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_34_1581A_R" phases=1 bus1="ET34_1581.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_34_1581A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_1581A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_1581A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_1581A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_34_1581A" phases=1 bus1="37951.2" bus2="MRT_37951TRF_34_1581A.2" linecode="LC_MRT_TRF_34_1581A_1" length=0.001 units=km 
+
+New "Transformer.TRF_11_132A" phases=1 windings=3 buses=["MRT_42481TRF_11_132A.1" "ET11_132.1.4" "ET11_132.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_11_132A_R" phases=1 bus1="ET11_132.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_11_132A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_132A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_132A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_132A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_11_132A" phases=1 bus1="42481.1" bus2="MRT_42481TRF_11_132A.1" linecode="LC_MRT_TRF_11_132A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_3221A" phases=1 windings=3 buses=["MRT_43051TRF_16_3221A.3" "ET16_3221.1.4" "ET16_3221.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[25 25 25] %loadloss=1.420000 %noloadloss=0.320000
+New "Reactor.TRF_16_3221A_R" phases=1 bus1="ET16_3221.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_3221A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3221A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3221A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3221A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_3221A" phases=1 bus1="43051.3" bus2="MRT_43051TRF_16_3221A.3" linecode="LC_MRT_TRF_16_3221A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_504A" phases=1 windings=3 buses=["44381.1.2" "ET16_504.1.4" "ET16_504.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.766667 %noloadloss=0.466667
+New "Reactor.TRF_16_504A_R" phases=1 bus1="ET16_504.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_735A" phases=1 windings=3 buses=["44611.3.1" "ET6_735.1.4" "ET6_735.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.900000 %noloadloss=0.500000
+New "Reactor.TRF_6_735A_R" phases=1 bus1="ET6_735.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_4489A" phases=1 windings=3 buses=["MRT_44641TRF_6_4489A.1" "ET6_4489.1.4" "ET6_4489.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[25 25 25] %loadloss=1.420000 %noloadloss=0.320000
+New "Reactor.TRF_6_4489A_R" phases=1 bus1="ET6_4489.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_4489A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_4489A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_4489A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_4489A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_4489A" phases=1 bus1="44641.1" bus2="MRT_44641TRF_6_4489A.1" linecode="LC_MRT_TRF_6_4489A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_729A" phases=3 windings=2 buses=["46651.1.2.3" "ET6_729.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_6_729A_R" phases=1 bus1="ET6_729.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_299A" phases=3 windings=2 buses=["48311.1.2.3" "ET16_299.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[45 45] %loadloss=1.611111 %noloadloss=0.411111
+New "Reactor.TRF_16_299A_R" phases=1 bus1="ET16_299.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_1301A" phases=1 windings=3 buses=["48361.3.1" "ET16_1301.1.4" "ET16_1301.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.900000 %noloadloss=0.500000
+New "Reactor.TRF_16_1301A_R" phases=1 bus1="ET16_1301.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_2139A" phases=1 windings=3 buses=["MRT_48421TRF_16_2139A.1" "ET16_2139.1.4" "ET16_2139.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[25 25 25] %loadloss=1.420000 %noloadloss=0.320000
+New "Reactor.TRF_16_2139A_R" phases=1 bus1="ET16_2139.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_2139A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_2139A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_2139A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_2139A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_2139A" phases=1 bus1="48421.1" bus2="MRT_48421TRF_16_2139A.1" linecode="LC_MRT_TRF_16_2139A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_6081A" phases=1 windings=3 buses=["MRT_48561TRF_16_6081A.1" "ET16_6081.1.4" "ET16_6081.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_6081A_R" phases=1 bus1="ET16_6081.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_6081A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6081A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6081A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6081A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_6081A" phases=1 bus1="48561.1" bus2="MRT_48561TRF_16_6081A.1" linecode="LC_MRT_TRF_16_6081A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_1019A" phases=1 windings=3 buses=["MRT_48581TRF_6_1019A.2" "ET6_1019.1.4" "ET6_1019.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[25 25 25] %loadloss=1.420000 %noloadloss=0.320000
+New "Reactor.TRF_6_1019A_R" phases=1 bus1="ET6_1019.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1019A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1019A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1019A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1019A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1019A" phases=1 bus1="48581.2" bus2="MRT_48581TRF_6_1019A.2" linecode="LC_MRT_TRF_6_1019A_1" length=0.001 units=km 
+
+New "Transformer.TRF_11_2597A" phases=1 windings=3 buses=["MRT_48681TRF_11_2597A.3" "ET11_2597.1.4" "ET11_2597.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_11_2597A_R" phases=1 bus1="ET11_2597.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_11_2597A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_2597A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_2597A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_2597A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_11_2597A" phases=1 bus1="48681.3" bus2="MRT_48681TRF_11_2597A.3" linecode="LC_MRT_TRF_11_2597A_1" length=0.001 units=km 
+
+New "Transformer.TRF_11_130A" phases=3 windings=2 buses=["49521.1.2.3" "ET11_130.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_11_130A_R" phases=1 bus1="ET11_130.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_4704A" phases=1 windings=3 buses=["MRT_49991TRF_6_4704A.1" "ET6_4704.1.4" "ET6_4704.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_4704A_R" phases=1 bus1="ET6_4704.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_4704A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_4704A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_4704A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_4704A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_4704A" phases=1 bus1="49991.1" bus2="MRT_49991TRF_6_4704A.1" linecode="LC_MRT_TRF_6_4704A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_733A" phases=1 windings=3 buses=["MRT_50091TRF_6_733A.1" "ET6_733.1.4" "ET6_733.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_733A_R" phases=1 bus1="ET6_733.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_733A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_733A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_733A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_733A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_733A" phases=1 bus1="50091.1" bus2="MRT_50091TRF_6_733A.1" linecode="LC_MRT_TRF_6_733A_1" length=0.001 units=km 
+
+New "Transformer.TRF_11_305A" phases=3 windings=2 buses=["56861.1.2.3" "ET11_305.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[75 75] %loadloss=1.433333 %noloadloss=0.360000
+New "Reactor.TRF_11_305A_R" phases=1 bus1="ET11_305.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_539A" phases=1 windings=3 buses=["60171.3.1" "ET16_539.1.4" "ET16_539.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.900000 %noloadloss=0.500000
+New "Reactor.TRF_16_539A_R" phases=1 bus1="ET16_539.4" R=15 X=0 basefreq=60
+
+
+New "Transformer.TRF_6_1151A" phases=3 windings=2 buses=["60571.1.2.3" "ET6_1151.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_1151A_R" phases=1 bus1="ET6_1151.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_4764A" phases=3 windings=2 buses=["60651.1.2.3" "ET6_4764.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[75 75] %loadloss=1.433333 %noloadloss=0.360000
+New "Reactor.TRF_6_4764A_R" phases=1 bus1="ET6_4764.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_4765A" phases=3 windings=2 buses=["60721.1.2.3" "ET6_4765.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[150 150] %loadloss=1.200000 %noloadloss=0.300000
+New "Reactor.TRF_6_4765A_R" phases=1 bus1="ET6_4765.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_538A" phases=3 windings=2 buses=["60991.1.2.3" "ET16_538.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_16_538A_R" phases=1 bus1="ET16_538.4" R=15 X=0 basefreq=60
+
+
+New "Transformer.TRF_11_133A" phases=1 windings=3 buses=["62311.3.1" "ET11_133.1.4" "ET11_133.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.900000 %noloadloss=0.500000
+New "Reactor.TRF_11_133A_R" phases=1 bus1="ET11_133.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_723A" phases=3 windings=2 buses=["62921.1.2.3" "ET6_723.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_6_723A_R" phases=1 bus1="ET6_723.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_722A" phases=3 windings=2 buses=["63001.1.2.3" "ET6_722.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_6_722A_R" phases=1 bus1="ET6_722.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_726A" phases=3 windings=2 buses=["63661.1.2.3" "ET6_726.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_6_726A_R" phases=1 bus1="ET6_726.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_737A" phases=3 windings=2 buses=["64571.1.2.3" "ET6_737.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_6_737A_R" phases=1 bus1="ET6_737.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_728A" phases=3 windings=2 buses=["64741.1.2.3" "ET6_728.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_728A_R" phases=1 bus1="ET6_728.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_125A" phases=1 windings=3 buses=["MRT_65661TRF_6_125A.2" "ET6_125.1.4" "ET6_125.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_125A_R" phases=1 bus1="ET6_125.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_125A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_125A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_125A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_125A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_125A" phases=1 bus1="65661.2" bus2="MRT_65661TRF_6_125A.2" linecode="LC_MRT_TRF_6_125A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3011A" phases=1 windings=3 buses=["66491.3.1" "ET6_3011.1.4" "ET6_3011.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.900000 %noloadloss=0.500000
+New "Reactor.TRF_6_3011A_R" phases=1 bus1="ET6_3011.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_3819A" phases=3 windings=2 buses=["66561.1.2.3" "ET6_3819.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_3819A_R" phases=1 bus1="ET6_3819.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_1344A" phases=1 windings=3 buses=["MRT_68231TRF_6_1344A.1" "ET6_1344.1.4" "ET6_1344.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_1344A_R" phases=1 bus1="ET6_1344.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1344A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1344A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1344A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1344A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1344A" phases=1 bus1="68231.1" bus2="MRT_68231TRF_6_1344A.1" linecode="LC_MRT_TRF_6_1344A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_122A" phases=1 windings=3 buses=["71151.3.1" "ET6_122.1.4" "ET6_122.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.900000 %noloadloss=0.500000
+New "Reactor.TRF_6_122A_R" phases=1 bus1="ET6_122.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_1212A" phases=1 windings=3 buses=["MRT_71261TRF_6_1212A.3" "ET6_1212.1.4" "ET6_1212.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[25 25 25] %loadloss=1.420000 %noloadloss=0.320000
+New "Reactor.TRF_6_1212A_R" phases=1 bus1="ET6_1212.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1212A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1212A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1212A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1212A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1212A" phases=1 bus1="71261.3" bus2="MRT_71261TRF_6_1212A.3" linecode="LC_MRT_TRF_6_1212A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_1213A" phases=1 windings=3 buses=["MRT_71331TRF_6_1213A.3" "ET6_1213.1.4" "ET6_1213.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_1213A_R" phases=1 bus1="ET6_1213.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1213A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1213A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1213A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1213A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1213A" phases=1 bus1="71331.3" bus2="MRT_71331TRF_6_1213A.3" linecode="LC_MRT_TRF_6_1213A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_1139A" phases=1 windings=3 buses=["MRT_71741TRF_6_1139A.2" "ET6_1139.1.4" "ET6_1139.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_6_1139A_R" phases=1 bus1="ET6_1139.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1139A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1139A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1139A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1139A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1139A" phases=1 bus1="71741.2" bus2="MRT_71741TRF_6_1139A.2" linecode="LC_MRT_TRF_6_1139A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_1145A" phases=1 windings=3 buses=["MRT_71891TRF_6_1145A.2" "ET6_1145.1.4" "ET6_1145.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_1145A_R" phases=1 bus1="ET6_1145.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1145A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1145A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1145A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1145A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1145A" phases=1 bus1="71891.2" bus2="MRT_71891TRF_6_1145A.2" linecode="LC_MRT_TRF_6_1145A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_302A" phases=1 windings=3 buses=["MRT_72051TRF_16_302A.1" "ET16_302.1.4" "ET16_302.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_302A_R" phases=1 bus1="ET16_302.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_302A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_302A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_302A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_302A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_302A" phases=1 bus1="72051.1" bus2="MRT_72051TRF_16_302A.1" linecode="LC_MRT_TRF_16_302A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_301A" phases=1 windings=3 buses=["72071.3.1" "ET16_301.1.4" "ET16_301.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[25 25 25] %loadloss=1.540000 %noloadloss=0.360000
+New "Reactor.TRF_16_301A_R" phases=1 bus1="ET16_301.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_124A" phases=3 windings=2 buses=["74131.1.2.3" "ET6_124.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[45 45] %loadloss=1.611111 %noloadloss=0.411111
+New "Reactor.TRF_6_124A_R" phases=1 bus1="ET6_124.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_6318A" phases=3 windings=2 buses=["74741.1.2.3" "ET16_6318.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[45 45] %loadloss=1.611111 %noloadloss=0.411111
+New "Reactor.TRF_16_6318A_R" phases=1 bus1="ET16_6318.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_303A" phases=1 windings=3 buses=["74761.3.1" "ET16_303.1.4" "ET16_303.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.766667 %noloadloss=0.466667
+New "Reactor.TRF_16_303A_R" phases=1 bus1="ET16_303.4" R=15 X=0 basefreq=60
+
+
+
+New "Transformer.TRF_6_1256A" phases=1 windings=3 buses=["134461.3.1" "ET6_1256.1.4" "ET6_1256.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.900000 %noloadloss=0.500000
+New "Reactor.TRF_6_1256A_R" phases=1 bus1="ET6_1256.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_2090A" phases=3 windings=2 buses=["135301.1.2.3" "ET6_2090.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_6_2090A_R" phases=1 bus1="ET6_2090.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_1445A" phases=1 windings=3 buses=["MRT_151391TRF_6_1445A.3" "ET6_1445.1.4" "ET6_1445.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_1445A_R" phases=1 bus1="ET6_1445.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1445A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1445A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1445A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1445A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1445A" phases=1 bus1="151391.3" bus2="MRT_151391TRF_6_1445A.3" linecode="LC_MRT_TRF_6_1445A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_4766A" phases=3 windings=2 buses=["164151.1.2.3" "ET6_4766.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[112.5 112.5] %loadloss=1.257778 %noloadloss=0.328889
+New "Reactor.TRF_6_4766A_R" phases=1 bus1="ET6_4766.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_3549A" phases=1 windings=3 buses=["MRT_192191TRF_16_3549A.3" "ET16_3549.1.4" "ET16_3549.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_3549A_R" phases=1 bus1="ET16_3549.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_3549A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3549A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3549A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3549A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_3549A" phases=1 bus1="192191.3" bus2="MRT_192191TRF_16_3549A.3" linecode="LC_MRT_TRF_16_3549A_1" length=0.001 units=km 
+
+New "Transformer.TRF_11_4675A" phases=3 windings=2 buses=["302191.1.2.3" "ET11_4675.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[150 150] %loadloss=1.200000 %noloadloss=0.300000
+New "Reactor.TRF_11_4675A_R" phases=1 bus1="ET11_4675.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_4173A" phases=1 windings=3 buses=["MRT_308581TRF_16_4173A.1" "ET16_4173.1.4" "ET16_4173.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_4173A_R" phases=1 bus1="ET16_4173.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_4173A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_4173A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_4173A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_4173A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_4173A" phases=1 bus1="308581.1" bus2="MRT_308581TRF_16_4173A.1" linecode="LC_MRT_TRF_16_4173A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_4662A" phases=3 windings=2 buses=["320841.1.2.3" "ET6_4662.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[300 300] %loadloss=1.036667 %noloadloss=0.245000
+New "Reactor.TRF_6_4662A_R" phases=1 bus1="ET6_4662.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_2860A" phases=1 windings=3 buses=["MRT_325221TRF_6_2860A.1" "ET6_2860.1.4" "ET6_2860.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_2860A_R" phases=1 bus1="ET6_2860.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_2860A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_2860A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_2860A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_2860A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_2860A" phases=1 bus1="325221.1" bus2="MRT_325221TRF_6_2860A.1" linecode="LC_MRT_TRF_6_2860A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_1178A" phases=1 windings=3 buses=["MRT_325871TRF_6_1178A.1" "ET6_1178.1.4" "ET6_1178.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_6_1178A_R" phases=1 bus1="ET6_1178.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1178A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1178A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1178A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1178A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1178A" phases=1 bus1="325871.1" bus2="MRT_325871TRF_6_1178A.1" linecode="LC_MRT_TRF_6_1178A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_4249A" phases=1 windings=3 buses=["MRT_326251TRF_6_4249A.1" "ET6_4249.1.4" "ET6_4249.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[25 25 25] %loadloss=1.420000 %noloadloss=0.320000
+New "Reactor.TRF_6_4249A_R" phases=1 bus1="ET6_4249.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_4249A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_4249A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_4249A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_4249A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_4249A" phases=1 bus1="326251.1" bus2="MRT_326251TRF_6_4249A.1" linecode="LC_MRT_TRF_6_4249A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_2887A" phases=1 windings=3 buses=["MRT_330951TRF_6_2887A.1" "ET6_2887.1.4" "ET6_2887.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_2887A_R" phases=1 bus1="ET6_2887.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_2887A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_2887A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_2887A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_2887A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_2887A" phases=1 bus1="330951.1" bus2="MRT_330951TRF_6_2887A.1" linecode="LC_MRT_TRF_6_2887A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_2064A" phases=1 windings=3 buses=["MRT_330971TRF_6_2064A.1" "ET6_2064.1.4" "ET6_2064.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[5 5 5] %loadloss=1.900000 %noloadloss=0.600000
+New "Reactor.TRF_6_2064A_R" phases=1 bus1="ET6_2064.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_2064A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_2064A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_2064A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_2064A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_2064A" phases=1 bus1="330971.1" bus2="MRT_330971TRF_6_2064A.1" linecode="LC_MRT_TRF_6_2064A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_4161A" phases=1 windings=3 buses=["MRT_331921TRF_6_4161A.1" "ET6_4161.1.4" "ET6_4161.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_4161A_R" phases=1 bus1="ET6_4161.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_4161A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_4161A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_4161A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_4161A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_4161A" phases=1 bus1="331921.1" bus2="MRT_331921TRF_6_4161A.1" linecode="LC_MRT_TRF_6_4161A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_1960A" phases=1 windings=3 buses=["MRT_331951TRF_6_1960A.1" "ET6_1960.1.4" "ET6_1960.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_1960A_R" phases=1 bus1="ET6_1960.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1960A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1960A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1960A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1960A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1960A" phases=1 bus1="331951.1" bus2="MRT_331951TRF_6_1960A.1" linecode="LC_MRT_TRF_6_1960A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_6394A" phases=1 windings=3 buses=["MRT_331991TRF_6_6394A.1" "ET6_6394.1.4" "ET6_6394.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[25 25 25] %loadloss=1.420000 %noloadloss=0.320000
+New "Reactor.TRF_6_6394A_R" phases=1 bus1="ET6_6394.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_6394A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_6394A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_6394A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_6394A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_6394A" phases=1 bus1="331991.1" bus2="MRT_331991TRF_6_6394A.1" linecode="LC_MRT_TRF_6_6394A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3613A" phases=1 windings=3 buses=["MRT_332101TRF_6_3613A.1" "ET6_3613.1.4" "ET6_3613.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_3613A_R" phases=1 bus1="ET6_3613.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3613A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3613A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3613A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3613A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3613A" phases=1 bus1="332101.1" bus2="MRT_332101TRF_6_3613A.1" linecode="LC_MRT_TRF_6_3613A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_738A" phases=1 windings=3 buses=["337581.1.2" "ET6_738.1.4" "ET6_738.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[5 5 5] %loadloss=2.100000 %noloadloss=0.700000
+New "Reactor.TRF_6_738A_R" phases=1 bus1="ET6_738.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_2195A" phases=1 windings=3 buses=["MRT_337691TRF_16_2195A.1" "ET16_2195.1.4" "ET16_2195.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_16_2195A_R" phases=1 bus1="ET16_2195.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_2195A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_2195A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_2195A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_2195A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_2195A" phases=1 bus1="337691.1" bus2="MRT_337691TRF_16_2195A.1" linecode="LC_MRT_TRF_16_2195A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_4674A" phases=3 windings=2 buses=["337711.1.2.3" "ET16_4674.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[225 225] %loadloss=1.097778 %noloadloss=0.277778
+New "Reactor.TRF_16_4674A_R" phases=1 bus1="ET16_4674.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_2417A" phases=1 windings=3 buses=["MRT_349351TRF_6_2417A.1" "ET6_2417.1.4" "ET6_2417.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_2417A_R" phases=1 bus1="ET6_2417.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_2417A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_2417A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_2417A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_2417A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_2417A" phases=1 bus1="349351.1" bus2="MRT_349351TRF_6_2417A.1" linecode="LC_MRT_TRF_6_2417A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_4687A" phases=3 windings=2 buses=["358691.1.2.3" "ET16_4687.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[75 75] %loadloss=1.433333 %noloadloss=0.360000
+New "Reactor.TRF_16_4687A_R" phases=1 bus1="ET16_4687.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_2428A" phases=1 windings=3 buses=["MRT_359221TRF_16_2428A.2" "ET16_2428.1.4" "ET16_2428.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[5 5 5] %loadloss=1.900000 %noloadloss=0.600000
+New "Reactor.TRF_16_2428A_R" phases=1 bus1="ET16_2428.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_2428A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_2428A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_2428A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_2428A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_2428A" phases=1 bus1="359221.2" bus2="MRT_359221TRF_16_2428A.2" linecode="LC_MRT_TRF_16_2428A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_2658A" phases=3 windings=2 buses=["445011.1.2.3" "ET16_2658.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_16_2658A_R" phases=1 bus1="ET16_2658.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_1177A" phases=3 windings=2 buses=["461472.1.2.3" "ET6_1177.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[75 75] %loadloss=1.433333 %noloadloss=0.360000
+New "Reactor.TRF_6_1177A_R" phases=1 bus1="ET6_1177.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_4661A" phases=3 windings=2 buses=["461501.1.2.3" "ET6_4661.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[150 150] %loadloss=1.200000 %noloadloss=0.300000
+New "Reactor.TRF_6_4661A_R" phases=1 bus1="ET6_4661.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_3019A" phases=1 windings=3 buses=["MRT_474661TRF_6_3019A.3" "ET6_3019.1.4" "ET6_3019.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_3019A_R" phases=1 bus1="ET6_3019.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3019A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3019A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3019A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3019A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3019A" phases=1 bus1="474661.3" bus2="MRT_474661TRF_6_3019A.3" linecode="LC_MRT_TRF_6_3019A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3013A" phases=1 windings=3 buses=["MRT_475901TRF_6_3013A.2" "ET6_3013.1.4" "ET6_3013.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[5 5 5] %loadloss=1.900000 %noloadloss=0.600000
+New "Reactor.TRF_6_3013A_R" phases=1 bus1="ET6_3013.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3013A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3013A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3013A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3013A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3013A" phases=1 bus1="475901.2" bus2="MRT_475901TRF_6_3013A.2" linecode="LC_MRT_TRF_6_3013A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_3364A" phases=3 windings=2 buses=["549621.1.2.3" "ET16_3364.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[15 15] %loadloss=2.066667 %noloadloss=0.533333
+New "Reactor.TRF_16_3364A_R" phases=1 bus1="ET16_3364.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_3563A" phases=1 windings=3 buses=["MRT_561911TRF_6_3563A.1" "ET6_3563.1.4" "ET6_3563.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_3563A_R" phases=1 bus1="ET6_3563.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3563A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3563A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3563A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3563A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3563A" phases=1 bus1="561911.1" bus2="MRT_561911TRF_6_3563A.1" linecode="LC_MRT_TRF_6_3563A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_3328A" phases=1 windings=3 buses=["MRT_574241TRF_16_3328A.3" "ET16_3328.1.4" "ET16_3328.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_3328A_R" phases=1 bus1="ET16_3328.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_3328A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3328A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3328A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3328A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_3328A" phases=1 bus1="574241.3" bus2="MRT_574241TRF_16_3328A.3" linecode="LC_MRT_TRF_16_3328A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3721A" phases=1 windings=3 buses=["MRT_581121TRF_6_3721A.2" "ET6_3721.1.4" "ET6_3721.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[5 5 5] %loadloss=1.900000 %noloadloss=0.600000
+New "Reactor.TRF_6_3721A_R" phases=1 bus1="ET6_3721.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3721A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3721A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3721A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3721A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3721A" phases=1 bus1="581121.2" bus2="MRT_581121TRF_6_3721A.2" linecode="LC_MRT_TRF_6_3721A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3434A" phases=1 windings=3 buses=["MRT_596121TRF_6_3434A.3" "ET6_3434.1.4" "ET6_3434.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[5 5 5] %loadloss=1.900000 %noloadloss=0.600000
+New "Reactor.TRF_6_3434A_R" phases=1 bus1="ET6_3434.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3434A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3434A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3434A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3434A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3434A" phases=1 bus1="596121.3" bus2="MRT_596121TRF_6_3434A.3" linecode="LC_MRT_TRF_6_3434A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3010A" phases=1 windings=3 buses=["MRT_597421TRF_6_3010A.2" "ET6_3010.1.4" "ET6_3010.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_3010A_R" phases=1 bus1="ET6_3010.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3010A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3010A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3010A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3010A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3010A" phases=1 bus1="597421.2" bus2="MRT_597421TRF_6_3010A.2" linecode="LC_MRT_TRF_6_3010A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3509A" phases=1 windings=2 buses=["MRT_599061TRF_6_3509A.1" "ET6_3509.1.4"] conns=[Wye Wye] kvs=[13.3367912182804 0.22] taps=[1.0 1.0] kvas=[5 5] %loadloss=1.900000 %noloadloss=0.600000
+New "Reactor.TRF_6_3509A_R" phases=1 bus1="ET6_3509.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3509A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3509A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3509A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3509A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3509A" phases=1 bus1="599061.1" bus2="MRT_599061TRF_6_3509A.1" linecode="LC_MRT_TRF_6_3509A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_6165A" phases=1 windings=3 buses=["MRT_610711TRF_16_6165A.3" "ET16_6165.1.4" "ET16_6165.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_16_6165A_R" phases=1 bus1="ET16_6165.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_6165A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6165A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6165A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6165A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_6165A" phases=1 bus1="610711.3" bus2="MRT_610711TRF_16_6165A.3" linecode="LC_MRT_TRF_16_6165A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3142A" phases=1 windings=3 buses=["MRT_610971TRF_6_3142A.2" "ET6_3142.1.4" "ET6_3142.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_3142A_R" phases=1 bus1="ET6_3142.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3142A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3142A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3142A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3142A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3142A" phases=1 bus1="610971.2" bus2="MRT_610971TRF_6_3142A.2" linecode="LC_MRT_TRF_6_3142A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_3908A" phases=1 windings=3 buses=["MRT_611471TRF_16_3908A.3" "ET16_3908.1.4" "ET16_3908.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_3908A_R" phases=1 bus1="ET16_3908.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_3908A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3908A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3908A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3908A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_3908A" phases=1 bus1="611471.3" bus2="MRT_611471TRF_16_3908A.3" linecode="LC_MRT_TRF_16_3908A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3604A" phases=1 windings=3 buses=["MRT_614831TRF_6_3604A.2" "ET6_3604.1.4" "ET6_3604.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_3604A_R" phases=1 bus1="ET6_3604.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3604A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3604A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3604A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3604A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3604A" phases=1 bus1="614831.2" bus2="MRT_614831TRF_6_3604A.2" linecode="LC_MRT_TRF_6_3604A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3012A" phases=1 windings=3 buses=["MRT_615281TRF_6_3012A.2" "ET6_3012.1.4" "ET6_3012.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_3012A_R" phases=1 bus1="ET6_3012.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3012A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3012A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3012A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3012A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3012A" phases=1 bus1="615281.2" bus2="MRT_615281TRF_6_3012A.2" linecode="LC_MRT_TRF_6_3012A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3507A" phases=1 windings=3 buses=["MRT_616141TRF_6_3507A.3" "ET6_3507.1.4" "ET6_3507.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_3507A_R" phases=1 bus1="ET6_3507.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3507A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3507A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3507A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3507A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3507A" phases=1 bus1="616141.3" bus2="MRT_616141TRF_6_3507A.3" linecode="LC_MRT_TRF_6_3507A_1" length=0.001 units=km 
+
+New "Transformer.TRF_34_5142A" phases=1 windings=3 buses=["MRT_619011TRF_34_5142A.2" "ET34_5142.1.4" "ET34_5142.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_34_5142A_R" phases=1 bus1="ET34_5142.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_34_5142A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_5142A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_5142A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_5142A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_34_5142A" phases=1 bus1="619011.2" bus2="MRT_619011TRF_34_5142A.2" linecode="LC_MRT_TRF_34_5142A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3508A" phases=1 windings=3 buses=["MRT_622561TRF_6_3508A.3" "ET6_3508.1.4" "ET6_3508.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_3508A_R" phases=1 bus1="ET6_3508.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3508A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3508A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3508A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3508A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3508A" phases=1 bus1="622561.3" bus2="MRT_622561TRF_6_3508A.3" linecode="LC_MRT_TRF_6_3508A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3634A" phases=1 windings=3 buses=["MRT_625421TRF_6_3634A.1" "ET6_3634.1.4" "ET6_3634.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_3634A_R" phases=1 bus1="ET6_3634.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3634A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3634A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3634A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3634A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3634A" phases=1 bus1="625421.1" bus2="MRT_625421TRF_6_3634A.1" linecode="LC_MRT_TRF_6_3634A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3224A" phases=1 windings=3 buses=["MRT_631721TRF_6_3224A.2" "ET6_3224.1.4" "ET6_3224.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[5 5 5] %loadloss=1.900000 %noloadloss=0.600000
+New "Reactor.TRF_6_3224A_R" phases=1 bus1="ET6_3224.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3224A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3224A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3224A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3224A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3224A" phases=1 bus1="631721.2" bus2="MRT_631721TRF_6_3224A.2" linecode="LC_MRT_TRF_6_3224A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_3904A" phases=1 windings=3 buses=["MRT_633781TRF_16_3904A.2" "ET16_3904.1.4" "ET16_3904.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_3904A_R" phases=1 bus1="ET16_3904.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_3904A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3904A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3904A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_3904A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_3904A" phases=1 bus1="633781.2" bus2="MRT_633781TRF_16_3904A.2" linecode="LC_MRT_TRF_16_3904A_1" length=0.001 units=km 
+
+!New "Transformer.TRF_16_3906A" phases=1 windings=3 buses=["MRT_640651TRF_16_3906A.2" "ET16_3906.1.4" "ET16_3906.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[5 5 5] %loadloss=1.900000 %noloadloss=0.600000
+!New "Reactor.TRF_16_3906A_R" phases=1 bus1="ET16_3906.4" R=15 X=0 basefreq=60
+!New "Linecode.LC_MRT_TRF_16_3906A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+!New "Linecode.LC_MRT_TRF_16_3906A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+!New "Linecode.LC_MRT_TRF_16_3906A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+!New "Linecode.LC_MRT_TRF_16_3906A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+!New "Line.Resist_MTR_TRF_16_3906A" phases=1 bus1="640651.2" bus2="MRT_640651TRF_16_3906A.2" linecode="LC_MRT_TRF_16_3906A_1" length=0.001 units=km 
+
+New "Transformer.TRF_11_3987A" phases=1 windings=2 buses=["MRT_640981TRF_11_3987A.3" "ET11_3987.1.4"] conns=[Wye Wye] kvs=[13.3367912182804 0.22] taps=[1.0 1.0] kvas=[5 5] %loadloss=1.900000 %noloadloss=0.600000
+New "Reactor.TRF_11_3987A_R" phases=1 bus1="ET11_3987.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_11_3987A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_3987A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_3987A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_3987A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_11_3987A" phases=1 bus1="640981.3" bus2="MRT_640981TRF_11_3987A.3" linecode="LC_MRT_TRF_11_3987A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_3997A" phases=3 windings=2 buses=["641761.1.2.3" "ET16_3997.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_16_3997A_R" phases=1 bus1="ET16_3997.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_3817A" phases=1 windings=2 buses=["MRT_643161TRF_6_3817A.1" "ET6_3817.1.4"] conns=[Wye Wye] kvs=[13.3367912182804 0.22] taps=[1.0 1.0] kvas=[5 5] %loadloss=1.900000 %noloadloss=0.600000
+New "Reactor.TRF_6_3817A_R" phases=1 bus1="ET6_3817.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3817A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3817A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3817A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3817A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3817A" phases=1 bus1="643161.1" bus2="MRT_643161TRF_6_3817A.1" linecode="LC_MRT_TRF_6_3817A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_3818A" phases=1 windings=3 buses=["MRT_643171TRF_6_3818A.2" "ET6_3818.1.4" "ET6_3818.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_3818A_R" phases=1 bus1="ET6_3818.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3818A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3818A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3818A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3818A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3818A" phases=1 bus1="643171.2" bus2="MRT_643171TRF_6_3818A.2" linecode="LC_MRT_TRF_6_3818A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_1142A" phases=3 windings=2 buses=["659541.1.2.3" "ET16_1142.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[45 45] %loadloss=1.611111 %noloadloss=0.411111
+New "Reactor.TRF_16_1142A_R" phases=1 bus1="ET16_1142.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_34_5260A" phases=1 windings=3 buses=["MRT_676581TRF_34_5260A.2" "ET34_5260.1.4" "ET34_5260.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_34_5260A_R" phases=1 bus1="ET34_5260.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_34_5260A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_5260A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_5260A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_34_5260A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_34_5260A" phases=1 bus1="676581.2" bus2="MRT_676581TRF_34_5260A.2" linecode="LC_MRT_TRF_34_5260A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_5725A" phases=3 windings=2 buses=["686891.1.2.3" "ET6_5725.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[300 300] %loadloss=1.036667 %noloadloss=0.245000
+New "Reactor.TRF_6_5725A_R" phases=1 bus1="ET6_5725.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_5472A" phases=1 windings=3 buses=["MRT_689431TRF_6_5472A.1" "ET6_5472.1.4" "ET6_5472.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_6_5472A_R" phases=1 bus1="ET6_5472.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_5472A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_5472A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_5472A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_5472A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_5472A" phases=1 bus1="689431.1" bus2="MRT_689431TRF_6_5472A.1" linecode="LC_MRT_TRF_6_5472A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_4925A" phases=3 windings=2 buses=["703601.1.2.3" "ET6_4925.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[112.5 112.5] %loadloss=1.257778 %noloadloss=0.328889
+New "Reactor.TRF_6_4925A_R" phases=1 bus1="ET6_4925.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_3256A" phases=1 windings=3 buses=["MRT_709151TRF_6_3256A.2" "ET6_3256.1.4" "ET6_3256.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_6_3256A_R" phases=1 bus1="ET6_3256.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_3256A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3256A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3256A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_3256A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_3256A" phases=1 bus1="709151.2" bus2="MRT_709151TRF_6_3256A.2" linecode="LC_MRT_TRF_6_3256A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_4998A" phases=3 windings=2 buses=["713791.1.2.3" "ET6_4998.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[112.5 112.5] %loadloss=1.257778 %noloadloss=0.328889
+New "Reactor.TRF_6_4998A_R" phases=1 bus1="ET6_4998.4" R=15 X=0 basefreq=60
+
+
+New "Transformer.TRF_16_5055A" phases=1 windings=3 buses=["MRT_721411TRF_16_5055A.3" "ET16_5055.1.4" "ET16_5055.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_5055A_R" phases=1 bus1="ET16_5055.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_5055A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5055A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5055A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5055A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_5055A" phases=1 bus1="721411.3" bus2="MRT_721411TRF_16_5055A.3" linecode="LC_MRT_TRF_16_5055A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_724A" phases=3 windings=2 buses=["722651.1.2.3" "ET6_724.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_724A_R" phases=1 bus1="ET6_724.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_11_4785A" phases=1 windings=3 buses=["MRT_722851TRF_11_4785A.3" "ET11_4785.1.4" "ET11_4785.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_11_4785A_R" phases=1 bus1="ET11_4785.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_11_4785A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_4785A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_4785A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_4785A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_11_4785A" phases=1 bus1="722851.3" bus2="MRT_722851TRF_11_4785A.3" linecode="LC_MRT_TRF_11_4785A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_5003A" phases=1 windings=3 buses=["MRT_724281TRF_16_5003A.3" "ET16_5003.1.4" "ET16_5003.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_16_5003A_R" phases=1 bus1="ET16_5003.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_5003A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5003A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5003A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5003A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_5003A" phases=1 bus1="724281.3" bus2="MRT_724281TRF_16_5003A.3" linecode="LC_MRT_TRF_16_5003A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_5157A" phases=3 windings=2 buses=["725731.1.2.3" "ET6_5157.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[300 300] %loadloss=1.036667 %noloadloss=0.245000
+New "Reactor.TRF_6_5157A_R" phases=1 bus1="ET6_5157.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_5085A" phases=3 windings=2 buses=["731541.1.2.3" "ET6_5085.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_5085A_R" phases=1 bus1="ET6_5085.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_5595A" phases=3 windings=2 buses=["751701.1.2.3" "ET6_5595.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_5595A_R" phases=1 bus1="ET6_5595.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_11_5652A" phases=1 windings=3 buses=["MRT_755661TRF_11_5652A.3" "ET11_5652.1.4" "ET11_5652.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[15 15 15] %loadloss=1.600000 %noloadloss=0.400000
+New "Reactor.TRF_11_5652A_R" phases=1 bus1="ET11_5652.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_11_5652A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_5652A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_5652A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_11_5652A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_11_5652A" phases=1 bus1="755661.3" bus2="MRT_755661TRF_11_5652A.3" linecode="LC_MRT_TRF_11_5652A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_5666A" phases=1 windings=3 buses=["MRT_756091TRF_16_5666A.1" "ET16_5666.1.4" "ET16_5666.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_5666A_R" phases=1 bus1="ET16_5666.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_5666A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5666A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5666A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_5666A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_5666A" phases=1 bus1="756091.1" bus2="MRT_756091TRF_16_5666A.1" linecode="LC_MRT_TRF_16_5666A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_5711A" phases=3 windings=2 buses=["758161.1.2.3" "ET6_5711.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_5711A_R" phases=1 bus1="ET6_5711.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_5712A" phases=3 windings=2 buses=["758521.1.2.3" "ET6_5712.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_5712A_R" phases=1 bus1="ET6_5712.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_5659A" phases=3 windings=2 buses=["761691.1.2.3" "ET6_5659.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_5659A_R" phases=1 bus1="ET6_5659.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_1262A" phases=1 windings=3 buses=["761701.3.1" "ET6_1262.1.4" "ET6_1262.4.2" ] conns=[Delta Wye Wye] kvs=[23.1 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.900000 %noloadloss=0.500000
+New "Reactor.TRF_6_1262A_R" phases=1 bus1="ET6_1262.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_6019A" phases=1 windings=3 buses=["MRT_790051TRF_16_6019A.1" "ET16_6019.1.4" "ET16_6019.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_6019A_R" phases=1 bus1="ET16_6019.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_6019A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6019A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6019A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6019A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_6019A" phases=1 bus1="790051.1" bus2="MRT_790051TRF_16_6019A.1" linecode="LC_MRT_TRF_16_6019A_1" length=0.001 units=km 
+
+New "Transformer.TRF_16_6122A" phases=1 windings=3 buses=["MRT_793981TRF_16_6122A.1" "ET16_6122.1.4" "ET16_6122.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_16_6122A_R" phases=1 bus1="ET16_6122.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_16_6122A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6122A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6122A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_16_6122A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_16_6122A" phases=1 bus1="793981.1" bus2="MRT_793981TRF_16_6122A.1" linecode="LC_MRT_TRF_16_6122A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_6158A" phases=3 windings=2 buses=["796401.1.2.3" "ET6_6158.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[45 45] %loadloss=1.611111 %noloadloss=0.411111
+New "Reactor.TRF_6_6158A_R" phases=1 bus1="ET6_6158.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_6197A" phases=3 windings=2 buses=["799911.1.2.3" "ET6_6197.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[75 75] %loadloss=1.433333 %noloadloss=0.360000
+New "Reactor.TRF_6_6197A_R" phases=1 bus1="ET6_6197.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_6153A" phases=3 windings=2 buses=["800561.1.2.3" "ET6_6153.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_6153A_R" phases=1 bus1="ET6_6153.4" R=15 X=0 basefreq=60
+
+
+New "Transformer.TRF_6_1504A" phases=3 windings=2 buses=["800712.1.2.3" "ET6_1504.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_1504A_R" phases=1 bus1="ET6_1504.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_6249A" phases=3 windings=2 buses=["801021.1.2.3" "ET6_6249.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_6249A_R" phases=1 bus1="ET6_6249.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_16_6312A" phases=3 windings=2 buses=["807731.1.2.3" "ET16_6312.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_16_6312A_R" phases=1 bus1="ET16_6312.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_6386A" phases=3 windings=2 buses=["809501.1.2.3" "ET6_6386.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[150 150] %loadloss=1.200000 %noloadloss=0.300000
+New "Reactor.TRF_6_6386A_R" phases=1 bus1="ET6_6386.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_6_4627A" phases=3 windings=2 buses=["811221.1.2.3" "ET6_4627.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[112.5 112.5] %loadloss=1.257778 %noloadloss=0.328889
+New "Reactor.TRF_6_4627A_R" phases=1 bus1="ET6_4627.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_11_6443A" phases=3 windings=2 buses=["815111.1.2.3" "ET11_6443.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[150 150] %loadloss=1.200000 %noloadloss=0.300000
+New "Reactor.TRF_11_6443A_R" phases=1 bus1="ET11_6443.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_12_6577A" phases=3 windings=2 buses=["817111.1.2.3" "ET12_6577.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_12_6577A_R" phases=1 bus1="ET12_6577.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_12_6578A" phases=3 windings=2 buses=["817241.1.2.3" "ET12_6578.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[45 45] %loadloss=1.611111 %noloadloss=0.411111
+New "Reactor.TRF_12_6578A_R" phases=1 bus1="ET12_6578.4" R=15 X=0 basefreq=60
+
+New "Transformer.TRF_11_6482A" phases=3 windings=2 buses=["818611.1.2.3" "ET11_6482.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[45 45] %loadloss=1.611111 %noloadloss=0.411111
+New "Reactor.TRF_11_6482A_R" phases=1 bus1="ET11_6482.4" R=15 X=0 basefreq=60
+
+
+New "Transformer.TRF_6_1647A" phases=1 windings=3 buses=["MRT_820741TRF_6_1647A.1" "ET6_1647.1.4" "ET6_1647.4.2" ] conns=[Wye Wye Wye] kvs=[13.3367912182804 0.22 0.22] taps=[1.0 1.0 1.0] kvas=[10 10 10] %loadloss=1.800000 %noloadloss=0.450000
+New "Reactor.TRF_6_1647A_R" phases=1 bus1="ET6_1647.4" R=15 X=0 basefreq=60
+New "Linecode.LC_MRT_TRF_6_1647A_1" nphases=1 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1647A_2" nphases=2 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1647A_3" nphases=3 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Linecode.LC_MRT_TRF_6_1647A_4" nphases=4 basefreq=60 r1=15000 x1=0 units=km normamps=0
+New "Line.Resist_MTR_TRF_6_1647A" phases=1 bus1="820741.1" bus2="MRT_820741TRF_6_1647A.1" linecode="LC_MRT_TRF_6_1647A_1" length=0.001 units=km 
+
+New "Transformer.TRF_6_6496A" phases=3 windings=2 buses=["822371.1.2.3" "ET6_6496.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[112.5 112.5] %loadloss=1.257778 %noloadloss=0.328889
+New "Reactor.TRF_6_6496A_R" phases=1 bus1="ET6_6496.4" R=15 X=0 basefreq=60
+
+
+New "Transformer.TRF_6_727A" phases=3 windings=2 buses=["824351.1.2.3" "ET6_727.1.2.3.4"] conns=[Delta Wye] kvs=[23.1 0.38] taps=[1.0 1.0] kvas=[30 30] %loadloss=1.750000 %noloadloss=0.466667
+New "Reactor.TRF_6_727A_R" phases=1 bus1="ET6_727.4" R=15 X=0 basefreq=60
+
+

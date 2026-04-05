@@ -1,0 +1,21 @@
+clear
+Redirect "CircuitoMT.dss"
+Redirect "CodCondutor.dss"
+Redirect "Transformadores.dss"
+Redirect "SegmentosMT.dss"
+Redirect "ChavesMT.dss"
+Redirect "SegmentosBT.dss"
+Redirect "RamaisBT.dss"
+Redirect "Medidores.dss"
+Redirect "CurvaCarga.dss"
+Redirect "CargasBT.dss"
+Redirect "CargasMT.dss"
+Redirect "GD_BT.dss"
+Redirect "GD_MT.dss"
+Set mode = daily
+Set Voltagebases = [0.22 0.38 0.44 23.1]
+Calc Voltagebases
+Set tolerance = 0.0001
+Set maxcontroliter = 10
+!Solve
+buscoords buscoords.csv
