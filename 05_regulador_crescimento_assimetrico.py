@@ -1,4 +1,4 @@
-# analise_extra.py
+# 05_regulador_crescimento_assimetrico.py
 # 1. Regulador de tensão — avaliação técnica e econômica
 # 2. Crescimento assimétrico de carga — sensibilidade por ramal
 
@@ -10,14 +10,18 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
 
-TAXA_DESCONTO  = 0.14
-CUSTO_PERDAS   = 35.0
-TARIFA_VENDA   = 150.0
-TUSD           = 90.0
+MASTER = str(HERE / config["caminhos"]["dss_file"])
+TAXA_DESCONTO  = config["economico"]["taxa_desconto"]
+CUSTO_PERDAS   = config["economico"]["preco_compra_usd_mwh"]
+TARIFA_VENDA   = config["economico"]["tarifa_venda_usd_mwh"]
+TUSD           = config["economico"]["tusd_usd_mwh"]
 VIDA_UTIL      = 15
-DEGRADACAO_GD  = 0.007
+DEGRADACAO_GD  = config["simulacao"]["degradacao_gd"]
+CRESCIMENTO_CARGA = config["simulacao"]["crescimento_carga"]
 
 def carregar(loadmult=1.0, cmds_extras=None):
     dss.Text.Command = "Clear"
@@ -87,7 +91,7 @@ def metricas(circuit):
 # 1. REGULADOR DE TENSÃO
 # ===========================================================================
 print("\n" + "="*70)
-print("1. REGULADOR DE TENSÃO")
+print("[05.03] REGULADOR DE TENSÃO")
 print("="*70)
 
 # O OpenDSS modela reguladores via elemento RegControl + Transformer
@@ -96,7 +100,8 @@ print("="*70)
 
 # Custo de regulador de tensão monofásico MT zona rural Brasil:
 # ~USD 8.000–15.000 instalado. Usamos USD 12.000 (trifásico, instalado)
-CUSTO_REG = 12000.0
+CUSTO_REG = 12000.0 # valor base
+# Tenta pegar das alternativas se existir (ajustar conforme necessidade)
 
 print(f"\n  Barramento escolhido: 9051 (ponto central do alimentador)")
 print(f"  Regulação: ±10%, 32 degraus, banda 2V/120V")
@@ -198,7 +203,7 @@ print(f"  carregamento do trf_6_4910a — as duas intervenções são independen
 # 2. CRESCIMENTO ASSIMÉTRICO DE CARGA
 # ===========================================================================
 print(f"\n{'='*70}")
-print("2. CRESCIMENTO ASSIMÉTRICO DE CARGA — SENSIBILIDADE")
+print("[05.04] CRESCIMENTO ASSIMÉTRICO DE CARGA — SENSIBILIDADE")
 print("="*70)
 
 # Cenários de crescimento assimétrico:

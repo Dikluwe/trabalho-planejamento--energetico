@@ -9,6 +9,10 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 import pandas as pd
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+MASTER = str(HERE / config["caminhos"]["dss_file"])
 
 # Lê o summary já gerado pelo caso base ano 1
 csv_path = HERE / "Resultados_ano1" / "TransformerSummary.csv"
@@ -21,7 +25,7 @@ if not csv_path.exists():
 df = pd.read_csv(csv_path)
 
 print(f"\n{'='*70}")
-print("TRANSFORMADORES DISPONÍVEIS PARA REMANEJAMENTO")
+print("[02.05] TRANSFORMADORES DISPONÍVEIS PARA REMANEJAMENTO")
 print(f"{'='*70}")
 
 # Transformadores de 45 kVA
@@ -37,7 +41,7 @@ print(df30[["transformer","ratedKva","maxLoadingPct","meanLoadingPct","overloadH
 
 # Todos os trafos ordenados por potência nominal
 print(f"\n{'='*70}")
-print("INVENTÁRIO COMPLETO POR POTÊNCIA NOMINAL")
+print("[02.06] INVENTÁRIO COMPLETO POR POTÊNCIA NOMINAL")
 print(f"{'='*70}")
 resumo = df.groupby("ratedKva").agg(
     quantidade=("transformer","count"),
@@ -49,7 +53,7 @@ print(resumo.to_string(index=False))
 # Candidatos a remanejamento: trafos com carregamento médio < 30%
 # e potência >= 45 kVA — poderiam ser substituídos por um menor
 print(f"\n{'='*70}")
-print("CANDIDATOS A REMANEJAMENTO (meanLoadingPct < 30% e ratedKva >= 45)")
+print("[02.07] CANDIDATOS A REMANEJAMENTO (meanLoadingPct < 30% e ratedKva >= 45)")
 print(f"{'='*70}")
 candidatos = df[
     (df["meanLoadingPct"] < 30.0) &

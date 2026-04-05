@@ -321,7 +321,7 @@ def imprimir_tabela_comparativa(
     sep = "-" * 80
 
     print(f"\n{'=' * 80}")
-    print("AVALIAÇÃO ECONÔMICA — TRABALHO 1a: PLANEJAMENTO ENERGÉTICO")
+    print("[01.04] AVALIAÇÃO ECONÔMICA — TRABALHO 1a: PLANEJAMENTO ENERGÉTICO")
     print(f"{'=' * 80}")
 
     # Caso base (ano 1 nominal)

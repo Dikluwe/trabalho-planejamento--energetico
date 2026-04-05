@@ -1,4 +1,4 @@
-# analise_complementar.py
+# 04_perfil_tensao_trafos_gd.py
 import sys
 from pathlib import Path
 
@@ -7,7 +7,10 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+MASTER = str(HERE / config["caminhos"]["dss_file"])
 
 def carregar(loadmult=1.0):
     dss.Text.Command = "Clear"
@@ -17,10 +20,10 @@ def carregar(loadmult=1.0):
     return dss.ActiveCircuit
 
 # ===========================================================================
-# 1. PERFIL DE TENSÃO
+# [04.01] PERFIL DE TENSÃO
 # ===========================================================================
 print("\n" + "="*70)
-print("1. PERFIL DE TENSÃO — CASO BASE (Ano 1, LoadMult=1.0)")
+print("[04.01] PERFIL DE TENSÃO — CASO BASE (Ano 1, LoadMult=1.0)")
 print("="*70)
 
 circuit = carregar(1.0)
@@ -92,10 +95,10 @@ print(f"  Tensão máxima : {max(v[0] for v in bt_buses.values()):.4f} pu")
 print(f"  Tensão média  : {sum(v[0] for v in bt_buses.values())/len(bt_buses):.4f} pu")
 
 # ===========================================================================
-# 2. CARREGAMENTO DOS TRANSFORMADORES
+# [04.02] CARREGAMENTO DOS TRANSFORMADORES
 # ===========================================================================
 print("\n" + "="*70)
-print("2. CARREGAMENTO DOS TRANSFORMADORES — ANOS 1, 2 e 3")
+print("[04.02] CARREGAMENTO DOS TRANSFORMADORES — ANOS 1, 2 e 3")
 print("="*70)
 
 # Lê kVA de cada trafo no caso base
@@ -110,7 +113,7 @@ while idx > 0:
 
 resultado_trafos = {}
 
-for ano, mult in [(1, 1.0), (2, 1.1), (3, 1.2)]:
+for ano, mult in [(ano, 1.0 + (ano-1)*config["simulacao"]["crescimento_carga"]) for ano in (1, 2, 3)]:
     circuit = carregar(mult)
     trafo_max = {}
     for h in range(24):
@@ -162,7 +165,7 @@ for nome, kva, a1, a2, a3, status in alertas:
 print(f"\n  Total trafos com alerta: {len(alertas)} de {len(resultado_trafos)}")
 
 # ===========================================================================
-# 3. IMPACTO DA GD FOTOVOLTAICA
+# [04.03] IMPACTO DA GD FOTOVOLTAICA
 # ===========================================================================
 print("\n" + "="*70)
 print("3. IMPACTO DA GD FOTOVOLTAICA — COM vs SEM GD (Ano 1)")

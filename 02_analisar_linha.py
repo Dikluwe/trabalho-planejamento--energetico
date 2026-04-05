@@ -11,9 +11,13 @@ import pandas as pd
 import Main as professor
 from dss import dss
 
-MASTER     = str(HERE / "Master.dss")
-LINHA_ALVO = "rbt_632607"
-CRESCIMENTO = 0.10
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+
+MASTER     = str(HERE / config["caminhos"]["dss_file"])
+LINHA_ALVO = config.get("graficos", {}).get("linha_critica", "rbt_632607")
+CRESCIMENTO = config["simulacao"]["crescimento_carga"]
 LIMITE_PCT  = 100.0
 ANOS_MAX    = 10
 
@@ -37,7 +41,7 @@ normamps = lines.NormAmps
 linecode = lines.LineCode
 
 print(f"\n{'='*60}")
-print(f"ANÁLISE DA LINHA: {LINHA_ALVO.upper()}")
+print(f"[02.02] ANÁLISE DA LINHA: {LINHA_ALVO.upper()}")
 print(f"{'='*60}")
 print(f"Bus1        : {bus1}")
 print(f"Bus2        : {bus2}")

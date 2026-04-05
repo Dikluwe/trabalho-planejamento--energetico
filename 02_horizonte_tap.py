@@ -11,41 +11,69 @@ sys.path.insert(0, str(HERE))
 import Main as professor
 from dss import dss
 
-MASTER     = str(HERE / "Master.dss")
-TRAFO_ALVO = "trf_6_4910a"
-CRESCIMENTO = 0.10  # 10% ao ano
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+
+MASTER     = str(HERE / config["caminhos"]["dss_file"])
+TRAFO_ALVO = config["graficos"]["trafo_critico"]
+CRESCIMENTO = config["simulacao"]["crescimento_carga"]
 LIMITE_PCT  = 100.0
 ANOS_MAX    = 20
 
 def rodar_ano(fator: float, comandos: list[str]) -> float:
     """Retorna o carregamento máximo do trafo alvo para um dado fator de carga."""
-    solution = professor.InitializeCircuit(MASTER, True)
+    # Redireciona e limpa, mais rapido que a função do professor
+    dss.Text.Command = "Clear"
+    dss.Text.Command = f'Redirect "{MASTER}"'
+    dss.Text.Command = "Set mode=daily stepsize=1h number=1"
+    
+    # Restaura variaveis de ambiente equivalentes
     dss.Text.Command = f"Set LoadMult={fator}"
     for cmd in comandos:
         dss.Text.Command = cmd
+        
+    circuit = dss.ActiveCircuit
+    
+    # Para ser coerente com InitializeCircuit do professor
+    circuit.SetActiveClass("PVSystem")
+    idx = circuit.ActiveClass.First
+    while idx > 0:
+        nome = circuit.ActiveCktElement.Name.split(".")[1]
+        dss.Text.Command = f"Edit PVSystem.{nome} irradiance=1.0"
+        idx = circuit.ActiveClass.Next
 
-    (_, df_lines, df_transformers, df_meter) = professor.RunDailySimulationAndCollect(
-        solution=solution,
-        totalHours=24,
-        lowVoltageLimitKv=1.0,
-        lowerVoltageLimitPu=0.95,
-        upperVoltageLimitPu=1.05,
-    )
+    circuit.SetActiveElement(f"Transformer.{TRAFO_ALVO}")
+    kva = circuit.ActiveCktElement.Properties("kVA").Val
+    try:
+        kva = float(kva)
+    except:
+        kva = 30.0
 
-    df_t = df_transformers[df_transformers["transformer"] == TRAFO_ALVO]
-    if df_t.empty:
-        return 0.0
-    return float(df_t["loadingPct"].max())
+    pmax = 0.0
+    for h in range(24):
+        circuit.Solution.Solve()
+        circuit.SetActiveElement(f"Transformer.{TRAFO_ALVO}")
+        powers = circuit.ActiveCktElement.Powers
+        n = circuit.ActiveCktElement.NumPhases
+        if len(powers) >= n * 2 and kva > 0:
+            p = sum(powers[0:n*2:2])
+            q = sum(powers[1:n*2+1:2])
+            s = (p**2 + q**2)**0.5
+            pmax = max(pmax, 100 * s / kva)
+            
+    return pmax
 
 
 # Derivações possíveis: até 5 de 600V em 23,1kV
 # tap_sec = 1.0 - (n_deriv * 600/23100)
 # Tap no primário (wdg=1): aumenta a relação → reduz corrente no primário
 # Cada derivação de 600V em 23,1kV = 600/23100 = 0,02597
+# Cada derivação = 600V / 23100V = 0,02597 pu (PRODIST/enunciado)
 derivacoes = {
     0: 1.0000,   # nominal
-    1: 1.0333,   # +1 derivação
-    2: 1.0519,   # +2 derivações (aprox)
+    1: 1.0260,   # +1 derivação (600V/23100V)
+    2: 1.0519,   # +2 derivações
     3: 1.0779,   # +3 derivações
     4: 1.1039,   # +4 derivações
     5: 1.1299,   # +5 derivações (máximo)
@@ -60,12 +88,12 @@ for deriv, tap in derivacoes.items():
         if deriv == 0:
             cmds = []
         else:
-            cmds = [f"Edit Transformer.TRF_6_4910A wdg=1 tap={tap}"]
+            cmds = [f"Edit Transformer.{TRAFO_ALVO} wdg=1 tap={tap}"]
         resultados[deriv][ano] = rodar_ano(fator, cmds)
 
 # Cabeçalho
 print(f"\n{'='*80}")
-print(f"ANÁLISE DE HORIZONTE — {TRAFO_ALVO.upper()}")
+print(f"[02.03] ANÁLISE DE HORIZONTE — {TRAFO_ALVO.upper()}")
 print(f"Crescimento: {CRESCIMENTO*100:.0f}% ao ano | Limite: {LIMITE_PCT}%")
 print(f"{'='*80}")
 header = f"  {'Ano':>3}  {'Fator':>5}"

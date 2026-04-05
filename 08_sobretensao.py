@@ -4,13 +4,16 @@
 
 import sys
 from pathlib import Path
+import json
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-from dss import dss
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+MASTER = str(HERE / config["caminhos"]["dss_file"])
 
-MASTER = str(HERE / "Master.dss")
+from dss import dss
 
 def carregar(loadmult=1.0, cmds=None):
     dss.Text.Command = "Clear"
@@ -21,16 +24,37 @@ def carregar(loadmult=1.0, cmds=None):
         for c in cmds: dss.Text.Command = c
     return dss.ActiveCircuit
 
-ALVOS = ["bt56881", "uc1607347", "uc606147", "bt71761"]
+def encontrar_buses_com_violacao(circuit):
+    """Retorna lista de barramentos com V > 1.05 ou V < 0.921."""
+    violados = []
+    all_bus = list(circuit.AllBusNames)
+    for h in range(24):
+        circuit.Solution.Solve()
+        for bname in all_bus:
+            circuit.SetActiveBus(bname)
+            kv = circuit.ActiveBus.kVBase
+            if 0.05 < kv <= 1.0:
+                vmag = circuit.ActiveBus.VMagAngle
+                if len(vmag) >= 1:
+                    vpu = vmag[0] / (kv * 1000)
+                    if (vpu > 1.050 or vpu < 0.921) and bname not in violados:
+                        violados.append(bname)
+    return violados
+
+# Detecta alvos dinamicamente
+circuit_pre = carregar(1.0)
+ALVOS = encontrar_buses_com_violacao(circuit_pre)
+if not ALVOS:
+    ALVOS = ["bt56881", "uc1607347"] # fallback se nada for detectado no ano 1
 
 print("\n" + "="*70)
-print("INVESTIGAÇÃO DE SOBRETENSÕES — PRODIST TABELA 5")
+print("[08.01] INVESTIGAÇÃO DE SOBRETENSÕES — PRODIST TABELA 5")
 print("="*70)
 
 # ===========================================================================
 # 1. TOPOLOGIA DOS BARRAMENTOS COM SOBRETENSÃO
 # ===========================================================================
-print("\n1. TOPOLOGIA DOS BARRAMENTOS COM SOBRETENSÃO")
+print("\n[08.02] TOPOLOGIA DOS BARRAMENTOS COM SOBRETENSÃO")
 print("─"*70)
 
 circuit = carregar(1.0)
@@ -96,7 +120,7 @@ for alvo in ALVOS:
 # 2. PERFIL HORÁRIO DE TENSÃO NOS BARRAMENTOS COM VIOLAÇÃO
 # ===========================================================================
 print(f"\n{'─'*70}")
-print("2. PERFIL HORÁRIO DE TENSÃO — CASO BASE (LoadMult=1.0)")
+print("[08.03] PERFIL HORÁRIO DE TENSÃO — CASO BASE (LoadMult=1.0)")
 print("─"*70)
 
 circuit = carregar(1.0)
@@ -144,7 +168,7 @@ print(f"\n  Legenda: ! = faixa crítica (>1,050 pu)  v = faixa precária (<0,921
 # 3. CAUSA: CORRELAÇÃO COM GD
 # ===========================================================================
 print(f"\n{'─'*70}")
-print("3. CORRELAÇÃO SOBRETENSÃO × GERAÇÃO FOTOVOLTAICA")
+print("[08.04] CORRELAÇÃO SOBRETENSÃO × GERAÇÃO FOTOVOLTAICA")
 print("─"*70)
 
 for alvo, (h_pico, v_pico) in hora_pico_vmax.items():
@@ -209,7 +233,7 @@ for alvo in ALVOS[:2]:  # só os críticos
 # 4. TESTE: SOBRETENSÃO SEM GD
 # ===========================================================================
 print(f"\n{'─'*70}")
-print("4. TESTE: TENSÃO NOS MESMOS BARRAMENTOS SEM GD")
+print("[08.05] TESTE: TENSÃO NOS MESMOS BARRAMENTOS SEM GD")
 print("─"*70)
 
 circuit_sem_gd = carregar(1.0)
@@ -240,11 +264,15 @@ for h in range(24):
 # 5. MITIGAÇÃO: FP 0,95 vs FP 1,0 nos barramentos críticos
 # ===========================================================================
 print(f"\n{'─'*70}")
-print("5. MITIGAÇÃO — IMPACTO DO FP NOS BARRAMENTOS COM SOBRETENSÃO")
+print("[08.06] MITIGAÇÃO — IMPACTO DO FP NOS BARRAMENTOS COM SOBRETENSÃO")
 print("─"*70)
 
-print(f"\n  {'FP':>6} {'bt56881 Vmax':>14} {'uc1607347 Vmax':>16} {'Perdas kWh':>11}")
-print(f"  {'-'*52}")
+alvos_loop = ALVOS[:2]
+header_alvos = ""
+for alvo in alvos_loop:
+    header_alvos += f" {alvo+' Vmax':>14}"
+print(f"\n  {'FP':>6}{header_alvos} {'Perdas kWh':>11}")
+print(f"  {'-'*(19 + 15*len(alvos_loop))}")
 
 for pf in [0.90, 0.92, 0.95, 1.00]:
     circuit = carregar(1.0)
@@ -253,12 +281,12 @@ for pf in [0.90, 0.92, 0.95, 1.00]:
         circuit.PVSystems.PF = pf
         idx = circuit.PVSystems.Next
 
-    vmax = {a: 0.0 for a in ALVOS[:2]}
+    vmax = {a: 0.0 for a in alvos_loop}
     perdas = 0.0
     for h in range(24):
         circuit.Solution.Solve()
         perdas += circuit.Losses[0] / 1000.0
-        for alvo in ALVOS[:2]:
+        for alvo in alvos_loop:
             circuit.SetActiveBus(alvo)
             kv   = circuit.ActiveBus.kVBase
             vmag = circuit.ActiveBus.VMagAngle
@@ -266,14 +294,18 @@ for pf in [0.90, 0.92, 0.95, 1.00]:
                 vpu = vmag[0] / (kv * 1000)
                 vmax[alvo] = max(vmax[alvo], vpu)
 
-    flag1 = " !" if vmax["bt56881"]    > 1.050 else "  "
-    flag2 = " !" if vmax["uc1607347"] > 1.050 else "  "
-    print(f"  {pf:>6.2f} {vmax['bt56881']:>12.4f}{flag1} {vmax['uc1607347']:>14.4f}{flag2} {perdas:>11.1f}")
+    linha_print = f"  {pf:>6.2f}"
+    for alvo in alvos_loop:
+        val = vmax[alvo]
+        flag = " !" if val > 1.050 else "  "
+        linha_print += f" {val:>12.4f}{flag}"
+    linha_print += f" {perdas:>11.1f}"
+    print(linha_print)
 
 print(f"\n  Legenda: ! = ainda em faixa crítica (>1,050 pu)")
 
 print(f"\n{'='*70}")
-print("CONCLUSÃO")
+print("[08.07] CONCLUSÃO")
 print("="*70)
 print(f"""
   Os barramentos bt56881 e uc1607347 apresentam sobretensão (DRC > 0%)

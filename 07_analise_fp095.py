@@ -10,13 +10,17 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER        = str(HERE / "Master.dss")
-TAXA_DESCONTO = 0.14
-CUSTO_PERDAS  = 35.0    # USD/MWh
-TARIFA_VENDA  = 150.0   # USD/MWh
-TUSD          = 90.0    # USD/MWh
-VIDA_UTIL     = 15
-DEGRADACAO_GD = 0.007
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+
+MASTER        = str(HERE / config["caminhos"]["dss_file"])
+TAXA_DESCONTO = config["economico"]["taxa_desconto"]
+CUSTO_PERDAS  = config["economico"]["preco_compra_usd_mwh"]
+TARIFA_VENDA  = config["economico"]["tarifa_venda_usd_mwh"]
+TUSD          = config["economico"]["tusd_usd_mwh"]
+VIDA_UTIL     = config["simulacao"]["vida_util_projeto"]
+DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
 
 def carregar(loadmult=1.0, cmds=None):
     dss.Text.Command = "Clear"
@@ -72,7 +76,9 @@ def metricas_financeiras(circuit):
     perdas_mes  = perdas_kwh  * 30 / 1000  # MWh
     fat_mes     = energia_mes * TARIFA_VENDA
     custo_perd  = perdas_mes  * CUSTO_PERDAS
-    comp_mes    = (n_viol_bt / 24) * energia_mes * TUSD * 0.03 * 3
+    # Fator PRODIST correto: 1h = 6 leituras × 7 dias = 42 leituras / 1008
+    drp_fator = 42 / 1008
+    comp_mes  = drp_fator * n_viol_bt * 3 * energia_mes * TUSD
     resultado   = fat_mes - custo_perd - comp_mes
 
     return {
@@ -86,7 +92,7 @@ def metricas_financeiras(circuit):
     }
 
 print("\n" + "="*70)
-print("ANÁLISE FINANCEIRA — AJUSTE DE FP: 0,92 → 0,95 NOS PVSYSTEMS")
+print("[07.01] ANÁLISE FINANCEIRA — AJUSTE DE FP: 0,92 → 0,95 NOS PVSYSTEMS")
 print("="*70)
 print(f"\n  Medida: reconfiguração dos inversores via comando de despacho")
 print(f"  CAPEX : USD 0 (sem hardware adicional)")
@@ -104,7 +110,7 @@ print(f"  {'-'*68}")
 
 beneficios_anuais = {}
 
-for ano, mult in [(1, 1.0), (2, 1.1), (3, 1.2)]:
+for ano, mult in [(ano, 1.0 + (ano-1)*config["simulacao"]["crescimento_carga"]) for ano in (1, 2, 3)]:
     # FP 0,92 (caso base)
     c092 = carregar(mult)
     set_fp(c092, 0.92)
@@ -178,15 +184,15 @@ print(f"  {'Alternativa':<42} {'CAPEX':>8} {'VPL 3a':>10} {'Atrativo':>9}")
 print(f"  {'-'*72}")
 
 alternativas = [
-    ("Tap trf_6_4910a + trf_11_305a",            1500,    1283, True),
+    (config["alternativas"][1]["descricao"],     config["alternativas"][1]["custo_inicial_usd"], 1283, True),
     ("Ajuste FP inversores 0,92→0,95",               0,
      int(vpl), vpl > 0),
-    ("Recondutoramento smt_29422",                2207,    -914, False),
+    (config["alternativas"][4]["descricao"],     config["alternativas"][4]["custo_inicial_usd"],    -914, False),
     ("Novo trafo 30 kVA paralelo",                6000,   -2674, False),
     ("Novo trafo 45 kVA paralelo",                7500,   -3359, False),
     ("Regulador de tensão",                      12000,   -6207, False),
-    ("Capacitor automático 1200 kvar",           12246,   -8008, False),
-    ("Capacitor fixo 600 kvar",                   7031,  -27727, False),
+    (config["alternativas"][3]["descricao"],     config["alternativas"][3]["custo_inicial_usd"],   -8008, False),
+    (config["alternativas"][2]["descricao"],     config["alternativas"][2]["custo_inicial_usd"],  -27727, False),
 ]
 
 for nome, capex, vpl_alt, atr in alternativas:

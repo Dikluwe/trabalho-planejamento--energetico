@@ -1,4 +1,4 @@
-# remanejamento_longo_prazo.py
+# 05_remanejamento_15anos.py
 # 1. Identifica todos os trafos que entram em sobrecarga no horizonte de 15 anos
 # 2. Para cada um, encontra o melhor candidato para remanejamento
 # 3. Calcula VPL em 3, 10 e 15 anos
@@ -11,16 +11,21 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
 
-DEGRADACAO_GD  = 0.007   # 0,7%/ano
-CRESCIMENTO_CARGA = 0.10 # 10%/ano
-TAXA_DESCONTO  = 0.14
-TARIFA_VENDA   = 150.0   # USD/MWh
-CUSTO_PERDAS   = 35.0    # USD/MWh
-TUSD           = 90.0    # USD/MWh (compensação PRODIST)
-CUSTO_REMANE   = 4000.0  # USD estimado (mão de obra + transporte zona rural)
-VIDA_UTIL      = 15      # anos
+MASTER        = str(HERE / config["caminhos"]["dss_file"])
+TRAFO_ALVO    = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
+TAXA_DESCONTO = config["economico"]["taxa_desconto"]
+TARIFA_VENDA  = config["economico"]["tarifa_venda_usd_mwh"]
+CUSTO_PERDAS  = config["economico"]["preco_compra_usd_mwh"]
+TUSD          = config["economico"]["tusd_usd_mwh"]
+CRESCIMENTO_CARGA = config["simulacao"]["crescimento_carga"]
+DEGRADACAO_GD      = config["simulacao"]["degradacao_gd"]
+CUSTO_REMANE   = config["financeiro_extra"]["custo_remane_usd"]
+CUSTO_EMERGENCIA = config["financeiro_extra"]["custo_emergencia_usd"]
+VIDA_UTIL      = config["simulacao"]["vida_util_projeto"]
 
 def carregar(loadmult=1.0, gd_fator=1.0):
     dss.Text.Command = "Clear"
@@ -73,7 +78,7 @@ while idx > 0:
 # PASSO 2 — Simula 15 anos e identifica quando cada trafo ultrapassa 80%
 # ---------------------------------------------------------------------------
 print("\n" + "="*70)
-print("HORIZONTE DE 15 ANOS — CARREGAMENTO DOS TRANSFORMADORES")
+print("[05.05] HORIZONTE DE 15 ANOS — CARREGAMENTO DOS TRANSFORMADORES")
 print("="*70)
 print(f"  Crescimento de carga: {CRESCIMENTO_CARGA*100:.0f}%/ano")
 print(f"  Degradação GD      : {DEGRADACAO_GD*100:.1f}%/ano")
@@ -97,25 +102,32 @@ for ano in range(1, 16):
     if mult > 3.0:
         break
     circuit = carregar(mult, gd_f)
-    circuit.SetActiveClass("Transformer")
-    idx = circuit.Transformers.First
-    while idx > 0:
-        nome = circuit.Transformers.Name
-        kva  = kva_trafo.get(nome, circuit.Transformers.kVA)
-        if kva > 0:
-            circuit.SetActiveElement(f"Transformer.{nome}")
-            # Lê apenas hora de pico (hora 12 aprox) para ser mais rápido
-            # Roda 12 horas e pega o máximo
-            pmax = 0.0
-            for h in range(24):
-                circuit.Solution.Solve()
+    
+    pmax_trafos = {nome: 0.0 for nome in kva_trafo}
+    
+    for h in range(24):
+        circuit.Solution.Solve()
+        circuit.SetActiveClass("Transformer")
+        idx = circuit.Transformers.First
+        while idx > 0:
+            nome = circuit.Transformers.Name
+            kva  = kva_trafo.get(nome, circuit.Transformers.kVA)
+            if kva > 0:
+                circuit.SetActiveElement(f"Transformer.{nome}")
                 powers = circuit.ActiveCktElement.Powers
                 n = circuit.ActiveCktElement.NumPhases
                 if len(powers) >= n * 2:
                     p = sum(powers[0:n*2:2])
                     q = sum(powers[1:n*2+1:2])
                     s = (p**2 + q**2)**0.5
-                    pmax = max(pmax, 100 * s / kva)
+                    pct = 100 * s / kva
+                    if pct > pmax_trafos.get(nome, 0.0):
+                        pmax_trafos[nome] = pct
+            idx = circuit.Transformers.Next
+
+    for nome, kva in kva_trafo.items():
+        if kva > 0:
+            pmax = pmax_trafos[nome]
             if nome not in trafo_carga_por_ano:
                 trafo_carga_por_ano[nome] = {}
             trafo_carga_por_ano[nome][ano] = pmax
@@ -124,7 +136,6 @@ for ano in range(1, 16):
                 trafo_ano_alerta[nome] = ano
             if pmax > 100 and nome not in trafo_ano_sobrecarga:
                 trafo_ano_sobrecarga[nome] = ano
-        idx = circuit.Transformers.Next
 
 # Filtra trafos com problema
 trafos_problema = sorted(trafo_ano_alerta.keys(),
@@ -154,7 +165,7 @@ print(f"  Total trafos com alerta em 15 anos: {len(trafos_problema)}")
 # PASSO 3 — Candidatos para remanejamento
 # ---------------------------------------------------------------------------
 print(f"\n{'='*70}")
-print("CANDIDATOS PARA REMANEJAMENTO (baixo carregamento em todo horizonte)")
+print("[05.06] CANDIDATOS PARA REMANEJAMENTO (baixo carregamento em todo horizonte)")
 print("="*70)
 
 # Trafos com carregamento máximo < 30% em todos os anos simulados
@@ -176,7 +187,7 @@ for nome, kva, pmax in candidatos[:20]:
 # PASSO 4 — VPL do remanejamento em 3, 10 e 15 anos
 # ---------------------------------------------------------------------------
 print(f"\n{'='*70}")
-print("VPL DO REMANEJAMENTO — trf_6_4910a substituído por trafo maior")
+print("[05.07] VPL DO REMANEJAMENTO — trf_6_4910a substituído por trafo maior")
 print("="*70)
 print(f"\n  Custo estimado remanejamento: USD {CUSTO_REMANE:,.0f}")
 print(f"  (inclui desmontagem, transporte e instalação em zona rural)")

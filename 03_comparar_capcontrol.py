@@ -11,16 +11,30 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
-
 HORAS_NOTURNAS = list(range(0, 6)) + list(range(19, 24))
 
-# Parâmetros do melhor candidato (resultado do script anterior)
-MELHOR_BUS  = "181"
-MELHOR_NOME = "smt_6350"
-CAP_KVAR    = 50
-ONSETTING   = 37   # liga quando Q > 37 kvar
-OFFSETTING  = 15   # desliga quando Q < 15 kvar
+import json
+
+config_file = HERE / "parametros.json"
+if not config_file.exists():
+    print("Execute 03_melhor_ponto_capacitor.py primeiro para gerar config no JSON.")
+    sys.exit(1)
+
+with open(config_file, "r") as f:
+    config = json.load(f)
+
+MASTER = str(HERE / config["caminhos"]["dss_file"])
+
+c_alvo = config.get("capacitor_alvo", {})
+MELHOR_BUS  = c_alvo.get("barramento", "181")
+MELHOR_NOME = c_alvo.get("linha_referencia", "smt_6350")
+CAP_KVAR    = c_alvo.get("kvar_calculado", 50)
+ONSETTING   = c_alvo.get("onsetting_sugerido", 37)
+OFFSETTING  = c_alvo.get("offsetting_sugerido", 15)
+
+PRECO_MWH   = config.get("economico", {}).get("preco_compra_usd_mwh", 35.0)
+# Custo estimado simples para a avaliação: custo base + custo por kvar
+CUSTO_CAP   = 800 + (10 * CAP_KVAR)
 
 # ---------------------------------------------------------------------------
 # PASSO 1 — Referência sem capacitor
@@ -120,7 +134,7 @@ for h in range(24):
 # RESULTADO COMPARATIVO
 # ---------------------------------------------------------------------------
 print("\n" + "="*90)
-print("COMPARAÇÃO DE ESTRATÉGIAS — CAPACITOR 50 kvar NO BARRAMENTO 181")
+print("[03.06] COMPARAÇÃO DE ESTRATÉGIAS — CAPACITOR 50 kvar NO BARRAMENTO 181")
 print("="*90)
 print(f"  {'':5} {'Q sem':>7}  {'--- Opção 2: Loadshape fixo ---':^33}  {'--- Opção 3: Controle manual ---':^33}")
 print(f"  {'Hora':>4} {'(kvar)':>7}  {'Q com':>7} {'Cap':>5} {'Perdas':>8} {'Delta':>7}  {'Q com':>7} {'Cap':>5} {'Perdas':>8} {'Delta':>7}")
@@ -143,16 +157,16 @@ for h in range(24):
 
 print(f"  {'-'*88}")
 
-eco2 = delta2 * 365 / 1000 * 35
-eco3 = delta3 * 365 / 1000 * 35
+eco2 = delta2 * 365 / 1000 * PRECO_MWH
+eco3 = delta3 * 365 / 1000 * PRECO_MWH
 
 print(f"\n  {'':30} {'Opção 2':>15} {'Opção 3':>15}")
 print(f"  {'Horas ligado/dia':<30} {lig2:>15} {lig3:>15}")
 print(f"  {'Redução perdas/dia (kW)':<30} {delta2:>15.3f} {delta3:>15.3f}")
 print(f"  {'Redução perdas/ano (MWh)':<30} {delta2*365/1000:>15.4f} {delta3*365/1000:>15.4f}")
-print(f"  {'Economia anual (USD)':<30} {eco2:>15.2f} {eco3:>15.2f}")
+print(f"  {'Economia anual (USD)':<30} {eco2:>15.2f} {eco3:>15.2f}  (@ {PRECO_MWH} USD/MWh)")
 if eco2 > 0:
-    print(f"  {'Payback (anos)':<30} {7031/eco2:>15.0f} {7031/eco3 if eco3>0 else 'inviavel':>15}")
+    print(f"  {'Payback (anos)':<30} {CUSTO_CAP/eco2:>15.1f} {CUSTO_CAP/eco3 if eco3>0 else 'inviavel':>15}")
 print(f"\n  Opção 2: capacitor ligado das 6h-21h fixo (sem lógica de Q)")
 print(f"  Opção 3: capacitor ligado só fora do horário de GD, com histerese de Q")
 print(f"           onsetting={ONSETTING} kvar / offsetting={OFFSETTING} kvar")

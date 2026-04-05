@@ -1,4 +1,4 @@
-# analise_montecarlo_gd.py
+# 05_montecarlo_despacho_gd.py
 # 1. Monte Carlo — distribuição do ano de sobrecarga do trf_6_4910a
 # 2. Despacho ótimo da GD — FP variável vs FP fixo 0,92
 
@@ -11,8 +11,12 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
-DEGRADACAO_GD = 0.007
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+
+MASTER = str(HERE / config["caminhos"]["dss_file"])
+DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
 N_SIMULACOES  = 100
 SEED          = 42
 
@@ -42,7 +46,7 @@ def trafo_pct_max(circuit, nome, kva, n_horas=24):
 # 1. MONTE CARLO — ANO DE SOBRECARGA DO trf_6_4910a
 # ===========================================================================
 print("\n" + "="*70)
-print("1. MONTE CARLO — ANO DE SOBRECARGA DO trf_6_4910a")
+print("[05.01] MONTE CARLO — ANO DE SOBRECARGA DO trf_6_4910a")
 print("="*70)
 print(f"\n  Parâmetros:")
 print(f"  Simulações : {N_SIMULACOES}")
@@ -123,7 +127,7 @@ if ano_sobrecarga:
 # 2. DESPACHO ÓTIMO DA GD — FP VARIÁVEL vs FP FIXO 0,92
 # ===========================================================================
 print(f"\n{'='*70}")
-print("2. DESPACHO ÓTIMO DA GD — FATOR DE POTÊNCIA VARIÁVEL")
+print("[05.02] DESPACHO ÓTIMO DA GD — FATOR DE POTÊNCIA VARIÁVEL")
 print("="*70)
 
 print(f"\n  Comparação de estratégias de FP nos PVSystems (Ano 1, LoadMult=1.0):")

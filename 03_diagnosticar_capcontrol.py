@@ -1,4 +1,4 @@
-# diagnosticar.py
+# 03_diagnosticar_capcontrol.py
 # Investiga o comportamento do CapControl e do tap no OpenDSS
 
 import sys
@@ -9,18 +9,31 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
-
 def carregar():
     dss.Text.Command = "Clear"
     dss.Text.Command = f'Redirect "{MASTER}"'
     dss.Text.Command = "Set mode=daily stepsize=1h number=1"
 
+import json
+config_file = HERE / "parametros.json"
+if not config_file.exists():
+    print("Execute 03_melhor_ponto_capacitor.py primeiro para gerar config no JSON.")
+    sys.exit(1)
+
+with open(config_file, "r") as f:
+    config = json.load(f)
+
+MASTER = str(HERE / config["caminhos"]["dss_file"])
+
+c_alvo = config.get("capacitor_alvo", {})
+MELHOR_BUS  = c_alvo.get("barramento", "9051")
+CAP_KVAR    = c_alvo.get("kvar_calculado", 1200)
+
 # ---------------------------------------------------------------------------
 # 1. Diagnóstico do tap
 # ---------------------------------------------------------------------------
 print("\n" + "="*60)
-print("DIAGNÓSTICO DO TAP — trf_6_4910a")
+print("[03.02] DIAGNÓSTICO DO TAP — trf_6_4910a")
 print("="*60)
 
 carregar()
@@ -109,32 +122,32 @@ else:
 # 2. Diagnóstico do CapControl
 # ---------------------------------------------------------------------------
 print("\n" + "="*60)
-print("DIAGNÓSTICO DO CAPCONTROL")
+print("[03.03] DIAGNÓSTICO DO CAPCONTROL")
 print("="*60)
 
 carregar()
 
 # Lista os elementos disponíveis para referência do CapControl
-print("\nLinhas conectadas ao barramento 9051:")
+print(f"\nLinhas conectadas ao barramento {MELHOR_BUS}:")
 circuit.SetActiveClass("Line")
 lines = circuit.Lines
 idx = lines.First
-linhas_9051 = []
+linhas_alvo = []
 while idx > 0:
     b1 = lines.Bus1.split(".")[0].lower()
     b2 = lines.Bus2.split(".")[0].lower()
-    if b1 == "9051" or b2 == "9051":
-        linhas_9051.append(lines.Name)
+    if b1 == MELHOR_BUS or b2 == MELHOR_BUS:
+        linhas_alvo.append(lines.Name)
         print(f"  Line.{lines.Name}  ({b1} → {b2})  normAmps={lines.NormAmps:.1f}")
     idx = lines.Next
 
 # Testa CapControl usando a primeira linha conectada ao barramento
-if linhas_9051:
-    linha_ref = linhas_9051[0]
+if linhas_alvo:
+    linha_ref = linhas_alvo[0]
     print(f"\nTestando CapControl com element=Line.{linha_ref}")
 
     dss.Text.Command = "Set mode=daily stepsize=1h number=1"
-    dss.Text.Command = "New Capacitor.CAP2 bus1=9051 phases=3 kvar=1200 kv=23.1"
+    dss.Text.Command = f"New Capacitor.CAP2 bus1={MELHOR_BUS} phases=3 kvar={CAP_KVAR} kv=23.1"
     dss.Text.Command = f"New CapControl.CC2 element=Line.{linha_ref} terminal=1 capacitor=CAP2 type=kvar onsetting=200 offsetting=150"
 
     # Resolve 24h e verifica se o capacitor atuou
@@ -145,10 +158,10 @@ if linhas_9051:
     circuit.SetActiveElement("Capacitor.CAP2")
     print(f"  Capacitor CAP2 existe: {circuit.ActiveCktElement.Name}")
 
-    # Verifica potência reativa no barramento 9051
-    circuit.SetActiveBus("9051")
-    v9051 = circuit.ActiveBus.VMagAngle
-    print(f"  Tensão barra 9051: {v9051[0]:.1f} V  ({v9051[0]/(23100/3**0.5):.4f} pu)")
+    # Verifica potência reativa no barramento 
+    circuit.SetActiveBus(MELHOR_BUS)
+    v_bus = circuit.ActiveBus.VMagAngle
+    print(f"  Tensão barra {MELHOR_BUS}: {v_bus[0]:.1f} V  ({v_bus[0]/(23100/3**0.5):.4f} pu)")
 
     # Lê perdas totais com capacitor
     perdas_com = circuit.Losses[0] / 1000.0
@@ -157,7 +170,7 @@ if linhas_9051:
     print(f"\n  Comando alternativo para CapControl baseado em kvar:")
     print(f"  New CapControl.CC2 element=Line.{linha_ref} terminal=1 capacitor=CAP2 type=kvar onsetting=200 offsetting=150")
 else:
-    print("  Nenhuma linha encontrada no barramento 9051")
+    print(f"  Nenhuma linha encontrada no barramento {MELHOR_BUS}")
     print("  Verificando transformador como elemento de referência...")
     
     # Verifica se o transformador funciona como referência

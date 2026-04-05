@@ -9,9 +9,19 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
-TRAFO_ALVO = "trf_6_4910a"
-BUS_SECUNDARIO = "et6_4910"  # lowercase — OpenDSS é case-insensitive
+import json
+config_file = HERE / "parametros.json"
+with open(config_file, "r") as f:
+    config = json.load(f)
+
+MASTER = str(HERE / config["caminhos"]["dss_file"])
+TRAFO_ALVO = config["graficos"]["trafo_critico"]
+# Deriva o bus a partir do nome "trf_6_4910a" => "et6_4910" (heurística do projeto)
+BUS_SECUNDARIO = "et" + TRAFO_ALVO.split("trf_")[1].split("a")[0]
+BUS_SECUNDARIO = "et" + TRAFO_ALVO.split("trf_")[1].split("a")[0]
+if "trf_6_4910a" in TRAFO_ALVO:
+    BUS_SECUNDARIO = "et6_4910"
+
 
 # ---------------------------------------------------------------------------
 # 1. Carrega a rede
@@ -22,7 +32,7 @@ dss.Text.Command = f'Redirect "{MASTER}"'
 circuit = dss.ActiveCircuit
 
 print(f"\n{'='*60}")
-print(f"ANÁLISE DO TRANSFORMADOR: {TRAFO_ALVO.upper()}")
+print(f"[02.01] ANÁLISE DO TRANSFORMADOR: {TRAFO_ALVO.upper()}")
 print(f"{'='*60}")
 
 # ---------------------------------------------------------------------------

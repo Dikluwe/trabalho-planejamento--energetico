@@ -1,0 +1,2453 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.574231974326096,
+          -27.82550601529033
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1030a",
+        "kVA": 10.0,
+        "loading_pct": 4.0,
+        "status": "normal",
+        "bus_mt": "1911",
+        "bus_bt": "et6_1030"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.68547996133111,
+          -27.65331215403262
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_1585a",
+        "kVA": 15.0,
+        "loading_pct": 1.3,
+        "status": "normal",
+        "bus_mt": "3511",
+        "bus_bt": "et16_1585"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59893093251651,
+          -27.658021462920146
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_3545a",
+        "kVA": 10.0,
+        "loading_pct": 0.4,
+        "status": "normal",
+        "bus_mt": "mrt_7321trf_16_3545a",
+        "bus_bt": "et16_3545"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.602690215580935,
+          -27.66144255413053
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_1143a",
+        "kVA": 30.0,
+        "loading_pct": 10.1,
+        "status": "normal",
+        "bus_mt": "7341",
+        "bus_bt": "et16_1143"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.57179566953448,
+          -27.83623391736137
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_725a",
+        "kVA": 10.0,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "7721",
+        "bus_bt": "et6_725"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.7066106803386,
+          -27.692579504340586
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_3820a",
+        "kVA": 15.0,
+        "loading_pct": 6.5,
+        "status": "normal",
+        "bus_mt": "mrt_8911trf_6_3820a",
+        "bus_bt": "et6_3820"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.70668255775382,
+          -27.69959716427769
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_4910a",
+        "kVA": 30.0,
+        "loading_pct": 35.9,
+        "status": "normal",
+        "bus_mt": "9051",
+        "bus_bt": "et6_4910"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.71417918492142,
+          -27.700659261815417
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_127a",
+        "kVA": 15.0,
+        "loading_pct": 8.5,
+        "status": "normal",
+        "bus_mt": "mrt_9111trf_6_127a",
+        "bus_bt": "et6_127"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.70877169545736,
+          -27.708587406183824
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1541a",
+        "kVA": 15.0,
+        "loading_pct": 5.8,
+        "status": "normal",
+        "bus_mt": "9751",
+        "bus_bt": "et6_1541"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.64076139292388,
+          -27.71748976544029
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1503a",
+        "kVA": 10.0,
+        "loading_pct": 3.7,
+        "status": "normal",
+        "bus_mt": "mrt_10441trf_6_1503a",
+        "bus_bt": "et6_1503"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.72459182245461,
+          -27.671040599244236
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_6272a",
+        "kVA": 15.0,
+        "loading_pct": 1.9,
+        "status": "normal",
+        "bus_mt": "mrt_10551trf_6_6272a",
+        "bus_bt": "et6_6272"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.73056110940763,
+          -27.668977030165763
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_128a",
+        "kVA": 15.0,
+        "loading_pct": 3.1,
+        "status": "normal",
+        "bus_mt": "mrt_10571trf_6_128a",
+        "bus_bt": "et6_128"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.65908698617545,
+          -27.848183943234346
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1350a",
+        "kVA": 45.0,
+        "loading_pct": 2.0,
+        "status": "normal",
+        "bus_mt": "10801",
+        "bus_bt": "et6_1350"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.652725119968295,
+          -27.840358085057517
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_808a",
+        "kVA": 15.0,
+        "loading_pct": 4.9,
+        "status": "normal",
+        "bus_mt": "10871",
+        "bus_bt": "et6_808"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.64442888398577,
+          -27.719485779245247
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1475a",
+        "kVA": 15.0,
+        "loading_pct": 6.6,
+        "status": "normal",
+        "bus_mt": "mrt_11251trf_6_1475a",
+        "bus_bt": "et6_1475"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.58854374849517,
+          -27.70222743304953
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1146a",
+        "kVA": 10.0,
+        "loading_pct": 11.4,
+        "status": "normal",
+        "bus_mt": "mrt_11411trf_6_1146a",
+        "bus_bt": "et6_1146"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.58897057573142,
+          -27.66318837474364
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_1140a",
+        "kVA": 10.0,
+        "loading_pct": 0.4,
+        "status": "normal",
+        "bus_mt": "mrt_13971trf_16_1140a",
+        "bus_bt": "et16_1140"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.591804846716286,
+          -27.660482767965334
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_5474a",
+        "kVA": 10.0,
+        "loading_pct": 5.8,
+        "status": "normal",
+        "bus_mt": "mrt_14031trf_16_5474a",
+        "bus_bt": "et16_5474"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59151380271976,
+          -27.649435701896095
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_3548a",
+        "kVA": 10.0,
+        "loading_pct": 10.0,
+        "status": "normal",
+        "bus_mt": "mrt_17881trf_16_3548a",
+        "bus_bt": "et16_3548"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59335880326614,
+          -27.64475461463371
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_1141a",
+        "kVA": 15.0,
+        "loading_pct": 4.7,
+        "status": "normal",
+        "bus_mt": "mrt_17961trf_16_1141a",
+        "bus_bt": "et16_1141"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.63851795134235,
+          -27.852602897006022
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_810a",
+        "kVA": 30.0,
+        "loading_pct": 4.0,
+        "status": "normal",
+        "bus_mt": "18001",
+        "bus_bt": "et6_810"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.66966737694787,
+          -27.655539492353626
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_300a",
+        "kVA": 15.0,
+        "loading_pct": 3.9,
+        "status": "normal",
+        "bus_mt": "mrt_18501trf_16_300a",
+        "bus_bt": "et16_300"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.6664283139155,
+          -27.657343151065504
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_3130a",
+        "kVA": 30.0,
+        "loading_pct": 5.7,
+        "status": "normal",
+        "bus_mt": "18551",
+        "bus_bt": "et16_3130"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.72718023497981,
+          -27.631575726338667
+        ]
+      },
+      "properties": {
+        "nome": "trf_11_4955a",
+        "kVA": 15.0,
+        "loading_pct": 17.6,
+        "status": "normal",
+        "bus_mt": "mrt_21881trf_11_4955a",
+        "bus_bt": "et11_4955"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.72658595128058,
+          -27.62762679603975
+        ]
+      },
+      "properties": {
+        "nome": "trf_11_131a",
+        "kVA": 10.0,
+        "loading_pct": 6.6,
+        "status": "normal",
+        "bus_mt": "21941",
+        "bus_bt": "et11_131"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.550014513159226,
+          -27.78498469618671
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1048a",
+        "kVA": 15.0,
+        "loading_pct": 1.8,
+        "status": "normal",
+        "bus_mt": "23121",
+        "bus_bt": "et6_1048"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.73800573597589,
+          -27.659907441075518
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_129a",
+        "kVA": 10.0,
+        "loading_pct": 5.4,
+        "status": "normal",
+        "bus_mt": "mrt_26361trf_6_129a",
+        "bus_bt": "et6_129"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.75060545098074,
+          -27.66011791031326
+        ]
+      },
+      "properties": {
+        "nome": "trf_34_1018a",
+        "kVA": 5.0,
+        "loading_pct": 6.4,
+        "status": "normal",
+        "bus_mt": "mrt_26791trf_34_1018a",
+        "bus_bt": "et34_1018"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.67586976187994,
+          -27.65185608958683
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_5730a",
+        "kVA": 25.0,
+        "loading_pct": 1.8,
+        "status": "normal",
+        "bus_mt": "mrt_27271trf_16_5730a",
+        "bus_bt": "et16_5730"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.58527230627186,
+          -27.676114469007473
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_1144a",
+        "kVA": 15.0,
+        "loading_pct": 5.0,
+        "status": "normal",
+        "bus_mt": "mrt_27781trf_16_1144a",
+        "bus_bt": "et16_1144"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.65917146039453,
+          -27.87034929268566
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_6273a",
+        "kVA": 30.0,
+        "loading_pct": 5.9,
+        "status": "normal",
+        "bus_mt": "28741",
+        "bus_bt": "et6_6273"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.580097103598405,
+          -27.80402254260622
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1238a",
+        "kVA": 15.0,
+        "loading_pct": 5.0,
+        "status": "normal",
+        "bus_mt": "mrt_29681trf_6_1238a",
+        "bus_bt": "et6_1238"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.571376023384744,
+          -27.79044416556576
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_731a",
+        "kVA": 15.0,
+        "loading_pct": 1.7,
+        "status": "normal",
+        "bus_mt": "30621",
+        "bus_bt": "et6_731"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.57582752991652,
+          -27.78174482376454
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_732a",
+        "kVA": 30.0,
+        "loading_pct": 3.5,
+        "status": "normal",
+        "bus_mt": "30701",
+        "bus_bt": "et6_732"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.6433503387471,
+          -27.672654099007445
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_6082a",
+        "kVA": 15.0,
+        "loading_pct": 3.3,
+        "status": "normal",
+        "bus_mt": "mrt_30771trf_16_6082a",
+        "bus_bt": "et16_6082"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.660486225159104,
+          -27.684334407406936
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_537a",
+        "kVA": 5.0,
+        "loading_pct": 3.1,
+        "status": "normal",
+        "bus_mt": "30941",
+        "bus_bt": "et16_537"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.6579245242973,
+          -27.68780247020777
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_3996a",
+        "kVA": 15.0,
+        "loading_pct": 13.9,
+        "status": "normal",
+        "bus_mt": "mrt_31721trf_16_3996a",
+        "bus_bt": "et16_3996"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.66202224652943,
+          -27.65657078811131
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_1095a",
+        "kVA": 15.0,
+        "loading_pct": 3.6,
+        "status": "normal",
+        "bus_mt": "mrt_36971trf_16_1095a",
+        "bus_bt": "et16_1095"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59446094401733,
+          -27.812838771092345
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_730a",
+        "kVA": 15.0,
+        "loading_pct": 2.3,
+        "status": "normal",
+        "bus_mt": "37501",
+        "bus_bt": "et6_730"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.75710083233753,
+          -27.66740464650718
+        ]
+      },
+      "properties": {
+        "nome": "trf_34_1649a",
+        "kVA": 5.0,
+        "loading_pct": 3.6,
+        "status": "normal",
+        "bus_mt": "mrt_37771trf_34_1649a",
+        "bus_bt": "et34_1649"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.76342625531737,
+          -27.669515952499182
+        ]
+      },
+      "properties": {
+        "nome": "trf_34_5029a",
+        "kVA": 10.0,
+        "loading_pct": 4.9,
+        "status": "normal",
+        "bus_mt": "mrt_37851trf_34_5029a",
+        "bus_bt": "et34_5029"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.724032108694814,
+          -27.620215867068566
+        ]
+      },
+      "properties": {
+        "nome": "trf_11_132a",
+        "kVA": 10.0,
+        "loading_pct": 4.6,
+        "status": "normal",
+        "bus_mt": "mrt_42481trf_11_132a",
+        "bus_bt": "et11_132"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.68717142152383,
+          -27.67785126762186
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_3221a",
+        "kVA": 25.0,
+        "loading_pct": 5.8,
+        "status": "normal",
+        "bus_mt": "mrt_43051trf_16_3221a",
+        "bus_bt": "et16_3221"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.70645482962664,
+          -27.646805108468925
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_504a",
+        "kVA": 15.0,
+        "loading_pct": 4.8,
+        "status": "normal",
+        "bus_mt": "44381",
+        "bus_bt": "et16_504"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.62585838375736,
+          -27.799857542991163
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_735a",
+        "kVA": 10.0,
+        "loading_pct": 1.3,
+        "status": "normal",
+        "bus_mt": "44611",
+        "bus_bt": "et6_735"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.58583334203507,
+          -27.813163090004537
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_729a",
+        "kVA": 15.0,
+        "loading_pct": 8.5,
+        "status": "normal",
+        "bus_mt": "46651",
+        "bus_bt": "et6_729"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.65402264113192,
+          -27.665300600742114
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_299a",
+        "kVA": 45.0,
+        "loading_pct": 4.0,
+        "status": "normal",
+        "bus_mt": "48311",
+        "bus_bt": "et16_299"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.654293479160685,
+          -27.666724705081037
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_1301a",
+        "kVA": 10.0,
+        "loading_pct": 3.2,
+        "status": "normal",
+        "bus_mt": "48361",
+        "bus_bt": "et16_1301"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.65371327165013,
+          -27.67500014603985
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_2139a",
+        "kVA": 25.0,
+        "loading_pct": 7.9,
+        "status": "normal",
+        "bus_mt": "mrt_48421trf_16_2139a",
+        "bus_bt": "et16_2139"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.76347378268889,
+          -27.673818362227564
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1019a",
+        "kVA": 25.0,
+        "loading_pct": 9.7,
+        "status": "normal",
+        "bus_mt": "mrt_48581trf_6_1019a",
+        "bus_bt": "et6_1019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.73648865972382,
+          -27.654325832970756
+        ]
+      },
+      "properties": {
+        "nome": "trf_11_2597a",
+        "kVA": 10.0,
+        "loading_pct": 5.5,
+        "status": "normal",
+        "bus_mt": "mrt_48681trf_11_2597a",
+        "bus_bt": "et11_2597"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.72791035587818,
+          -27.63977129311064
+        ]
+      },
+      "properties": {
+        "nome": "trf_11_130a",
+        "kVA": 15.0,
+        "loading_pct": 3.1,
+        "status": "normal",
+        "bus_mt": "49521",
+        "bus_bt": "et11_130"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.60310418610925,
+          -27.796156268896652
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_733a",
+        "kVA": 10.0,
+        "loading_pct": 0.5,
+        "status": "normal",
+        "bus_mt": "mrt_50091trf_6_733a",
+        "bus_bt": "et6_733"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.68899809748416,
+          -27.61530609030376
+        ]
+      },
+      "properties": {
+        "nome": "trf_11_305a",
+        "kVA": 75.0,
+        "loading_pct": 1.6,
+        "status": "normal",
+        "bus_mt": "56861",
+        "bus_bt": "et11_305"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.66493737735806,
+          -27.677319796171616
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_539a",
+        "kVA": 10.0,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "60171",
+        "bus_bt": "et16_539"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59901366474878,
+          -27.748730891317564
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1151a",
+        "kVA": 30.0,
+        "loading_pct": 2.7,
+        "status": "normal",
+        "bus_mt": "60571",
+        "bus_bt": "et6_1151"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.57963827218845,
+          -27.741181190659404
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_4764a",
+        "kVA": 75.0,
+        "loading_pct": 0.4,
+        "status": "normal",
+        "bus_mt": "60651",
+        "bus_bt": "et6_4764"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.57489206681538,
+          -27.745474123332087
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_4765a",
+        "kVA": 150.0,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "60721",
+        "bus_bt": "et6_4765"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.67127712204149,
+          -27.683386788169685
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_538a",
+        "kVA": 30.0,
+        "loading_pct": 2.0,
+        "status": "normal",
+        "bus_mt": "60991",
+        "bus_bt": "et16_538"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.71149386055316,
+          -27.60916611022776
+        ]
+      },
+      "properties": {
+        "nome": "trf_11_133a",
+        "kVA": 10.0,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "62311",
+        "bus_bt": "et11_133"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.55228449643232,
+          -27.849074320623345
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_723a",
+        "kVA": 15.0,
+        "loading_pct": 4.9,
+        "status": "normal",
+        "bus_mt": "62921",
+        "bus_bt": "et6_723"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.55769742859343,
+          -27.855910405640657
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_722a",
+        "kVA": 15.0,
+        "loading_pct": 1.5,
+        "status": "normal",
+        "bus_mt": "63001",
+        "bus_bt": "et6_722"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.54311049245524,
+          -27.81218853067611
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_726a",
+        "kVA": 15.0,
+        "loading_pct": 0.5,
+        "status": "normal",
+        "bus_mt": "63661",
+        "bus_bt": "et6_726"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.60515853084149,
+          -27.76062389387755
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_737a",
+        "kVA": 15.0,
+        "loading_pct": 4.7,
+        "status": "normal",
+        "bus_mt": "64571",
+        "bus_bt": "et6_737"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.55286063361132,
+          -27.79650794878279
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_728a",
+        "kVA": 30.0,
+        "loading_pct": 4.3,
+        "status": "normal",
+        "bus_mt": "64741",
+        "bus_bt": "et6_728"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.73278769499609,
+          -27.685551343919315
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_125a",
+        "kVA": 10.0,
+        "loading_pct": 0.5,
+        "status": "normal",
+        "bus_mt": "mrt_65661trf_6_125a",
+        "bus_bt": "et6_125"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.7210630086509,
+          -27.687234842414
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_3011a",
+        "kVA": 10.0,
+        "loading_pct": 1.6,
+        "status": "normal",
+        "bus_mt": "66491",
+        "bus_bt": "et6_3011"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.71025177809702,
+          -27.69185867164032
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_3819a",
+        "kVA": 30.0,
+        "loading_pct": 5.4,
+        "status": "normal",
+        "bus_mt": "66561",
+        "bus_bt": "et6_3819"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.743674061208935,
+          -27.695747131524854
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1344a",
+        "kVA": 10.0,
+        "loading_pct": 1.9,
+        "status": "normal",
+        "bus_mt": "mrt_68231trf_6_1344a",
+        "bus_bt": "et6_1344"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.755922563975105,
+          -27.69956352783447
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_122a",
+        "kVA": 10.0,
+        "loading_pct": 0.6,
+        "status": "normal",
+        "bus_mt": "71151",
+        "bus_bt": "et6_122"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.734473931027026,
+          -27.702776783022102
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1212a",
+        "kVA": 25.0,
+        "loading_pct": 2.4,
+        "status": "normal",
+        "bus_mt": "mrt_71261trf_6_1212a",
+        "bus_bt": "et6_1212"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.728676741038726,
+          -27.70647289770602
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1213a",
+        "kVA": 10.0,
+        "loading_pct": 2.0,
+        "status": "normal",
+        "bus_mt": "mrt_71331trf_6_1213a",
+        "bus_bt": "et6_1213"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59096258575471,
+          -27.694341685420397
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1139a",
+        "kVA": 15.0,
+        "loading_pct": 8.6,
+        "status": "normal",
+        "bus_mt": "mrt_71741trf_6_1139a",
+        "bus_bt": "et6_1139"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.58484231342197,
+          -27.683674295132562
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1145a",
+        "kVA": 10.0,
+        "loading_pct": 3.8,
+        "status": "normal",
+        "bus_mt": "mrt_71891trf_6_1145a",
+        "bus_bt": "et6_1145"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.690885643157856,
+          -27.64484381838747
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_302a",
+        "kVA": 10.0,
+        "loading_pct": 1.5,
+        "status": "normal",
+        "bus_mt": "mrt_72051trf_16_302a",
+        "bus_bt": "et16_302"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.68530616374841,
+          -27.656978482271086
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_301a",
+        "kVA": 25.0,
+        "loading_pct": 1.3,
+        "status": "normal",
+        "bus_mt": "72071",
+        "bus_bt": "et16_301"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.74478563045244,
+          -27.683464491393124
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_124a",
+        "kVA": 45.0,
+        "loading_pct": 4.7,
+        "status": "normal",
+        "bus_mt": "74131",
+        "bus_bt": "et6_124"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.68499585267642,
+          -27.638120597387626
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_6318a",
+        "kVA": 45.0,
+        "loading_pct": 3.3,
+        "status": "normal",
+        "bus_mt": "74741",
+        "bus_bt": "et16_6318"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.68506589457536,
+          -27.63678270835527
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_303a",
+        "kVA": 15.0,
+        "loading_pct": 2.4,
+        "status": "normal",
+        "bus_mt": "74761",
+        "bus_bt": "et16_303"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59673632502137,
+          -27.850692754067325
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1256a",
+        "kVA": 10.0,
+        "loading_pct": 1.3,
+        "status": "normal",
+        "bus_mt": "134461",
+        "bus_bt": "et6_1256"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.605303265033626,
+          -27.843634880944933
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_2090a",
+        "kVA": 15.0,
+        "loading_pct": 5.7,
+        "status": "normal",
+        "bus_mt": "135301",
+        "bus_bt": "et6_2090"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.63343949143933,
+          -27.838616504747847
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1445a",
+        "kVA": 10.0,
+        "loading_pct": 3.9,
+        "status": "normal",
+        "bus_mt": "mrt_151391trf_6_1445a",
+        "bus_bt": "et6_1445"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59618779612987,
+          -27.739048884598276
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_4766a",
+        "kVA": 112.5,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "164151",
+        "bus_bt": "et6_4766"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.69116202280907,
+          -27.6089486487611
+        ]
+      },
+      "properties": {
+        "nome": "trf_11_4675a",
+        "kVA": 150.0,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "302191",
+        "bus_bt": "et11_4675"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.54128265457081,
+          -27.843962126251085
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_4662a",
+        "kVA": 300.0,
+        "loading_pct": 0.2,
+        "status": "normal",
+        "bus_mt": "320841",
+        "bus_bt": "et6_4662"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.63207212442893,
+          -27.722094315000618
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1178a",
+        "kVA": 15.0,
+        "loading_pct": 3.2,
+        "status": "normal",
+        "bus_mt": "mrt_325871trf_6_1178a",
+        "bus_bt": "et6_1178"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.71182219673693,
+          -27.701670818353534
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_4249a",
+        "kVA": 25.0,
+        "loading_pct": 3.1,
+        "status": "normal",
+        "bus_mt": "mrt_326251trf_6_4249a",
+        "bus_bt": "et6_4249"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.64282062187414,
+          -27.72426218295334
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_2887a",
+        "kVA": 10.0,
+        "loading_pct": 4.4,
+        "status": "normal",
+        "bus_mt": "mrt_330951trf_6_2887a",
+        "bus_bt": "et6_2887"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.644316778096766,
+          -27.728699556639185
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_2064a",
+        "kVA": 5.0,
+        "loading_pct": 3.7,
+        "status": "normal",
+        "bus_mt": "mrt_330971trf_6_2064a",
+        "bus_bt": "et6_2064"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.584532369273404,
+          -27.72040140330205
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1960a",
+        "kVA": 10.0,
+        "loading_pct": 3.6,
+        "status": "normal",
+        "bus_mt": "mrt_331951trf_6_1960a",
+        "bus_bt": "et6_1960"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.58284307105083,
+          -27.718845010488792
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_6394a",
+        "kVA": 25.0,
+        "loading_pct": 2.7,
+        "status": "normal",
+        "bus_mt": "mrt_331991trf_6_6394a",
+        "bus_bt": "et6_6394"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.575436704340405,
+          -27.71862220884782
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_3613a",
+        "kVA": 10.0,
+        "loading_pct": 1.6,
+        "status": "normal",
+        "bus_mt": "mrt_332101trf_6_3613a",
+        "bus_bt": "et6_3613"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.60236481658296,
+          -27.735702760873664
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_738a",
+        "kVA": 5.0,
+        "loading_pct": 0.4,
+        "status": "normal",
+        "bus_mt": "337581",
+        "bus_bt": "et6_738"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.68757162343161,
+          -27.61868996666857
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_4674a",
+        "kVA": 225.0,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "337711",
+        "bus_bt": "et16_4674"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.611280533469824,
+          -27.663040235718256
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_4687a",
+        "kVA": 75.0,
+        "loading_pct": 0.4,
+        "status": "normal",
+        "bus_mt": "358691",
+        "bus_bt": "et16_4687"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.68506589457536,
+          -27.63678270835527
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_2658a",
+        "kVA": 15.0,
+        "loading_pct": 1.6,
+        "status": "normal",
+        "bus_mt": "445011",
+        "bus_bt": "et16_2658"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.62229716378306,
+          -27.7165328067436
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1177a",
+        "kVA": 75.0,
+        "loading_pct": 3.9,
+        "status": "normal",
+        "bus_mt": "461472",
+        "bus_bt": "et6_1177"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.62178643429644,
+          -27.71692374113769
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_4661a",
+        "kVA": 150.0,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "461501",
+        "bus_bt": "et6_4661"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.71138855263956,
+          -27.682083705598473
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_3019a",
+        "kVA": 10.0,
+        "loading_pct": 2.9,
+        "status": "normal",
+        "bus_mt": "mrt_474661trf_6_3019a",
+        "bus_bt": "et6_3019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.5860189099447,
+          -27.697898759520115
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_3013a",
+        "kVA": 5.0,
+        "loading_pct": 12.9,
+        "status": "normal",
+        "bus_mt": "mrt_475901trf_6_3013a",
+        "bus_bt": "et6_3013"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.68593361084743,
+          -27.65063113112177
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_3364a",
+        "kVA": 15.0,
+        "loading_pct": 2.6,
+        "status": "normal",
+        "bus_mt": "549621",
+        "bus_bt": "et16_3364"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.64746231163633,
+          -27.713698676952333
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_3563a",
+        "kVA": 10.0,
+        "loading_pct": 6.8,
+        "status": "normal",
+        "bus_mt": "mrt_561911trf_6_3563a",
+        "bus_bt": "et6_3563"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.581941485411164,
+          -27.686597571120956
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_3010a",
+        "kVA": 10.0,
+        "loading_pct": 1.2,
+        "status": "normal",
+        "bus_mt": "mrt_597421trf_6_3010a",
+        "bus_bt": "et6_3010"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.61440998892982,
+          -27.844148228357994
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_3142a",
+        "kVA": 10.0,
+        "loading_pct": 2.0,
+        "status": "normal",
+        "bus_mt": "mrt_610971trf_6_3142a",
+        "bus_bt": "et6_3142"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59728512011219,
+          -27.64969755569757
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_3908a",
+        "kVA": 10.0,
+        "loading_pct": 0.0,
+        "status": "normal",
+        "bus_mt": "mrt_611471trf_16_3908a",
+        "bus_bt": "et16_3908"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.5792722310286,
+          -27.705405035513934
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_3012a",
+        "kVA": 10.0,
+        "loading_pct": 1.6,
+        "status": "normal",
+        "bus_mt": "mrt_615281trf_6_3012a",
+        "bus_bt": "et6_3012"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.672366198341365,
+          -27.657355033807733
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_3997a",
+        "kVA": 30.0,
+        "loading_pct": 2.3,
+        "status": "normal",
+        "bus_mt": "641761",
+        "bus_bt": "et16_3997"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59620448394975,
+          -27.667419826164007
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_1142a",
+        "kVA": 45.0,
+        "loading_pct": 3.2,
+        "status": "normal",
+        "bus_mt": "659541",
+        "bus_bt": "et16_1142"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.63466239765148,
+          -27.806722599668205
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_5725a",
+        "kVA": 300.0,
+        "loading_pct": 0.2,
+        "status": "normal",
+        "bus_mt": "686891",
+        "bus_bt": "et6_5725"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.60008626456943,
+          -27.735826827745882
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_4925a",
+        "kVA": 112.5,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "703601",
+        "bus_bt": "et6_4925"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.74252999406394,
+          -27.66255154321908
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_3256a",
+        "kVA": 15.0,
+        "loading_pct": 12.9,
+        "status": "normal",
+        "bus_mt": "mrt_709151trf_6_3256a",
+        "bus_bt": "et6_3256"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59114595572123,
+          -27.810834943078135
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_4998a",
+        "kVA": 112.5,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "713791",
+        "bus_bt": "et6_4998"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59495274187549,
+          -27.647467600349444
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_5055a",
+        "kVA": 10.0,
+        "loading_pct": 9.8,
+        "status": "normal",
+        "bus_mt": "mrt_721411trf_16_5055a",
+        "bus_bt": "et16_5055"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.54967934032925,
+          -27.82666567128365
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_724a",
+        "kVA": 30.0,
+        "loading_pct": 2.3,
+        "status": "normal",
+        "bus_mt": "722651",
+        "bus_bt": "et6_724"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.53636766803339,
+          -27.81241185482321
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_5157a",
+        "kVA": 300.0,
+        "loading_pct": 0.2,
+        "status": "normal",
+        "bus_mt": "725731",
+        "bus_bt": "et6_5157"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.60887514916874,
+          -27.773139843329034
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_5085a",
+        "kVA": 30.0,
+        "loading_pct": 4.0,
+        "status": "normal",
+        "bus_mt": "731541",
+        "bus_bt": "et6_5085"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.70790063640521,
+          -27.709690155776002
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_5595a",
+        "kVA": 30.0,
+        "loading_pct": 2.7,
+        "status": "normal",
+        "bus_mt": "751701",
+        "bus_bt": "et6_5595"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.56443822774196,
+          -27.856010932758295
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_5711a",
+        "kVA": 30.0,
+        "loading_pct": 2.0,
+        "status": "normal",
+        "bus_mt": "758161",
+        "bus_bt": "et6_5711"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.567936969115806,
+          -27.874151521075817
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_5712a",
+        "kVA": 30.0,
+        "loading_pct": 4.6,
+        "status": "normal",
+        "bus_mt": "758521",
+        "bus_bt": "et6_5712"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.64589232736898,
+          -27.835573946280533
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_5659a",
+        "kVA": 30.0,
+        "loading_pct": 1.2,
+        "status": "normal",
+        "bus_mt": "761691",
+        "bus_bt": "et6_5659"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.64532998039425,
+          -27.834662859303478
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1262a",
+        "kVA": 10.0,
+        "loading_pct": 2.6,
+        "status": "normal",
+        "bus_mt": "761701",
+        "bus_bt": "et6_1262"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.58674977098508,
+          -27.644204833885908
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_6019a",
+        "kVA": 10.0,
+        "loading_pct": 0.6,
+        "status": "normal",
+        "bus_mt": "mrt_790051trf_16_6019a",
+        "bus_bt": "et16_6019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.70858531995651,
+          -27.69425948828473
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_6158a",
+        "kVA": 45.0,
+        "loading_pct": 6.0,
+        "status": "normal",
+        "bus_mt": "796401",
+        "bus_bt": "et6_6158"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.55324613160366,
+          -27.885618584929716
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_6197a",
+        "kVA": 75.0,
+        "loading_pct": 5.4,
+        "status": "normal",
+        "bus_mt": "799911",
+        "bus_bt": "et6_6197"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.63270029458289,
+          -27.714061601961305
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_6153a",
+        "kVA": 30.0,
+        "loading_pct": 17.0,
+        "status": "normal",
+        "bus_mt": "800561",
+        "bus_bt": "et6_6153"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.639523585844756,
+          -27.710126609355484
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_1504a",
+        "kVA": 30.0,
+        "loading_pct": 1.6,
+        "status": "normal",
+        "bus_mt": "800712",
+        "bus_bt": "et6_1504"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.65532472365703,
+          -27.694085377737963
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_6249a",
+        "kVA": 30.0,
+        "loading_pct": 6.2,
+        "status": "normal",
+        "bus_mt": "801021",
+        "bus_bt": "et6_6249"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.65295436615105,
+          -27.677143922953633
+        ]
+      },
+      "properties": {
+        "nome": "trf_16_6312a",
+        "kVA": 30.0,
+        "loading_pct": 1.4,
+        "status": "normal",
+        "bus_mt": "807731",
+        "bus_bt": "et16_6312"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59782366562962,
+          -27.784012475994928
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_6386a",
+        "kVA": 150.0,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "809501",
+        "bus_bt": "et6_6386"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59498829657258,
+          -27.73237903206666
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_4627a",
+        "kVA": 112.5,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "811221",
+        "bus_bt": "et6_4627"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.67979423781378,
+          -27.611990540830732
+        ]
+      },
+      "properties": {
+        "nome": "trf_11_6443a",
+        "kVA": 150.0,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "815111",
+        "bus_bt": "et11_6443"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.70144338450456,
+          -27.51934460676813
+        ]
+      },
+      "properties": {
+        "nome": "trf_12_6577a",
+        "kVA": 30.0,
+        "loading_pct": 0.5,
+        "status": "normal",
+        "bus_mt": "817111",
+        "bus_bt": "et12_6577"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.69857095708397,
+          -27.524891468666283
+        ]
+      },
+      "properties": {
+        "nome": "trf_12_6578a",
+        "kVA": 45.0,
+        "loading_pct": 0.4,
+        "status": "normal",
+        "bus_mt": "817241",
+        "bus_bt": "et12_6578"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.68294039638215,
+          -27.59234166623486
+        ]
+      },
+      "properties": {
+        "nome": "trf_11_6482a",
+        "kVA": 45.0,
+        "loading_pct": 0.4,
+        "status": "normal",
+        "bus_mt": "818611",
+        "bus_bt": "et11_6482"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.56881662388804,
+          -27.837234520156926
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_6496a",
+        "kVA": 112.5,
+        "loading_pct": 0.3,
+        "status": "normal",
+        "bus_mt": "822371",
+        "bus_bt": "et6_6496"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.583074074508886,
+          -27.820053682931075
+        ]
+      },
+      "properties": {
+        "nome": "trf_6_727a",
+        "kVA": 30.0,
+        "loading_pct": 5.5,
+        "status": "normal",
+        "bus_mt": "824351",
+        "bus_bt": "et6_727"
+      }
+    }
+  ]
+}

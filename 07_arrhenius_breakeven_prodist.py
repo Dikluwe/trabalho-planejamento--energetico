@@ -1,4 +1,4 @@
-# analise_final2.py
+# 07_arrhenius_breakeven_prodist.py
 # 1. Custo esperado de falha por Arrhenius (trf_6_4910a)
 # 2. Break-even do remanejamento por interpolação
 # 3. Custo do atraso na decisão do tap
@@ -15,19 +15,24 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER        = str(HERE / "Master.dss")
-TAXA_DESCONTO = 0.14
-CUSTO_PERDAS  = 35.0
-TARIFA_VENDA  = 150.0
-TUSD          = 90.0
-VIDA_UTIL_TRAFO = 25  # anos — vida nominal de um trafo de distribuição
-CUSTO_EMERG     = 10000.0  # USD — substituição emergencial
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+
+MASTER        = str(HERE / config["caminhos"]["dss_file"])
+TRAFO_ALVO    = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
+TAXA_DESCONTO = config["economico"]["taxa_desconto"]
+CUSTO_PERDAS  = config["economico"]["preco_compra_usd_mwh"]
+TARIFA_VENDA  = config["economico"]["tarifa_venda_usd_mwh"]
+TUSD          = config["economico"]["tusd_usd_mwh"]
+VIDA_UTIL_TRAFO = config["simulacao"]["vida_util_projeto"]
+CUSTO_EMERG     = config["financeiro_extra"]["custo_emergencia_usd"]
 
 # ===========================================================================
 # 1. CUSTO ESPERADO DE FALHA — ARRHENIUS
 # ===========================================================================
 print("\n" + "="*70)
-print("1. CUSTO ESPERADO DE FALHA — MODELO DE ARRHENIUS")
+print("[07.02] CUSTO ESPERADO DE FALHA — MODELO DE ARRHENIUS")
 print("="*70)
 
 # Modelo de Arrhenius para transformadores (IEEE C57.91):
@@ -106,15 +111,15 @@ print(f"  VPL do tap incluindo risco            : USD {1283 + risco_total:,.2f}"
 # 2. BREAK-EVEN DO REMANEJAMENTO
 # ===========================================================================
 print(f"\n{'='*70}")
-print("2. BREAK-EVEN DO REMANEJAMENTO — INTERPOLAÇÃO")
+print("[07.03] BREAK-EVEN DO REMANEJAMENTO — INTERPOLAÇÃO")
 print("="*70)
 
 # Dados já calculados: VPL s/risco e c/risco por horizonte
 # s/risco: 3a=-1705, 5a=-2258, 10a=-2926, 15a=-3101
 # c/risco: 3a=-693,  5a=+422,  10a=+2428, 15a=+3642
-CAPEX_REMANE = 4000.0
+CAPEX_REMANE = config["financeiro_extra"]["custo_remane_usd"]
 BEN_BASE     = 200.0   # USD/ano redução de perdas
-BEN_RISCO    = 1700.0  # USD/ano = 200 + 10000*0.15
+BEN_RISCO    = BEN_BASE + config["financeiro_extra"]["custo_emergencia_usd"] * 0.15
 
 print(f"\n  CAPEX remanejamento: USD {CAPEX_REMANE:,.0f}")
 print(f"  Benefício s/risco  : USD {BEN_BASE:,.0f}/ano")
@@ -152,12 +157,12 @@ print(f"  antes do Ano {breakeven_ano - 1}, maximizando o VPL acumulado.")
 # 3. CUSTO DO ATRASO NA DECISÃO DO TAP
 # ===========================================================================
 print(f"\n{'='*70}")
-print("3. CUSTO DO ATRASO NA DECISÃO DO TAP")
+print("[07.04] CUSTO DO ATRASO NA DECISÃO DO TAP")
 print("="*70)
 
-# Benefícios do tap por ano (dados do main_trabalho)
-BEN_TAP = {1: 970.04, 2: 760.16, 3: 796.47}
-CAPEX_TAP = 1500.0
+# Benefícios do tap por ano (atualizados com as reduções de penalização PRODIST)
+BEN_TAP = {1: 4350.0, 2: 4400.0, 3: 4450.0}
+CAPEX_TAP = config["alternativas"][1]["custo_inicial_usd"]
 
 print(f"\n  Cenários de timing de implementação:")
 print(f"  {'Cenário':<30} {'CAPEX':>8} {'VPL':>10} {'Custo atraso':>13}")
@@ -209,7 +214,7 @@ print(f"  Cada mês de atraso custa aproximadamente: USD {custo_atraso1/12:,.0f}
 # 4. CSV CONSOLIDADO
 # ===========================================================================
 print(f"\n{'='*70}")
-print("4. EXPORTANDO CSV CONSOLIDADO")
+print("[07.05] EXPORTANDO CSV CONSOLIDADO")
 print("="*70)
 
 csv_path = HERE / "resultados_consolidados.csv"
@@ -237,14 +242,14 @@ linhas = [
     ["Caso Base", "Participação GD no consumo", 22.2, 21.8, 21.4, "%"],
 
     # Alternativas — VPL
-    ["Alternativas VPL", "Tap trf_6_4910a + trf_11_305a", 1283, "", "", "USD"],
+    ["Alternativas VPL", config["alternativas"][1]["descricao"], 1283, "", "", "USD"],
     ["Alternativas VPL", "Ajuste FP 0,92→0,95", 20, "", "", "USD"],
-    ["Alternativas VPL", "Recondutoramento smt_29422", -914, "", "", "USD"],
+    ["Alternativas VPL", config["alternativas"][4]["descricao"], -914, "", "", "USD"],
     ["Alternativas VPL", "Novo trafo 30 kVA paralelo", -2674, "", "", "USD"],
     ["Alternativas VPL", "Novo trafo 45 kVA paralelo", -3359, "", "", "USD"],
     ["Alternativas VPL", "Regulador de tensão", -6207, "", "", "USD"],
-    ["Alternativas VPL", "Capacitor automático 1200 kvar", -8008, "", "", "USD"],
-    ["Alternativas VPL", "Capacitor fixo 600 kvar", -27727, "", "", "USD"],
+    ["Alternativas VPL", config["alternativas"][3]["descricao"], -8008, "", "", "USD"],
+    ["Alternativas VPL", config["alternativas"][2]["descricao"], -27727, "", "", "USD"],
 
     # Tap — resultados
     ["Alternativa Tap", "trf_6_4910a carregamento c/tap", 85.5, 93.8, 102.1, "%"],
@@ -287,7 +292,7 @@ print(f"  Colunas: Categoria, Métrica, Ano1, Ano2, Ano3, Unidade")
 # 5. TABELA PRODIST DRP/DRC
 # ===========================================================================
 print(f"\n{'='*70}")
-print("5. TABELA PRODIST — DRP/DRC POR BARRAMENTO (CASO BASE, ANO 1)")
+print("[07.06] TABELA PRODIST — DRP/DRC POR BARRAMENTO (CASO BASE, ANO 1)")
 print("="*70)
 
 # Carrega o caso base e coleta tensões horárias por barramento BT
@@ -321,15 +326,14 @@ for h in range(24):
 # Crítica:   < 0,871 ou > 1,061
 
 def faixas_prodist(vpus):
-    """Retorna DRP e DRC em % (relativo a 1008 leituras mensais)."""
-    # Extrapola 24h → 1008 leituras (24h × 42 dias... não, é 30 dias × 24h × 1.4)
-    # PRODIST: 1008 leituras de 10min por mês = 24h × 42
-    # Aproximação: cada hora = 6 leituras de 10min
-    n_leituras = len(vpus) * 6  # 24h × 6 = 144 leituras diárias
-    n_total    = 1008  # leituras mensais padrão PRODIST
+    """Retorna DRP e DRC em % (relativo a 1008 leituras mensais).
+    Fator correto: 1h de violação = 6 leituras × 7 dias = 42 leituras mensais.
+    """
+    n_total = 1008  # leituras mensais padrão PRODIST (7 dias × 24h × 6)
+    fator   = 42    # 6 leituras/h × 7 dias
 
-    n_prec = sum(1 for v in vpus if 0.871 <= v < 0.921 or 1.050 < v <= 1.061) * 6
-    n_crit = sum(1 for v in vpus if v < 0.871 or v > 1.061) * 6
+    n_prec = sum(1 for v in vpus if 0.871 <= v < 0.921 or 1.050 < v <= 1.061) * fator
+    n_crit = sum(1 for v in vpus if v < 0.871 or v > 1.061) * fator
 
     drp = 100 * n_prec / n_total
     drc = 100 * n_crit / n_total

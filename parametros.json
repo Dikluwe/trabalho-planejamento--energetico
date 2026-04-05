@@ -1,0 +1,96 @@
+{
+  "caminhos": {
+    "dss_file": "Master.dss",
+    "output_base": "Resultados"
+  },
+  "economico": {
+    "taxa_desconto": 0.14,
+    "tarifa_venda_usd_mwh": 150.0,
+    "preco_compra_usd_mwh": 35.0,
+    "tusd_usd_mwh": 90.0
+  },
+  "tecnico": {
+    "limite_min_pu": 0.95,
+    "limite_max_pu": 1.05
+  },
+  "simulacao": {
+    "crescimento_carga": 0.1,
+    "degradacao_gd": 0.007,
+    "vida_util_projeto": 15
+  },
+  "financeiro_extra": {
+    "custo_remane_usd": 4000.0,
+    "custo_emergencia_usd": 10000.0,
+    "custo_recond_usd_metro": 10.0
+  },
+  "graficos": {
+    "trafo_critico": "trf_6_4910a",
+    "medidor_subestacao": "busa4-_202312598_segmmt_24122",
+    "linha_critica": "rbt_632607"
+  },
+  "alternativas": [
+    {
+      "descricao": "Ajuste de tap — trf_6_4910a (+1 derivacao)",
+      "comandos_dss": [
+        "Edit Transformer.TRF_6_4910A wdg=1 tap=1.0260"
+      ],
+      "custo_inicial_usd": 750.0,
+      "custo_manutencao_anual_usd": 0.0,
+      "vida_util_anos": 15
+    },
+    {
+      "descricao": "Ajuste de tap — trf_6_4910a + trf_11_305a",
+      "comandos_dss": [
+        "Edit Transformer.TRF_6_4910A wdg=1 tap=1.0260",
+        "Edit Transformer.TRF_11_305A wdg=1 tap=1.0260"
+      ],
+      "custo_inicial_usd": 1500.0,
+      "custo_manutencao_anual_usd": 0.0,
+      "vida_util_anos": 15
+    },
+    {
+      "descricao": "Capacitor fixo 600 kvar (barra 9051)",
+      "comandos_dss": [
+        "New Capacitor.CAP1 bus1=9051 phases=3 kvar=600 kv=23.1"
+      ],
+      "custo_inicial_usd": 7031.0,
+      "custo_manutencao_anual_usd": 341.0,
+      "vida_util_anos": 15
+    },
+    {
+      "descricao": "Capacitor automatico 1200 kvar (barra 9051)",
+      "comandos_dss": [
+        "New Capacitor.CAP2 bus1=9051 phases=3 kvar=1200 kv=23.1",
+        "New CapControl.CC2 element=Line.smt_14449 terminal=1 capacitor=CAP2 type=kvar onsetting=0.12 offsetting=0.05"
+      ],
+      "custo_inicial_usd": 12246.0,
+      "custo_manutencao_anual_usd": 1023.0,
+      "vida_util_anos": 15
+    },
+    {
+      "descricao": "Recondutoramento smt_29422 — 4/0 CA",
+      "comandos_dss": [
+        "Edit Line.smt_29422 R1=0.267 X1=0.432 NormAmps=305"
+      ],
+      "custo_inicial_usd": 955.5,
+      "custo_manutencao_anual_usd": 0.0,
+      "vida_util_anos": 15
+    },
+    {
+      "descricao": "Recondutoramento smt_29422 — 336,4 CA",
+      "comandos_dss": [
+        "Edit Line.smt_29422 R1=0.187 X1=0.403 NormAmps=419"
+      ],
+      "custo_inicial_usd": 1073.1,
+      "custo_manutencao_anual_usd": 0.0,
+      "vida_util_anos": 15
+    }
+  ],
+  "capacitor_alvo": {
+    "barramento": "181",
+    "linha_referencia": "smt_6350",
+    "kvar_calculado": 50,
+    "onsetting_sugerido": 37,
+    "offsetting_sugerido": 15
+  }
+}

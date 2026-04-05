@@ -1,4 +1,4 @@
-# testar_capcontrol.py
+# 03_testar_capcontrol.py
 # Testa o capacitor automático isoladamente e verifica se o CapControl atua
 
 import sys
@@ -9,10 +9,13 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+MASTER = str(HERE / config["caminhos"]["dss_file"])
 
 print("\n" + "="*60)
-print("TESTE DO CAPACITOR AUTOMÁTICO — barra 9051")
+print("[03.04] TESTE DO CAPACITOR AUTOMÁTICO — barra 9051")
 print("="*60)
 
 # ---------------------------------------------------------------------------
@@ -66,7 +69,7 @@ onsetting = max(50, int(q_max_base * 0.6))
 offsetting = max(30, int(q_max_base * 0.4))
 
 print(f"\n{'='*60}")
-print(f"RETESTANDO com onsetting={onsetting} offsetting={offsetting}")
+print(f"[03.05] RETESTANDO com onsetting={onsetting} offsetting={offsetting}")
 print(f"{'='*60}")
 
 dss.Text.Command = "Clear"

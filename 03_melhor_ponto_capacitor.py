@@ -1,4 +1,4 @@
-# melhor_ponto_capacitor.py
+# 03_melhor_ponto_capacitor.py
 # Identifica o barramento com maior déficit reativo noturno
 # onde um capacitor automático teria benefício mínimo real
 
@@ -10,10 +10,13 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+MASTER = str(HERE / config["caminhos"]["dss_file"])
 
 print("\n" + "="*70)
-print("ANÁLISE NOTURNA DE REATIVO — MELHOR PONTO PARA CAPACITOR AUTOMÁTICO")
+print("[03.01] ANÁLISE NOTURNA DE REATIVO — MELHOR PONTO PARA CAPACITOR AUTOMÁTICO")
 print("="*70)
 
 HORAS_NOTURNAS = list(range(0, 6)) + list(range(19, 24))
@@ -91,6 +94,21 @@ print(f"\nDimensionamento (40% do Q max noturno, histerese ampla):")
 print(f"  Capacitor  : {cap_kvar} kvar em 23,1 kV")
 print(f"  onsetting  : {onsetting} kvar  (liga acima de 60% do Q max noturno)")
 print(f"  offsetting : {offsetting} kvar  (desliga abaixo de 25% do Q max noturno)")
+
+# --- ATUALIZAÇÃO DO JSON ---
+json_file = HERE / "parametros.json"
+with open(json_file, 'r', encoding='utf-8') as f:
+    config_data = json.load(f)
+config_data["capacitor_alvo"] = {
+    "barramento": melhor_bus,
+    "linha_referencia": melhor_nome,
+    "kvar_calculado": cap_kvar,
+    "onsetting_sugerido": onsetting,
+    "offsetting_sugerido": offsetting
+}
+with open(json_file, 'w', encoding='utf-8') as f:
+    json.dump(config_data, f, indent=2, ensure_ascii=False)
+print(f"\n[✓] Melhor capacitor ('{melhor_bus}', {cap_kvar} kvar) salvo em parametros.json")
 
 # ---------------------------------------------------------------------------
 # PASSO 2 — Referencia sem capacitor

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Rede CRELUZ — Alimentador 1_REDE2_1 -->
+<!-- Coordenadas: WGS84 lon/lat -->
+<!-- BBox: lon [-53.772925, -53.536368] lat [-27.894635, -27.508314] -->
+<!-- Para importar no QGIS: Layer > Add Layer > Add Vector Layer (SVG) -->
+<!-- Para usar no Leaflet: L.svgOverlay(svg, [[-27.894635,-53.772925],[-27.508314,-53.536368]]) -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="-53.77292542 -27.89463538 0.23655775 0.38632168"
+     width="1200" height="1959"
+     style="background:transparent">
+  <title>CRELUZ — Transformadores</title>
+  <g id="transformadores">
+    <circle cx="-53.57423197" cy="-27.57744307" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_1030a | 10 kVA | 3.7%</title></circle>
+    <circle cx="-53.68547996" cy="-27.74963693" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_16_1585a | 15 kVA | 1.2%</title></circle>
+    <circle cx="-53.59893093" cy="-27.74492762" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_16_3545a | 10 kVA | 0.4%</title></circle>
+    <circle cx="-53.60269022" cy="-27.74150653" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_16_1143a | 30 kVA | 23.1%</title></circle>
+    <circle cx="-53.57179567" cy="-27.56671517" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_725a | 10 kVA | 0.3%</title></circle>
+    <circle cx="-53.70661068" cy="-27.71036958" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_3820a | 15 kVA | 5.9%</title></circle>
+    <circle cx="-53.70668256" cy="-27.70335192" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_4910a | 30 kVA | 32.7%</title></circle>
+    <circle cx="-53.71417918" cy="-27.70228982" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_127a | 15 kVA | 7.8%</title></circle>
+    <circle cx="-53.70877170" cy="-27.69436168" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_1541a | 15 kVA | 39.8%</title></circle>
+    <circle cx="-53.64076139" cy="-27.68545932" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_1503a | 10 kVA | 3.4%</title></circle>
+    <circle cx="-53.72459182" cy="-27.73190848" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_6272a | 15 kVA | 1.7%</title></circle>
+    <circle cx="-53.73056111" cy="-27.73397205" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_128a | 15 kVA | 2.9%</title></circle>
+    <circle cx="-53.65908699" cy="-27.55476514" r="0.00046930" fill="#27ae60" stroke="white" stroke-width="0.00007039" opacity="0.85"><title>trf_6_1350a | 45 kVA | 17.5%</title></circle>
+    <circle cx="-53.65272512" cy="-27.56259100" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_808a | 15 kVA | 4.5%</title></circle>
+    <circle cx="-53.64442888" cy="-27.68346330" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_1475a | 15 kVA | 5.4%</title></circle>
+    <circle cx="-53.58854375" cy="-27.70072165" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_1146a | 10 kVA | 53.5%</title></circle>
+    <circle cx="-53.58897058" cy="-27.73976071" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_16_1140a | 10 kVA | 0.4%</title></circle>
+    <circle cx="-53.59180485" cy="-27.74246631" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_16_5474a | 10 kVA | 5.3%</title></circle>
+    <circle cx="-53.59151380" cy="-27.75351338" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_16_3548a | 10 kVA | 7.7%</title></circle>
+    <circle cx="-53.59335880" cy="-27.75819447" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_16_1141a | 15 kVA | 4.3%</title></circle>
+    <circle cx="-53.63851795" cy="-27.55034619" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_810a | 30 kVA | 3.7%</title></circle>
+    <circle cx="-53.66966738" cy="-27.74740959" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_16_300a | 15 kVA | 3.6%</title></circle>
+    <circle cx="-53.66642831" cy="-27.74560593" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_16_3130a | 30 kVA | 5.2%</title></circle>
+    <circle cx="-53.72718023" cy="-27.77137336" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_11_4955a | 15 kVA | 16.0%</title></circle>
+    <circle cx="-53.72658595" cy="-27.77532229" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_11_131a | 10 kVA | 6.0%</title></circle>
+    <circle cx="-53.55001451" cy="-27.61796439" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_1048a | 15 kVA | 1.7%</title></circle>
+    <circle cx="-53.73800574" cy="-27.74304164" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_129a | 10 kVA | 4.9%</title></circle>
+    <circle cx="-53.75060545" cy="-27.74283117" r="0.00019842" fill="#27ae60" stroke="white" stroke-width="0.00002976" opacity="0.85"><title>trf_34_1018a | 5 kVA | 5.9%</title></circle>
+    <circle cx="-53.67586976" cy="-27.75109299" r="0.00039683" fill="#27ae60" stroke="white" stroke-width="0.00005952" opacity="0.85"><title>trf_16_5730a | 25 kVA | 1.7%</title></circle>
+    <circle cx="-53.58527231" cy="-27.72683461" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_16_1144a | 15 kVA | 4.6%</title></circle>
+    <circle cx="-53.65917146" cy="-27.53259979" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_6273a | 30 kVA | 48.4%</title></circle>
+    <circle cx="-53.58009710" cy="-27.59892654" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_1238a | 15 kVA | 4.6%</title></circle>
+    <circle cx="-53.57137602" cy="-27.61250492" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_731a | 15 kVA | 1.6%</title></circle>
+    <circle cx="-53.57582753" cy="-27.62120426" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_732a | 30 kVA | 3.2%</title></circle>
+    <circle cx="-53.64335034" cy="-27.73029498" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_16_6082a | 15 kVA | 28.7%</title></circle>
+    <circle cx="-53.66048623" cy="-27.71861468" r="0.00019842" fill="#27ae60" stroke="white" stroke-width="0.00002976" opacity="0.85"><title>trf_16_537a | 5 kVA | 2.9%</title></circle>
+    <circle cx="-53.65792452" cy="-27.71514661" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_16_3996a | 15 kVA | 12.6%</title></circle>
+    <circle cx="-53.66202225" cy="-27.74637829" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_16_1095a | 15 kVA | 3.3%</title></circle>
+    <circle cx="-53.59446094" cy="-27.59011031" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_730a | 15 kVA | 2.0%</title></circle>
+    <circle cx="-53.75710083" cy="-27.73554444" r="0.00019842" fill="#27ae60" stroke="white" stroke-width="0.00002976" opacity="0.85"><title>trf_34_1649a | 5 kVA | 3.3%</title></circle>
+    <circle cx="-53.76342626" cy="-27.73343313" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_34_5029a | 10 kVA | 35.5%</title></circle>
+    <circle cx="-53.72403211" cy="-27.78273322" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_11_132a | 10 kVA | 4.2%</title></circle>
+    <circle cx="-53.68717142" cy="-27.72509782" r="0.00039683" fill="#27ae60" stroke="white" stroke-width="0.00005952" opacity="0.85"><title>trf_16_3221a | 25 kVA | 5.3%</title></circle>
+    <circle cx="-53.70645483" cy="-27.75614397" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_16_504a | 15 kVA | 5.2%</title></circle>
+    <circle cx="-53.62585838" cy="-27.60309154" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_735a | 10 kVA | 1.2%</title></circle>
+    <circle cx="-53.58583334" cy="-27.58978599" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_729a | 15 kVA | 7.7%</title></circle>
+    <circle cx="-53.65402264" cy="-27.73764848" r="0.00046930" fill="#27ae60" stroke="white" stroke-width="0.00007039" opacity="0.85"><title>trf_16_299a | 45 kVA | 3.6%</title></circle>
+    <circle cx="-53.65429348" cy="-27.73622438" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_16_1301a | 10 kVA | 2.9%</title></circle>
+    <circle cx="-53.65371327" cy="-27.72794894" r="0.00039683" fill="#27ae60" stroke="white" stroke-width="0.00005952" opacity="0.85"><title>trf_16_2139a | 25 kVA | 7.3%</title></circle>
+    <circle cx="-53.76347378" cy="-27.72913072" r="0.00039683" fill="#27ae60" stroke="white" stroke-width="0.00005952" opacity="0.85"><title>trf_6_1019a | 25 kVA | 17.2%</title></circle>
+    <circle cx="-53.73648866" cy="-27.74862325" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_11_2597a | 10 kVA | 5.0%</title></circle>
+    <circle cx="-53.72791036" cy="-27.76317779" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_11_130a | 15 kVA | 2.9%</title></circle>
+    <circle cx="-53.60310419" cy="-27.60679281" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_733a | 10 kVA | 0.5%</title></circle>
+    <circle cx="-53.68899810" cy="-27.78764299" r="0.00053227" fill="#27ae60" stroke="white" stroke-width="0.00007984" opacity="0.85"><title>trf_11_305a | 75 kVA | 74.7%</title></circle>
+    <circle cx="-53.66493738" cy="-27.72562929" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_16_539a | 10 kVA | 0.3%</title></circle>
+    <circle cx="-53.59901366" cy="-27.65421819" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_1151a | 30 kVA | 2.5%</title></circle>
+    <circle cx="-53.57963827" cy="-27.66176789" r="0.00053227" fill="#27ae60" stroke="white" stroke-width="0.00007984" opacity="0.85"><title>trf_6_4764a | 75 kVA | 0.4%</title></circle>
+    <circle cx="-53.57489207" cy="-27.65747496" r="0.00061773" fill="#27ae60" stroke="white" stroke-width="0.00009266" opacity="0.85"><title>trf_6_4765a | 150 kVA | 0.3%</title></circle>
+    <circle cx="-53.67127712" cy="-27.71956229" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_16_538a | 30 kVA | 1.9%</title></circle>
+    <circle cx="-53.71149386" cy="-27.79378297" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_11_133a | 10 kVA | 0.3%</title></circle>
+    <circle cx="-53.55228450" cy="-27.55387476" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_723a | 15 kVA | 4.5%</title></circle>
+    <circle cx="-53.55769743" cy="-27.54703868" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_722a | 15 kVA | 1.4%</title></circle>
+    <circle cx="-53.54311049" cy="-27.59076055" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_726a | 15 kVA | 0.5%</title></circle>
+    <circle cx="-53.60515853" cy="-27.64232519" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_737a | 15 kVA | 4.3%</title></circle>
+    <circle cx="-53.55286063" cy="-27.60644113" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_728a | 30 kVA | 3.9%</title></circle>
+    <circle cx="-53.73278769" cy="-27.71739774" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_125a | 10 kVA | 0.5%</title></circle>
+    <circle cx="-53.72106301" cy="-27.71571424" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_3011a | 10 kVA | 1.5%</title></circle>
+    <circle cx="-53.71025178" cy="-27.71109041" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_3819a | 30 kVA | 5.0%</title></circle>
+    <circle cx="-53.74367406" cy="-27.70720195" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_1344a | 10 kVA | 1.7%</title></circle>
+    <circle cx="-53.75592256" cy="-27.70338555" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_122a | 10 kVA | 0.5%</title></circle>
+    <circle cx="-53.73447393" cy="-27.70017230" r="0.00039683" fill="#27ae60" stroke="white" stroke-width="0.00005952" opacity="0.85"><title>trf_6_1212a | 25 kVA | 2.2%</title></circle>
+    <circle cx="-53.72867674" cy="-27.69647618" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_1213a | 10 kVA | 1.5%</title></circle>
+    <circle cx="-53.59096259" cy="-27.70860740" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_1139a | 15 kVA | 67.3%</title></circle>
+    <circle cx="-53.58484231" cy="-27.71927479" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_1145a | 10 kVA | 3.2%</title></circle>
+    <circle cx="-53.69088564" cy="-27.75810526" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_16_302a | 10 kVA | 1.4%</title></circle>
+    <circle cx="-53.68530616" cy="-27.74597060" r="0.00039683" fill="#27ae60" stroke="white" stroke-width="0.00005952" opacity="0.85"><title>trf_16_301a | 25 kVA | 1.2%</title></circle>
+    <circle cx="-53.74478563" cy="-27.71948459" r="0.00046930" fill="#27ae60" stroke="white" stroke-width="0.00007039" opacity="0.85"><title>trf_6_124a | 45 kVA | 6.6%</title></circle>
+    <circle cx="-53.68499585" cy="-27.76482849" r="0.00046930" fill="#27ae60" stroke="white" stroke-width="0.00007039" opacity="0.85"><title>trf_16_6318a | 45 kVA | 3.0%</title></circle>
+    <circle cx="-53.68506589" cy="-27.76616637" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_16_303a | 15 kVA | 2.2%</title></circle>
+    <circle cx="-53.59673633" cy="-27.55225633" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_1256a | 10 kVA | 1.2%</title></circle>
+    <circle cx="-53.60530327" cy="-27.55931420" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_2090a | 15 kVA | 5.2%</title></circle>
+    <circle cx="-53.63343949" cy="-27.56433258" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_1445a | 10 kVA | 3.6%</title></circle>
+    <circle cx="-53.59618780" cy="-27.66390020" r="0.00058226" fill="#27ae60" stroke="white" stroke-width="0.00008734" opacity="0.85"><title>trf_6_4766a | 112 kVA | 0.3%</title></circle>
+    <circle cx="-53.69116202" cy="-27.79400043" r="0.00061773" fill="#27ae60" stroke="white" stroke-width="0.00009266" opacity="0.85"><title>trf_11_4675a | 150 kVA | 0.3%</title></circle>
+    <circle cx="-53.54128265" cy="-27.55898696" r="0.00070318" fill="#27ae60" stroke="white" stroke-width="0.00010548" opacity="0.85"><title>trf_6_4662a | 300 kVA | 0.2%</title></circle>
+    <circle cx="-53.63207212" cy="-27.68085477" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_1178a | 15 kVA | 2.9%</title></circle>
+    <circle cx="-53.71182220" cy="-27.70127826" r="0.00039683" fill="#27ae60" stroke="white" stroke-width="0.00005952" opacity="0.85"><title>trf_6_4249a | 25 kVA | 16.7%</title></circle>
+    <circle cx="-53.64282062" cy="-27.67868690" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_2887a | 10 kVA | 4.0%</title></circle>
+    <circle cx="-53.64431678" cy="-27.67424953" r="0.00019842" fill="#27ae60" stroke="white" stroke-width="0.00002976" opacity="0.85"><title>trf_6_2064a | 5 kVA | 3.4%</title></circle>
+    <circle cx="-53.58453237" cy="-27.68254768" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_1960a | 10 kVA | 3.3%</title></circle>
+    <circle cx="-53.58284307" cy="-27.68410407" r="0.00039683" fill="#27ae60" stroke="white" stroke-width="0.00005952" opacity="0.85"><title>trf_6_6394a | 25 kVA | 2.5%</title></circle>
+    <circle cx="-53.57543670" cy="-27.68432687" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_3613a | 10 kVA | 1.5%</title></circle>
+    <circle cx="-53.60236482" cy="-27.66724632" r="0.00019842" fill="#27ae60" stroke="white" stroke-width="0.00002976" opacity="0.85"><title>trf_6_738a | 5 kVA | 0.4%</title></circle>
+    <circle cx="-53.68757162" cy="-27.78425912" r="0.00066771" fill="#27ae60" stroke="white" stroke-width="0.00010016" opacity="0.85"><title>trf_16_4674a | 225 kVA | 0.3%</title></circle>
+    <circle cx="-53.61128053" cy="-27.73990885" r="0.00053227" fill="#27ae60" stroke="white" stroke-width="0.00007984" opacity="0.85"><title>trf_16_4687a | 75 kVA | 0.4%</title></circle>
+    <circle cx="-53.68506589" cy="-27.76616637" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_16_2658a | 15 kVA | 1.5%</title></circle>
+    <circle cx="-53.62229716" cy="-27.68641628" r="0.00053227" fill="#27ae60" stroke="white" stroke-width="0.00007984" opacity="0.85"><title>trf_6_1177a | 75 kVA | 2.2%</title></circle>
+    <circle cx="-53.62178643" cy="-27.68602534" r="0.00061773" fill="#27ae60" stroke="white" stroke-width="0.00009266" opacity="0.85"><title>trf_6_4661a | 150 kVA | 0.3%</title></circle>
+    <circle cx="-53.71138855" cy="-27.72086538" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_3019a | 10 kVA | 2.7%</title></circle>
+    <circle cx="-53.58601891" cy="-27.70505032" r="0.00019842" fill="#27ae60" stroke="white" stroke-width="0.00002976" opacity="0.85"><title>trf_6_3013a | 5 kVA | 11.8%</title></circle>
+    <circle cx="-53.68593361" cy="-27.75231795" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_16_3364a | 15 kVA | 2.4%</title></circle>
+    <circle cx="-53.64746231" cy="-27.68925041" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_3563a | 10 kVA | 6.2%</title></circle>
+    <circle cx="-53.58194149" cy="-27.71635151" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_3010a | 10 kVA | 1.1%</title></circle>
+    <circle cx="-53.61440999" cy="-27.55880085" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_3142a | 10 kVA | 1.9%</title></circle>
+    <circle cx="-53.59728512" cy="-27.75325153" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_16_3908a | 10 kVA | 0.0%</title></circle>
+    <circle cx="-53.57927223" cy="-27.69754405" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_3012a | 10 kVA | 1.5%</title></circle>
+    <circle cx="-53.67236620" cy="-27.74559405" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_16_3997a | 30 kVA | 2.2%</title></circle>
+    <circle cx="-53.59620448" cy="-27.73552926" r="0.00046930" fill="#27ae60" stroke="white" stroke-width="0.00007039" opacity="0.85"><title>trf_16_1142a | 45 kVA | 2.9%</title></circle>
+    <circle cx="-53.63466240" cy="-27.59622648" r="0.00070318" fill="#27ae60" stroke="white" stroke-width="0.00010548" opacity="0.85"><title>trf_6_5725a | 300 kVA | 0.2%</title></circle>
+    <circle cx="-53.60008626" cy="-27.66712225" r="0.00058226" fill="#27ae60" stroke="white" stroke-width="0.00008734" opacity="0.85"><title>trf_6_4925a | 112 kVA | 0.3%</title></circle>
+    <circle cx="-53.74252999" cy="-27.74039754" r="0.00033386" fill="#27ae60" stroke="white" stroke-width="0.00005008" opacity="0.85"><title>trf_6_3256a | 15 kVA | 11.8%</title></circle>
+    <circle cx="-53.59114596" cy="-27.59211414" r="0.00058226" fill="#27ae60" stroke="white" stroke-width="0.00008734" opacity="0.85"><title>trf_6_4998a | 112 kVA | 0.3%</title></circle>
+    <circle cx="-53.59495274" cy="-27.75548148" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_16_5055a | 10 kVA | 9.0%</title></circle>
+    <circle cx="-53.54967934" cy="-27.57628341" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_724a | 30 kVA | 2.1%</title></circle>
+    <circle cx="-53.53636767" cy="-27.59053723" r="0.00070318" fill="#27ae60" stroke="white" stroke-width="0.00010548" opacity="0.85"><title>trf_6_5157a | 300 kVA | 0.2%</title></circle>
+    <circle cx="-53.60887515" cy="-27.62980924" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_5085a | 30 kVA | 3.7%</title></circle>
+    <circle cx="-53.70790064" cy="-27.69325893" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_5595a | 30 kVA | 20.1%</title></circle>
+    <circle cx="-53.56443823" cy="-27.54693815" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_5711a | 30 kVA | 1.8%</title></circle>
+    <circle cx="-53.56793697" cy="-27.52879756" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_5712a | 30 kVA | 8.9%</title></circle>
+    <circle cx="-53.64589233" cy="-27.56737514" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_5659a | 30 kVA | 1.1%</title></circle>
+    <circle cx="-53.64532998" cy="-27.56828622" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_6_1262a | 10 kVA | 2.4%</title></circle>
+    <circle cx="-53.58674977" cy="-27.75874425" r="0.00028387" fill="#27ae60" stroke="white" stroke-width="0.00004258" opacity="0.85"><title>trf_16_6019a | 10 kVA | 0.6%</title></circle>
+    <circle cx="-53.70858532" cy="-27.70868959" r="0.00046930" fill="#27ae60" stroke="white" stroke-width="0.00007039" opacity="0.85"><title>trf_6_6158a | 45 kVA | 5.5%</title></circle>
+    <circle cx="-53.55324613" cy="-27.51733050" r="0.00053227" fill="#27ae60" stroke="white" stroke-width="0.00007984" opacity="0.85"><title>trf_6_6197a | 75 kVA | 4.9%</title></circle>
+    <circle cx="-53.63270029" cy="-27.68888748" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_6153a | 30 kVA | 11.2%</title></circle>
+    <circle cx="-53.63952359" cy="-27.69282247" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_1504a | 30 kVA | 1.5%</title></circle>
+    <circle cx="-53.65532472" cy="-27.70886370" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_6249a | 30 kVA | 34.4%</title></circle>
+    <circle cx="-53.65295437" cy="-27.72580516" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_16_6312a | 30 kVA | 1.4%</title></circle>
+    <circle cx="-53.59782367" cy="-27.61893661" r="0.00061773" fill="#27ae60" stroke="white" stroke-width="0.00009266" opacity="0.85"><title>trf_6_6386a | 150 kVA | 0.3%</title></circle>
+    <circle cx="-53.59498830" cy="-27.67057005" r="0.00058226" fill="#27ae60" stroke="white" stroke-width="0.00008734" opacity="0.85"><title>trf_6_4627a | 112 kVA | 0.3%</title></circle>
+    <circle cx="-53.67979424" cy="-27.79095854" r="0.00061773" fill="#27ae60" stroke="white" stroke-width="0.00009266" opacity="0.85"><title>trf_11_6443a | 150 kVA | 0.3%</title></circle>
+    <circle cx="-53.70144338" cy="-27.88360448" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_12_6577a | 30 kVA | 0.5%</title></circle>
+    <circle cx="-53.69857096" cy="-27.87805761" r="0.00046930" fill="#27ae60" stroke="white" stroke-width="0.00007039" opacity="0.85"><title>trf_12_6578a | 45 kVA | 0.4%</title></circle>
+    <circle cx="-53.68294040" cy="-27.81060742" r="0.00046930" fill="#27ae60" stroke="white" stroke-width="0.00007039" opacity="0.85"><title>trf_11_6482a | 45 kVA | 0.4%</title></circle>
+    <circle cx="-53.56881662" cy="-27.56571456" r="0.00058226" fill="#27ae60" stroke="white" stroke-width="0.00008734" opacity="0.85"><title>trf_6_6496a | 112 kVA | 0.3%</title></circle>
+    <circle cx="-53.58307407" cy="-27.58289540" r="0.00041931" fill="#27ae60" stroke="white" stroke-width="0.00006290" opacity="0.85"><title>trf_6_727a | 30 kVA | 5.0%</title></circle>
+  </g>
+</svg>

@@ -5,13 +5,16 @@
 import sys
 from pathlib import Path
 from collections import deque
+import json
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-from dss import dss
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+MASTER = str(HERE / config["caminhos"]["dss_file"])
 
-MASTER = str(HERE / "Master.dss")
+from dss import dss
 
 def carregar(loadmult=1.0, cmds=None):
     dss.Text.Command = "Clear"
@@ -23,7 +26,7 @@ def carregar(loadmult=1.0, cmds=None):
     return dss.ActiveCircuit
 
 print("\n" + "="*70)
-print("RANKING DOS PVSystems POR IMPACTO NA REDE")
+print("[09.01] RANKING DOS PVSystems POR IMPACTO NA REDE")
 print("="*70)
 
 # ---------------------------------------------------------------------------
@@ -229,7 +232,7 @@ n_ruim  = sum(1 for _, _, _, s in scored if s <= -2)
 pmpp_total = sum(info["pmpp"] for _, info, _, _ in scored)
 
 print(f"\n{'='*70}")
-print(f"SÍNTESE")
+print(f"[09.02] SÍNTESE")
 print(f"{'='*70}")
 print(f"\n  Total de PVSystems    : {len(scored)}")
 print(f"  Potência total (Pmpp) : {pmpp_total:.0f} kW")

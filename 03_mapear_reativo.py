@@ -1,4 +1,4 @@
-# mapear_reativo.py
+# 03_mapear_reativo.py
 # Mapeia o perfil de potência reativa em todos os barramentos MT
 # para identificar onde um capacitor seria tecnicamente indicado
 
@@ -10,10 +10,13 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+MASTER = str(HERE / config["caminhos"]["dss_file"])
 
 print("\n" + "="*70)
-print("MAPEAMENTO DE DEMANDA REATIVA — REDE MT CRELUZ")
+print("[03.07] MAPEAMENTO DE DEMANDA REATIVA — REDE MT CRELUZ")
 print("="*70)
 
 # Carrega e roda 24h
@@ -96,7 +99,7 @@ if not candidatos:
             print(f"  {nome:<25} Q_med={q_med:>8.2f} Q_max={q_max_linha[nome]:>8.2f} kvar")
 
 print(f"\n{'='*70}")
-print("ANÁLISE DO FATOR DE POTÊNCIA GLOBAL DA REDE")
+print("[03.08] ANÁLISE DO FATOR DE POTÊNCIA GLOBAL DA REDE")
 print(f"{'='*70}")
 
 # Roda 24h completo e verifica fp global

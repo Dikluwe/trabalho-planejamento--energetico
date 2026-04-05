@@ -1,4 +1,4 @@
-# analise_456.py
+# 07_expansao_gd_fluxo_n1.py
 # 4. Expansão da GD (+20% no Ano 3)
 # 5. Fluxo de potência reverso na entrada do alimentador
 # 6. Análise N-1 (abertura da linha de maior carregamento)
@@ -12,8 +12,12 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
-DEGRADACAO_GD = 0.007
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+
+MASTER = str(HERE / config["caminhos"]["dss_file"])
+DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
 
 def carregar(loadmult=1.0, cmds=None):
     dss.Text.Command = "Clear"
@@ -94,9 +98,10 @@ def set_gd(circuit, irr_fator, escala_kva=1.0):
 # 4. EXPANSÃO DA GD
 # ===========================================================================
 print("\n" + "="*70)
-print("4. IMPACTO DA EXPANSÃO DA GD — +20% de capacidade no Ano 3")
+print("[07.07] IMPACTO DA EXPANSÃO DA GD — +20% de capacidade no Ano 3")
 print("="*70)
-print(f"\n  Cenários (Ano 3, LoadMult=1.2, degradação {DEGRADACAO_GD*100:.1f}%/ano):")
+worst_case_mult = 1.0 + 2 * config["simulacao"]["crescimento_carga"]
+print(f"\n  Cenários (Ano 3, LoadMult={worst_case_mult:.2f}, degradação {DEGRADACAO_GD*100:.1f}%/ano):")
 print(f"  A. Caso base (GD degradada 1,4%)")
 print(f"  B. GD original +20% de nova capacidade instalada")
 print(f"  C. GD +20% + tap nos dois trafos")
@@ -125,7 +130,7 @@ for label, escala, cmds in cenarios:
 # 5. FLUXO DE POTÊNCIA REVERSO
 # ===========================================================================
 print(f"\n{'='*70}")
-print("5. FLUXO DE POTÊNCIA REVERSO NA ENTRADA DO ALIMENTADOR")
+print("[07.08] FLUXO DE POTÊNCIA REVERSO NA ENTRADA DO ALIMENTADOR")
 print("="*70)
 
 circuit = carregar(1.0)
@@ -186,7 +191,7 @@ else:
 # 6. ANÁLISE N-1
 # ===========================================================================
 print(f"\n{'='*70}")
-print("6. ANÁLISE N-1 — ABERTURA DA LINHA DE MAIOR CARREGAMENTO")
+print("[07.09] ANÁLISE N-1 — ABERTURA DA LINHA DE MAIOR CARREGAMENTO")
 print("="*70)
 
 LINHA_N1 = "smt_31408"

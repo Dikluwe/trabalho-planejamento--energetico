@@ -1,0 +1,101 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.59498829657258,
+          -27.73237903206666
+        ]
+      },
+      "properties": {
+        "nome": "gd.rs.000.622.799",
+        "Pmpp_kW": 54.0,
+        "kVA": 54.0,
+        "bus": "811221"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.57489206681538,
+          -27.745474123332087
+        ]
+      },
+      "properties": {
+        "nome": "gd.rs.001.255.347",
+        "Pmpp_kW": 54.0,
+        "kVA": 54.0,
+        "bus": "60721"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.56881662388804,
+          -27.837234520156926
+        ]
+      },
+      "properties": {
+        "nome": "gd.rs.001.590.899",
+        "Pmpp_kW": 18.19,
+        "kVA": 19.0,
+        "bus": "822371"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.67979423781378,
+          -27.611990540830732
+        ]
+      },
+      "properties": {
+        "nome": "gd.rs.001.864.524",
+        "Pmpp_kW": 50.85,
+        "kVA": 51.0,
+        "bus": "815111"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.63466239765148,
+          -27.806722599668205
+        ]
+      },
+      "properties": {
+        "nome": "gd.rs.001.922.364",
+        "Pmpp_kW": 60.0,
+        "kVA": 60.0,
+        "bus": "686891"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.57963827218845,
+          -27.741181190659404
+        ]
+      },
+      "properties": {
+        "nome": "gd.rs.000.197.382",
+        "Pmpp_kW": 50.0,
+        "kVA": 50.0,
+        "bus": "60651"
+      }
+    }
+  ]
+}

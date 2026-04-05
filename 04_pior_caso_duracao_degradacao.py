@@ -1,4 +1,4 @@
-# analise_avancada.py
+# 04_pior_caso_duracao_degradacao.py
 # 1. Pior caso diário (LoadMult no pico)
 # 2. Curva de duração de carga dos trafos críticos
 # 3. Horizonte com degradação da GD (0.7% ao ano)
@@ -11,10 +11,15 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
 
-# Degradação típica de painéis cristalinos: 0,7% ao ano
-DEGRADACAO_GD = 0.007
+MASTER = str(HERE / config["caminhos"]["dss_file"])
+DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
+CRESCIMENTO_CARGA = config["simulacao"]["crescimento_carga"]
+ANOS_SIMULACAO = config["simulacao"].get("vida_util_projeto", 3)
+TRAFOS_CRITICOS = [config.get("graficos", {}).get("trafo_critico", "trf_6_4910a"), "trf_11_305a"]
 
 def carregar(loadmult=1.0, gd_fator=1.0):
     dss.Text.Command = "Clear"
@@ -71,10 +76,10 @@ for nome in all_bus_names:
         bt_buses.append(nome)
 
 # ===========================================================================
-# 1. PIOR CASO DIÁRIO — hora de pico (LoadMult máximo do perfil)
+# [04.04] PIOR CASO DIÁRIO — hora de pico (LoadMult máximo do perfil)
 # ===========================================================================
 print("\n" + "="*70)
-print("1. PIOR CASO DIÁRIO — LoadMult no pico (hora 12, máximo do perfil)")
+print("[04.04] PIOR CASO DIÁRIO — LoadMult no pico (hora 12, máximo do perfil)")
 print("="*70)
 
 # Descobre o LoadMult máximo do perfil de carga
@@ -94,19 +99,17 @@ print(f"  Potência total na hora de pico: {loadshape_max:.1f} kW")
 
 # Roda apenas a hora de pico com LoadMult=1.0 fixo
 # (simula toda a carga no pico simultâneo)
-for ano, mult_carga, gd_fat in [
-    (1, 1.0, 1.0),
-    (2, 1.1, 1.0 - DEGRADACAO_GD),
-    (3, 1.2, 1.0 - 2*DEGRADACAO_GD),
-]:
+for ano in range(1, ANOS_SIMULACAO + 1):
+    mult_carga = 1.0 + (ano - 1) * CRESCIMENTO_CARGA
+    gd_fat     = max(0.5, 1.0 - (ano - 1) * DEGRADACAO_GD)
     circuit = carregar(mult_carga, gd_fat)
     # Avança até a hora de pico
     for h in range(hora_pico):
         circuit.Solution.Solve()
 
     # Carregamento dos trafos críticos
-    pct_4910 = trafo_loading(circuit, "trf_6_4910a", kva_trafo.get("trf_6_4910a", 30))
-    pct_305  = trafo_loading(circuit, "trf_11_305a",  kva_trafo.get("trf_11_305a", 75))
+    pct_4910 = trafo_loading(circuit, TRAFOS_CRITICOS[0], kva_trafo.get(TRAFOS_CRITICOS[0], 30))
+    pct_305  = trafo_loading(circuit, TRAFOS_CRITICOS[1], kva_trafo.get(TRAFOS_CRITICOS[1], 75))
 
     # Tensão mínima BT
     vmin = 999.0
@@ -134,77 +137,71 @@ for ano, mult_carga, gd_fat in [
 
     gd_pct = (1 - gd_fat) * 100
     print(f"\n  Ano {ano} (carga ×{mult_carga}, GD -{gd_pct:.1f}%):")
-    print(f"    trf_6_4910a : {pct_4910:.1f}%")
-    print(f"    trf_11_305a : {pct_305:.1f}%")
+    print(f"    {TRAFOS_CRITICOS[0]} : {pct_4910:.1f}%")
+    print(f"    {TRAFOS_CRITICOS[1]} : {pct_305:.1f}%")
     print(f"    Vmin BT     : {vmin:.4f} pu")
     print(f"    Linhas >100%: {n_over}")
 
 # ===========================================================================
-# 2. CURVA DE DURAÇÃO DE CARGA — trafos críticos
+# [04.05] CURVA DE DURAÇÃO DE CARGA — trafos críticos
 # ===========================================================================
 print("\n" + "="*70)
-print("2. CURVA DE DURAÇÃO DE CARGA — trf_6_4910a e trf_11_305a")
+print(f"[04.05] CURVA DE DURAÇÃO DE CARGA — {', '.join(TRAFOS_CRITICOS)}")
 print("="*70)
-
-# Simula os 3 anos com degradação da GD
-# Coleta carregamento hora a hora para cada ano
-TRAFOS_CRITICOS = ["trf_6_4910a", "trf_11_305a"]
 
 for trafo in TRAFOS_CRITICOS:
     kva = kva_trafo.get(trafo, 0)
     print(f"\n  {trafo} ({kva:.0f} kVA):")
-    print(f"  {'Limiar':>8} {'Ano1 h/ano':>12} {'Ano2 h/ano':>12} {'Ano3 h/ano':>12}")
-    print(f"  {'-'*50}")
+    header = " ".join([f"Ano{a} h/ano" for a in range(1, ANOS_SIMULACAO + 1)])
+    print(f"  {'Limiar':>8} {header}")
+    print(f"  {'-'*(50 + (ANOS_SIMULACAO-3)*12)}")
 
     horas_por_ano = {}
-    for ano, mult_carga, gd_fat in [
-        (1, 1.0, 1.0),
-        (2, 1.1, 1.0 - DEGRADACAO_GD),
-        (3, 1.2, 1.0 - 2*DEGRADACAO_GD),
-    ]:
+    for ano in range(1, ANOS_SIMULACAO + 1):
+        mult_carga = 1.0 + (ano - 1) * CRESCIMENTO_CARGA
+        gd_fat     = max(0.5, 1.0 - (ano - 1) * DEGRADACAO_GD)
         circuit = carregar(mult_carga, gd_fat)
         carregamentos = []
         for h in range(24):
             circuit.Solution.Solve()
             pct = trafo_loading(circuit, trafo, kva)
             carregamentos.append(pct)
-        # Extrapola para 365 dias
         horas_por_ano[ano] = carregamentos
 
     for limiar in [70, 80, 90, 100]:
         linha = f"  {limiar:>7}%"
-        for ano in [1, 2, 3]:
+        for ano in range(1, ANOS_SIMULACAO + 1):
             h_acima = sum(1 for p in horas_por_ano[ano] if p > limiar) * 365
             linha += f" {h_acima:>12}"
         print(linha)
 
 # ===========================================================================
-# 3. HORIZONTE COM DEGRADAÇÃO DA GD
+# [04.06] HORIZONTE COM DEGRADAÇÃO DA GD
 # ===========================================================================
 print("\n" + "="*70)
-print("3. HORIZONTE COM DEGRADAÇÃO DA GD (0,7%/ano)")
+print(f"[04.06] HORIZONTE COM DEGRADAÇÃO DA GD ({DEGRADACAO_GD*100:.1f}%/ano)")
 print("="*70)
-print(f"\n  {'Ano':>4} {'Carga':>8} {'GD (%)':>8} {'trf_4910 %':>12} {'trf_305 %':>11} {'Perdas kWh':>12} {'Vmin BT':>9}")
+print(f"\n  {'Ano':>4} {'Carga':>8} {'GD (%)':>8} {'trf_1 %':>12} {'trf_2 %':>11} {'Perdas kWh':>12} {'Vmin BT':>9}")
 print(f"  {'-'*70}")
 
-for ano in range(1, 4):
-    mult_carga = 1.0 + (ano - 1) * 0.1
+for ano in range(1, ANOS_SIMULACAO + 1):
+    mult_carga = 1.0 + (ano - 1) * CRESCIMENTO_CARGA
     gd_fat     = 1.0 - (ano - 1) * DEGRADACAO_GD
 
     circuit = carregar(mult_carga, gd_fat)
     perdas_dia = 0.0
-    pct_4910_max = 0.0
-    pct_305_max  = 0.0
+    pct_1_max = 0.0
+    pct_2_max  = 0.0
     vmin_dia = 999.0
 
     for h in range(24):
         circuit.Solution.Solve()
         perdas_dia += circuit.Losses[0] / 1000.0
 
-        p4 = trafo_loading(circuit, "trf_6_4910a", kva_trafo.get("trf_6_4910a", 30))
-        p3 = trafo_loading(circuit, "trf_11_305a",  kva_trafo.get("trf_11_305a", 75))
-        pct_4910_max = max(pct_4910_max, p4)
-        pct_305_max  = max(pct_305_max, p3)
+        p1 = trafo_loading(circuit, TRAFOS_CRITICOS[0], kva_trafo.get(TRAFOS_CRITICOS[0], 30))
+        p2 = trafo_loading(circuit, TRAFOS_CRITICOS[1], kva_trafo.get(TRAFOS_CRITICOS[1], 75))
+        pct_1_max = max(pct_1_max, p1)
+        pct_2_max  = max(pct_2_max, p2)
 
         for bname in bt_buses:
             vpu = v_pu_bus(circuit, bname)
@@ -212,8 +209,8 @@ for ano in range(1, 4):
                 vmin_dia = vpu
 
     gd_pct = gd_fat * 100
-    print(f"  {ano:>4} {mult_carga:>8.1f} {gd_pct:>8.1f} {pct_4910_max:>12.1f} {pct_305_max:>11.1f} {perdas_dia:>12.1f} {vmin_dia:>9.4f}")
+    print(f"  {ano:>4} {mult_carga:>8.1f} {gd_pct:>8.1f} {pct_1_max:>12.1f} {pct_2_max:>11.1f} {perdas_dia:>12.1f} {vmin_dia:>9.4f}")
 
 print(f"\n  Degradação GD: {DEGRADACAO_GD*100:.1f}%/ano (painel cristalino típico)")
-print(f"  Carga: +10%/ano conforme enunciado")
+print(f"  Carga: +{CRESCIMENTO_CARGA*100:.1f}%/ano conforme enunciado")
 print("="*70)

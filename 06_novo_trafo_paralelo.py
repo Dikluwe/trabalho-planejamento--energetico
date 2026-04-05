@@ -1,4 +1,4 @@
-# novo_trafo.py
+# 06_novo_trafo_paralelo.py
 # Avalia a instalação de um novo trafo em paralelo com o trf_6_4910a
 # para dividir a carga do consumidor uc632607
 
@@ -10,14 +10,21 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
 
-TAXA_DESCONTO = 0.14
-CUSTO_PERDAS  = 35.0
-TARIFA_VENDA  = 150.0
-TUSD          = 90.0
+MASTER = str(HERE / config["caminhos"]["dss_file"])
+TRAFO_ALVO = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
+
+TAXA_DESCONTO = config["economico"]["taxa_desconto"]
+CUSTO_PERDAS  = config["economico"]["preco_compra_usd_mwh"]
+TARIFA_VENDA  = config["economico"]["tarifa_venda_usd_mwh"]
+TUSD          = config["economico"]["tusd_usd_mwh"]
+
+# A vida útil base da alternativa (ex: trafo novo dura mto, mas a avaliação é 15 anos)
 VIDA_UTIL     = 15
-DEGRADACAO_GD = 0.007
+DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
 
 # Custo de um trafo novo 30 kVA instalado em zona rural (Brasil)
 # Inclui trafo, poste, ferragens, instalação
@@ -77,7 +84,7 @@ def vmin_bt(circuit):
 # Inspeciona o ramal do trf_6_4910a para entender a topologia
 # ---------------------------------------------------------------------------
 print("\n" + "="*70)
-print("TOPOLOGIA DO RAMAL trf_6_4910a")
+print("[06.01] TOPOLOGIA DO RAMAL trf_6_4910a")
 print("="*70)
 
 circuit = carregar(1.0)
@@ -162,7 +169,7 @@ print(f"  Trafo atual: 30 kVA → {100*kva_total/30:.1f}% de carregamento estát
 # Ambos conectados ao mesmo barramento MT (9051 via smt_14449)
 # ---------------------------------------------------------------------------
 print(f"\n{'='*70}")
-print("MODELAGEM — NOVO TRAFO 30 kVA EM PARALELO")
+print("[06.02] MODELAGEM — NOVO TRAFO 30 kVA EM PARALELO")
 print("="*70)
 
 # Identifica as duas cargas (dois medidores de uc632607)
@@ -210,7 +217,7 @@ cmds_novo_trafo_45 = [
 ]
 
 print(f"\n{'='*70}")
-print("COMPARAÇÃO — CASO BASE vs NOVO TRAFO 30 kVA vs NOVO TRAFO 45 kVA")
+print("[06.03] COMPARAÇÃO — CASO BASE vs NOVO TRAFO 30 kVA vs NOVO TRAFO 45 kVA")
 print("="*70)
 print(f"\n  {'':>4} {'':>20} {'trf_4910a':>10} {'trf_4910b':>10} "
       f"{'Perdas kWh':>11} {'VminBT':>8}")
@@ -252,7 +259,7 @@ for ano, mult, gd_f in [
             circuit.Solution.Solve()
             perd += circuit.Losses[0] / 1000.0
 
-            circuit.SetActiveElement("Transformer.trf_6_4910a")
+            circuit.SetActiveElement(f"Transformer.{TRAFO_ALVO}")
             powers = circuit.ActiveCktElement.Powers
             n = circuit.ActiveCktElement.NumPhases
             if len(powers) >= n * 2:
@@ -334,7 +341,7 @@ tabela = [
              *365/1000*CUSTO_PERDAS/(1.14**ano) for ano in [1,2,3])
          + 6000*(VIDA_UTIL-3)/VIDA_UTIL/(1.14**3) - 6000), False),
     ("Novo trafo 45 kVA paralelo",          7500,   0,    False),
-    ("Recondutoramento smt_29422",          2207,  -914,  False),
+    ("Recondutoramento da Linha Principal",          2207,  -914,  False),
     ("Capacitor automático 1200 kvar",     12246, -8008,  False),
     ("Capacitor fixo 600 kvar",             7031,-27727,  False),
 ]

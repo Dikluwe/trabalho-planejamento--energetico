@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="380" viewBox="0 0 400 380" style="background:white">
+<text x="200" y="18" text-anchor="middle" font-family='Arial,sans-serif' font-size="11" font-weight="bold" fill="#222222">Ranking PVSystems — Tensão Máxima</text>
+<text x="200" y="28" text-anchor="middle" font-family='Arial,sans-serif' font-size="8" fill="#666">Ano 1, hora de pico solar (LoadMult=1,0)</text>
+<line x1="60.0" y1="30" x2="60.0" y2="320" stroke="#e8e8e8" stroke-width="0.8"/>
+<text x="60.0" y="330" text-anchor="middle" font-family='Arial,sans-serif' font-size="7" fill="#666">0.980</text>
+<line x1="90.5" y1="30" x2="90.5" y2="320" stroke="#e8e8e8" stroke-width="0.8"/>
+<text x="90.5" y="330" text-anchor="middle" font-family='Arial,sans-serif' font-size="7" fill="#666">0.990</text>
+<line x1="121.0" y1="30" x2="121.0" y2="320" stroke="#e8e8e8" stroke-width="0.8"/>
+<text x="121.0" y="330" text-anchor="middle" font-family='Arial,sans-serif' font-size="7" fill="#666">1.000</text>
+<line x1="151.4" y1="30" x2="151.4" y2="320" stroke="#e8e8e8" stroke-width="0.8"/>
+<text x="151.4" y="330" text-anchor="middle" font-family='Arial,sans-serif' font-size="7" fill="#666">1.010</text>
+<line x1="181.9" y1="30" x2="181.9" y2="320" stroke="#e8e8e8" stroke-width="0.8"/>
+<text x="181.9" y="330" text-anchor="middle" font-family='Arial,sans-serif' font-size="7" fill="#666">1.020</text>
+<line x1="212.4" y1="30" x2="212.4" y2="320" stroke="#e8e8e8" stroke-width="0.8"/>
+<text x="212.4" y="330" text-anchor="middle" font-family='Arial,sans-serif' font-size="7" fill="#666">1.030</text>
+<line x1="242.9" y1="30" x2="242.9" y2="320" stroke="#e8e8e8" stroke-width="0.8"/>
+<text x="242.9" y="330" text-anchor="middle" font-family='Arial,sans-serif' font-size="7" fill="#666">1.040</text>
+<line x1="273.3" y1="30" x2="273.3" y2="320" stroke="#e8e8e8" stroke-width="0.8"/>
+<text x="273.3" y="330" text-anchor="middle" font-family='Arial,sans-serif' font-size="7" fill="#666">1.050</text>
+<line x1="303.8" y1="30" x2="303.8" y2="320" stroke="#e8e8e8" stroke-width="0.8"/>
+<text x="303.8" y="330" text-anchor="middle" font-family='Arial,sans-serif' font-size="7" fill="#666">1.060</text>
+<line x1="334.3" y1="30" x2="334.3" y2="320" stroke="#e8e8e8" stroke-width="0.8"/>
+<text x="334.3" y="330" text-anchor="middle" font-family='Arial,sans-serif' font-size="7" fill="#666">1.070</text>
+<line x1="364.8" y1="30" x2="364.8" y2="320" stroke="#e8e8e8" stroke-width="0.8"/>
+<text x="364.8" y="330" text-anchor="middle" font-family='Arial,sans-serif' font-size="7" fill="#666">1.080</text>
+<line x1="273.3" y1="30" x2="273.3" y2="320" stroke="#e67e22" stroke-width="1" stroke-dasharray="3,2"/>
+<text x="275.3" y="38" font-family='Arial,sans-serif' font-size="7" fill="#e67e22">precária</text>
+<line x1="306.9" y1="30" x2="306.9" y2="320" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3,2"/>
+<text x="308.9" y="38" font-family='Arial,sans-serif' font-size="7" fill="#e74c3c">crítica</text>
+<rect x="60.0" y="32.0" width="43.9" height="9.5" fill="#27ae60" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="39.1" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.864.524</text>
+<text x="106.9" y="39.1" font-family='Arial,sans-serif' font-size="6.5" fill="#27ae60">51kW</text>
+<rect x="60.0" y="44.6" width="46.9" height="9.5" fill="#27ae60" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="51.7" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">000.912.708</text>
+<text x="109.9" y="51.7" font-family='Arial,sans-serif' font-size="6.5" fill="#27ae60">5kW</text>
+<rect x="60.0" y="57.2" width="48.5" height="9.5" fill="#27ae60" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="64.3" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.590.899</text>
+<text x="111.5" y="64.3" font-family='Arial,sans-serif' font-size="6.5" fill="#27ae60">18kW</text>
+<rect x="60.0" y="69.8" width="49.1" height="9.5" fill="#27ae60" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="76.9" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.922.364</text>
+<text x="112.1" y="76.9" font-family='Arial,sans-serif' font-size="6.5" fill="#27ae60">60kW</text>
+<rect x="60.0" y="82.4" width="50.6" height="9.5" fill="#27ae60" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="89.5" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">000.197.382</text>
+<text x="113.6" y="89.5" font-family='Arial,sans-serif' font-size="6.5" fill="#27ae60">50kW</text>
+<rect x="60.0" y="95.0" width="50.6" height="9.5" fill="#27ae60" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="102.1" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.255.347</text>
+<text x="113.6" y="102.1" font-family='Arial,sans-serif' font-size="6.5" fill="#27ae60">54kW</text>
+<rect x="60.0" y="107.7" width="51.2" height="9.5" fill="#27ae60" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="114.7" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">000.622.799</text>
+<text x="114.2" y="114.7" font-family='Arial,sans-serif' font-size="6.5" fill="#27ae60">54kW</text>
+<rect x="60.0" y="120.3" width="68.0" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="127.4" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.813.569</text>
+<text x="131.0" y="127.4" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">11kW</text>
+<rect x="60.0" y="132.9" width="74.4" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="140.0" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">002.201.608</text>
+<text x="137.4" y="140.0" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">8kW</text>
+<rect x="60.0" y="145.5" width="80.5" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="152.6" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">000.818.905</text>
+<text x="143.5" y="152.6" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">6kW</text>
+<rect x="60.0" y="158.1" width="82.3" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="165.2" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.813.585</text>
+<text x="145.3" y="165.2" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">6kW</text>
+<rect x="60.0" y="170.7" width="83.5" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="177.8" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">000.097.832</text>
+<text x="146.5" y="177.8" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">8kW</text>
+<rect x="60.0" y="183.3" width="95.7" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="190.4" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">000.966.424</text>
+<text x="158.7" y="190.4" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">5kW</text>
+<rect x="60.0" y="195.9" width="103.6" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="203.0" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.817.303</text>
+<text x="166.6" y="203.0" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">15kW</text>
+<rect x="60.0" y="208.5" width="105.1" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="215.6" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.522.672</text>
+<text x="168.1" y="215.6" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">20kW</text>
+<rect x="60.0" y="221.1" width="112.8" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="228.2" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.675.278</text>
+<text x="175.8" y="228.2" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">12kW</text>
+<rect x="60.0" y="233.7" width="117.3" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="240.8" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.813.605</text>
+<text x="180.3" y="240.8" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">18kW</text>
+<rect x="60.0" y="246.3" width="118.9" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="253.4" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">002.132.491</text>
+<text x="181.9" y="253.4" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">8kW</text>
+<rect x="60.0" y="259.0" width="132.0" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="266.0" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.593.160</text>
+<text x="195.0" y="266.0" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">5kW</text>
+<rect x="60.0" y="271.6" width="132.3" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="278.7" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.590.890</text>
+<text x="195.3" y="278.7" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">8kW</text>
+<rect x="60.0" y="284.2" width="166.1" height="9.5" fill="#3498db" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="291.3" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">000.859.130</text>
+<text x="229.1" y="291.3" font-family='Arial,sans-serif' font-size="6.5" fill="#3498db">6kW</text>
+<rect x="60.0" y="296.8" width="227.0" height="9.5" fill="#e67e22" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="303.9" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">000.371.786</text>
+<text x="290.0" y="303.9" font-family='Arial,sans-serif' font-size="6.5" fill="#e67e22">15kW</text>
+<rect x="60.0" y="309.4" width="301.4" height="9.5" fill="#e74c3c" fill-opacity="0.8" rx="1"/>
+<text x="58.0" y="316.5" text-anchor="end" font-family='Arial,sans-serif' font-size="6.5" fill="#333">001.675.269</text>
+<text x="364.4" y="316.5" font-family='Arial,sans-serif' font-size="6.5" fill="#e74c3c">75kW</text>
+<text x="220" y="375" text-anchor="middle" font-family='Arial,sans-serif' font-size="9" fill="#444">Tensão máxima (pu)</text>
+</svg>

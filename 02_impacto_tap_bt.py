@@ -9,8 +9,12 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 from dss import dss
+import json
 
-MASTER = str(HERE / "Master.dss")
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
+
+MASTER = str(HERE / config["caminhos"]["dss_file"])
 
 # Faixas PRODIST Tabela 5 — BT 220/127V e 380/220V
 # Adequada: 0,921–1,050 pu
@@ -68,10 +72,10 @@ CMD_TAP = [
 ]
 
 print("\n" + "="*70)
-print("IMPACTO DO TAP NO PERFIL DE TENSÃO BT — PRODIST TABELA 5")
+print("[02.04] IMPACTO DO TAP NO PERFIL DE TENSÃO BT — PRODIST TABELA 5")
 print("="*70)
 
-for ano, mult in [(1, 1.0), (2, 1.1), (3, 1.2)]:
+for ano, mult in [(ano, 1.0 + (ano-1)*config["simulacao"]["crescimento_carga"]) for ano in (1, 2, 3)]:
     print(f"\n{'─'*70}")
     print(f"ANO {ano} — LoadMult={mult}")
     print(f"{'─'*70}")
@@ -123,11 +127,16 @@ for ano, mult in [(1, 1.0), (2, 1.1), (3, 1.2)]:
     if not melhoram and not pioram:
         print(f"\n  Nenhum barramento muda de faixa PRODIST com o tap.")
 
-    # Tensão no secundário do trf_6_4910a especificamente
-    v_et6_base = v_base.get("et6_4910", v_base.get("uc632607", None))
-    v_et6_tap  = v_tap.get("et6_4910",  v_tap.get("uc632607", None))
-    if v_et6_base and v_et6_tap:
-        print(f"\n  Tensão no secundário do trf_6_4910a (consumidor uc632607):")
+    trafo = config["graficos"]["trafo_critico"]
+    
+    # Tensão no secundário do trafo alvo (derivado ou hardcoded caso específico)
+    bus_sec = "et6_4910" if trafo == "trf_6_4910a" else f"et{trafo.split('_')[1]}"
+    
+    v_et6_base = v_base.get(bus_sec, v_base.get("uc632607", None))
+    v_et6_tap  = v_tap.get(bus_sec,  v_tap.get("uc632607", None))
+
+    if v_et6_base is not None and v_et6_tap is not None:
+        print(f"\n  Tensão no secundário do {trafo} (consumidor):")
         print(f"    Caso base : {v_et6_base:.4f} pu  ({v_et6_base*220:.1f} V)  [{classificar(v_et6_base)}]")
         print(f"    Com tap   : {v_et6_tap:.4f} pu  ({v_et6_tap*220:.1f} V)  [{classificar(v_et6_tap)}]")
         print(f"    Variação  : {(v_et6_tap-v_et6_base)*100:+.2f}%")

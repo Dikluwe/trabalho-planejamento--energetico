@@ -1,4 +1,4 @@
-# analise_final.py
+# 07_perfil_tensao_balanco_sensibilidade.py
 # 1. Perfil de tensão por distância elétrica da subestação
 # 2. Balanço energético completo (GD vs carga vs perdas hora a hora)
 # 3. Sensibilidade do VPL à taxa de desconto (10%, 14%, 18%)
@@ -11,11 +11,14 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
 
-CUSTO_PERDAS  = 35.0
-TARIFA_VENDA  = 150.0
-TUSD          = 90.0
+MASTER        = str(HERE / config["caminhos"]["dss_file"])
+CUSTO_PERDAS  = config["economico"]["preco_compra_usd_mwh"]
+TARIFA_VENDA  = config["economico"]["tarifa_venda_usd_mwh"]
+TUSD          = config["economico"]["tusd_usd_mwh"]
 VIDA_UTIL     = 15
 
 def carregar(loadmult=1.0, cmds=None):
@@ -32,7 +35,7 @@ def carregar(loadmult=1.0, cmds=None):
 # 1. PERFIL DE TENSÃO POR DISTÂNCIA ELÉTRICA
 # ===========================================================================
 print("\n" + "="*70)
-print("1. PERFIL DE TENSÃO POR DISTÂNCIA ELÉTRICA DA SUBESTAÇÃO")
+print("[07.10] PERFIL DE TENSÃO POR DISTÂNCIA ELÉTRICA DA SUBESTAÇÃO")
 print("="*70)
 
 circuit = carregar(1.0)
@@ -110,7 +113,7 @@ if criticos_bt:
 # 2. BALANÇO ENERGÉTICO HORA A HORA
 # ===========================================================================
 print(f"\n{'='*70}")
-print("2. BALANÇO ENERGÉTICO HORA A HORA — COM GD vs SEM GD (Ano 1)")
+print("[07.11] BALANÇO ENERGÉTICO HORA A HORA — COM GD vs SEM GD (Ano 1)")
 print("="*70)
 
 # COM GD
@@ -187,13 +190,13 @@ print(f"  Horas com fluxo reverso          : {horas_reverso}/24")
 # 3. SENSIBILIDADE DO VPL À TAXA DE DESCONTO
 # ===========================================================================
 print(f"\n{'='*70}")
-print("3. SENSIBILIDADE DO VPL — TAXA DE DESCONTO")
+print("[07.12] SENSIBILIDADE DO VPL — TAXA DE DESCONTO")
 print("="*70)
 
 # Benefícios anuais calculados no main_trabalho (tap nos dois trafos)
 # Ano 1: USD 970, Ano 2: USD 760, Ano 3: USD 794 (mensal × 12)
 BEN = {1: 970.04*12/12, 2: 760.16*12/12, 3: 796.47*12/12}
-CAPEX = 1500.0
+CAPEX = config["alternativas"][1]["custo_inicial_usd"]
 
 print(f"\n  Alternativa: Tap trf_6_4910a + trf_11_305a")
 print(f"  CAPEX: USD {CAPEX:,.0f}")

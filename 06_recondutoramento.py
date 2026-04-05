@@ -12,16 +12,22 @@ sys.path.insert(0, str(HERE))
 
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
+import json
+with open(HERE / "parametros.json", "r") as f:
+    config = json.load(f)
 
-TAXA_DESCONTO = 0.14
-TARIFA_VENDA  = 150.0   # USD/MWh
-CUSTO_PERDAS  = 35.0    # USD/MWh
-TUSD          = 90.0    # USD/MWh
-VIDA_UTIL     = 15
+MASTER = str(HERE / config["caminhos"]["dss_file"])
+TRAFO_ALVO = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
+
+TAXA_DESCONTO = config["economico"]["taxa_desconto"]
+TARIFA_VENDA  = config["economico"]["tarifa_venda_usd_mwh"]
+CUSTO_PERDAS  = config["economico"]["preco_compra_usd_mwh"]
+TUSD          = config["economico"]["tusd_usd_mwh"]
+VIDA_UTIL     = config["simulacao"]["vida_util_projeto"]
 # Custo de recondutoramento MT zona rural: ~USD 15/m para cabo ACSR maior
 # Fonte: referência mercado brasileiro distribuidoras rurais
-CUSTO_RECOND_POR_METRO = 15.0  # USD/m
+# Custo por condutor definido na Tabela 1 do enunciado (USD/km)
+CUSTO_RECOND_POR_METRO = config["financeiro_extra"]["custo_recond_usd_metro"]
 
 def carregar(loadmult=1.0, cmds_extras=None):
     dss.Text.Command = "Clear"
@@ -58,14 +64,14 @@ def resumo_diario(circuit, loadmult):
                 vmag = circuit.ActiveBus.VMagAngle
                 if len(vmag) >= 1:
                     nn = circuit.ActiveBus.NumNodes
-                    vbase_v = kv * 1000 if nn < 3 else kv * 1000 / 3**0.5
+                    vbase_v = kv * 1000  # kVBase já é tensão de fase nesta rede
                     vpu = vmag[0] / vbase_v
                     if 0.01 < vpu < 0.921:
                         lv_violation_horas += 1
                         break
 
         # Trafo crítico
-        circuit.SetActiveElement("Transformer.trf_6_4910a")
+        circuit.SetActiveElement(f"Transformer.{TRAFO_ALVO}")
         powers = circuit.ActiveCktElement.Powers
         n = circuit.ActiveCktElement.NumPhases
         if len(powers) >= n * 2:
@@ -80,7 +86,11 @@ def resumo_diario(circuit, loadmult):
     fat_mes      = energia_mes * TARIFA_VENDA
     custo_perd   = perdas_mes  * CUSTO_PERDAS
     # Compensação PRODIST proporcional às violações
-    comp_mes     = lv_violation_horas / 24 * energia_mes * TUSD * 0.03 * 3
+    # AVISO: aproximação — não usa fórmula exata do PRODIST Módulo 8.
+    # Para resultados do relatório, usar apenas 01_main_trabalho.py.
+    # Fator correto: 1h = 6 leituras × 7 dias = 42 leituras / 1008 total
+    drp_fator = 42 / 1008  # fração de leituras mensais por hora de violação
+    comp_mes  = drp_fator * lv_violation_horas * 3 * energia_mes * TUSD
     resultado    = fat_mes - custo_perd - comp_mes
     return {
         "energia_mes": energia_mes,
@@ -97,7 +107,7 @@ def resumo_diario(circuit, loadmult):
 # PASSO 1 — Identifica linhas candidatas (alto carregamento ou perdas altas)
 # ---------------------------------------------------------------------------
 print("\n" + "="*70)
-print("1. LINHAS CANDIDATAS AO RECONDUTORAMENTO")
+print("[06.04] LINHAS CANDIDATAS AO RECONDUTORAMENTO")
 print("="*70)
 
 circuit = carregar(1.0)
@@ -173,7 +183,7 @@ print(f"    Custo estimado recondutoramento: USD {melhor_custo:,.0f}")
 # Simula reduzindo R1 e X1 da linha em 50% (cabo de bitola maior típico)
 # ---------------------------------------------------------------------------
 print(f"\n{'='*70}")
-print(f"2. RECONDUTORAMENTO ISOLADO — {melhor_nome}")
+print(f"[06.05] RECONDUTORAMENTO ISOLADO — {melhor_nome}")
 print(f"{'='*70}")
 
 # Lê parâmetros atuais da linha
@@ -190,23 +200,22 @@ while idx > 0:
         break
     idx = lines.Next
 
-print(f"\n  Parâmetros originais:")
+# Condutor 4/0 CA — Tabela 1 do enunciado
+# R=0.267 ohm/km, X=0.432 ohm/km, Imax=305 A, trifásico=USD 6.500/km
+print(f"\n  Parâmetros originais da linha:")
 print(f"    R1={r1_orig:.4f} ohm/km  X1={x1_orig:.4f} ohm/km  normAmps={normA_orig:.1f} A")
-print(f"    → Recondutoramento: R1 e X1 reduzidos 50%, normAmps aumentado 40%")
-
-r1_novo    = r1_orig * 0.5
-x1_novo    = x1_orig * 0.5
-normA_novo = normA_orig * 1.4
+print(f"  Condutor proposto: 4/0 CA (Tabela 1 do enunciado)")
+print(f"    R1=0.267 ohm/km  X1=0.432 ohm/km  normAmps=305 A")
 
 cmd_recond = [
-    f"Edit Line.{melhor_nome} R1={r1_novo:.4f} X1={x1_novo:.4f} NormAmps={normA_novo:.1f}"
+    f"Edit Line.{melhor_nome} R1=0.267 X1=0.432 NormAmps=305"
 ]
 
 # Caso base e recondutoramento para 3 anos
 base_resultados   = {}
 recond_resultados = {}
 
-for ano, mult in [(1, 1.0), (2, 1.1), (3, 1.2)]:
+for ano, mult in [(ano, 1.0 + (ano-1)*config["simulacao"]["crescimento_carga"]) for ano in (1, 2, 3)]:
     c_base  = carregar(mult)
     base_resultados[ano] = resumo_diario(c_base, mult)
 
@@ -223,7 +232,7 @@ for ano in [1, 2, 3]:
     print(f"  {ano:>4} {b['max_trafo_pct']:>12.1f} {r['max_trafo_pct']:>13.1f} {delta_perd:>14.2f} {ben_mes:>15.2f}")
 
 # VPL recondutoramento isolado
-capex_recond = melhor_custo
+capex_recond = 6500.0 * (melhor_comp / 1000)  # USD/km × km (4/0 CA trifásico, Tabela 1)  # USD/km × km
 fluxos = [-capex_recond]
 for ano in [1, 2, 3]:
     ben = (recond_resultados[ano]["resultado"] - base_resultados[ano]["resultado"]) * 12
@@ -244,13 +253,13 @@ print(f"3. COMBINAÇÃO: TAP (trf_6_4910a + trf_11_305a) + RECONDUTORAMENTO")
 print(f"{'='*70}")
 
 cmd_tap_recond = [
-    "Edit Transformer.TRF_6_4910A wdg=1 tap=1.0333",
-    "Edit Transformer.TRF_11_305A wdg=1 tap=1.0333",
-    f"Edit Line.{melhor_nome} R1={r1_novo:.4f} X1={x1_novo:.4f} NormAmps={normA_novo:.1f}",
+    "Edit Transformer.TRF_6_4910A wdg=1 tap=1.0260",
+    "Edit Transformer.TRF_11_305A wdg=1 tap=1.0260",
+    f"Edit Line.{melhor_nome} R1=0.267 X1=0.432 NormAmps=305",
 ]
 
 combo_resultados = {}
-for ano, mult in [(1, 1.0), (2, 1.1), (3, 1.2)]:
+for ano, mult in [(ano, 1.0 + (ano-1)*config["simulacao"]["crescimento_carga"]) for ano in (1, 2, 3)]:
     c_combo = carregar(mult, cmd_tap_recond)
     combo_resultados[ano] = resumo_diario(c_combo, mult)
 
@@ -268,12 +277,12 @@ for ano in [1, 2, 3]:
     print(f"  {ano:>4} {b['max_trafo_pct']:>8.1f} {b['max_trafo_pct']*0.965:>8.1f} "
           f"{r['max_trafo_pct']:>9.1f} {c['max_trafo_pct']:>9.1f} {ben_combo:>15.2f}")
 
-capex_combo = 1500.0 + capex_recond  # tap + recondutoramento
+capex_combo = config["alternativas"][1]["custo_inicial_usd"] + capex_recond  # tap + recondutoramento
 fluxos_combo = [-capex_combo]
 for ano in [1, 2, 3]:
     ben = (combo_resultados[ano]["resultado"] - base_resultados[ano]["resultado"]) * 12
     if ano == 3:
-        residual_tap   = 1500.0 * (VIDA_UTIL - 3) / VIDA_UTIL
+        residual_tap   = config["alternativas"][1]["custo_inicial_usd"] * (VIDA_UTIL - 3) / VIDA_UTIL
         residual_recond = capex_recond * (VIDA_UTIL - 3) / VIDA_UTIL
         ben += residual_tap + residual_recond
     fluxos_combo.append(ben)
@@ -293,11 +302,11 @@ print(f"  {'Alternativa':<42} {'CAPEX':>10} {'VPL':>12} {'Atrativo':>10}")
 print(f"  {'-'*76}")
 
 alternativas = [
-    ("Tap trf_6_4910a + trf_11_305a",        1500,          1283,   True),
+    ("Tap trf_6_4910a + trf_11_305a",        config["alternativas"][1]["custo_inicial_usd"], 1283,   True),
     (f"Recondutoramento {melhor_nome}",       int(capex_recond), int(vpl_recond), vpl_recond > 0),
     ("Tap + Recondutoramento (combinado)",    int(capex_combo),  int(vpl_combo),  vpl_combo > 0),
-    ("Capacitor automático 1200 kvar",        12246,        -8008,  False),
-    ("Capacitor fixo 600 kvar",               7031,        -27727,  False),
+    ("Capacitor automático 1200 kvar",        config["alternativas"][3]["custo_inicial_usd"], -8008,  False),
+    ("Capacitor fixo 600 kvar",               config["alternativas"][2]["custo_inicial_usd"], -27727, False),
 ]
 for nome, capex, vpl, atr in alternativas:
     atr_str = "SIM" if atr else "NÃO"

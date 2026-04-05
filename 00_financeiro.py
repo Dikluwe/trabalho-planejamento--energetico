@@ -140,8 +140,9 @@ def compensacao_prodist_mensal(
       MT: adequada 0,95–1,05 | precária 0,90–0,95 e 1,05–1,06 | crítica <0,90 e >1,06
 
     Extrapolação dia → mês:
-      24 leituras horárias = 144 leituras de 10 min.
-      Mês PRODIST = 1008 leituras. Fator = 7.
+      Simulação em passos de 1h. O PRODIST mede em blocos de 10 min.
+      1 hora de violação = 6 leituras × 7 dias = 42 leituras mensais.
+      Mês PRODIST = 1008 leituras. Fator correto = 42.
 
     df_voltages     : CollectVoltageRowsForHour — colunas: hour, bus, phase,
                       voltagePu, violationPu, hasViolation, voltageLevel
@@ -153,9 +154,11 @@ def compensacao_prodist_mensal(
     if df_voltages.empty or df_meter_by_hour.empty:
         return 0.0
 
-    # Fator de extrapolação: leituras dia → leituras mês PRODIST
-    leituras_dia = 24 * leituras_por_hora          # 144
-    fator_mes = leituras_mes_prodist / leituras_dia  # 7.0
+    # Fator de extrapolação: horas simuladas → leituras mês PRODIST
+    # A simulação roda em passos de 1h, mas o PRODIST mede em blocos de 10min.
+    # 1 hora de violação = 6 leituras de 10min × 7 dias = 42 leituras mensais
+    # (PRODIST Módulo 8: 1008 leituras = 7 dias × 24h × 6 leituras/h)
+    fator_mes = leituras_por_hora * 7  # 6 × 7 = 42
 
     # Limites PRODIST (item 28)
     drp_limite = 3.0    # %
