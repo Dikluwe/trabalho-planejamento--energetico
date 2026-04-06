@@ -7,7 +7,6 @@ from pathlib import Path
 import random
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
 
 from dss import dss
 
@@ -31,6 +30,7 @@ def carregar(loadmult=1.0, cmds=None):
 
 def trafo_pct_max(circuit, nome, kva, n_horas=24):
     """Carregamento máximo em n_horas horas."""
+    circuit.Solution.dblHour = 0.0
     pmax = 0.0
     for _ in range(n_horas):
         circuit.Solution.Solve()
@@ -164,6 +164,7 @@ for label, pf in [
     vmax_bt    = 0.0
     q_inj_dia  = 0.0
 
+    circuit.Solution.dblHour = 0.0
     for h in range(24):
         circuit.Solution.Solve()
         perdas_dia += circuit.Losses[0] / 1000.0

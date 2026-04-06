@@ -8,7 +8,6 @@ from pathlib import Path
 from fase_00.configuracao import calcular_potencia_aparente
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
 
 from dss import dss
 
@@ -92,6 +91,7 @@ print("="*70)
 circuit = carregar(1.0)
 loadshape_max = 0.0
 hora_pico = 0
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
     # Usa a potência total fornecida como proxy do mult efetivo
@@ -113,6 +113,7 @@ for ano in range(1, ANOS_SIMULACAO + 1):
     atualizar_cenario(circuit, mult_carga, gd_fat)
     
     # Avança até a hora de pico
+    circuit.Solution.dblHour = 0.0
     for h in range(hora_pico):
         circuit.Solution.Solve()
         if not circuit.Solution.Converged:
@@ -176,7 +177,7 @@ for trafo in TRAFOS_CRITICOS:
         
         atualizar_cenario(circuit, mult_carga, gd_fat)
         carregamentos = []
-        
+        circuit.Solution.dblHour = 0.0
         for h in range(24):
             circuit.Solution.Solve()
             if not circuit.Solution.Converged:
@@ -213,6 +214,7 @@ for ano in range(1, ANOS_SIMULACAO + 1):
     pct_2_max  = 0.0
     vmin_dia = 999.0
 
+    circuit.Solution.dblHour = 0.0
     for h in range(24):
         circuit.Solution.Solve()
         if not circuit.Solution.Converged:

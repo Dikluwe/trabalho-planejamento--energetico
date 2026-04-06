@@ -27,7 +27,7 @@ def rodar_ano_multi(circuit, fator_carga: float, fator_gd: float) -> pd.DataFram
         nome = circuit.ActiveCktElement.Name
         # Original Pmpp (1.0) * fator_gd
         # Simplificação: assume que o valor base no DSS é 1.0 ou nominal
-        # dss.Text.Command = f"Edit {nome} irradiance={fator_gd}"
+        dss.Text.Command = f"Edit PVSystem.{nome} irradiance={fator_gd}"
         idx = circuit.ActiveClass.Next
         
     circuit.Solution.Solve()
@@ -42,8 +42,7 @@ def rodar_ano_multi(circuit, fator_carga: float, fator_gd: float) -> pd.DataFram
         trafo = circuit.ActiveCktElement
         nome = trafo.Name
         kva = float(trafo.Properties("kVA").Val)
-        powers = trafo.Powers
-        s = (sum(powers[0:6:2])**2 + sum(powers[1:6:2])**2)**0.5
+        s = configuracao.calcular_potencia_aparente(circuit, nome)
         res.append({"trafo": nome, "loading": 100 * s / kva if kva > 0 else 0})
         idx = circuit.ActiveClass.Next
         

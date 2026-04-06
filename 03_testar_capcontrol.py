@@ -5,7 +5,6 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
 
 from dss import dss
 
@@ -42,6 +41,7 @@ print(f"  {'Hora':>4} {'P (kW)':>10} {'Q (kvar)':>10} {'S (kVA)':>10}")
 print(f"  {'-'*40}")
 
 q_max_base = 0.0
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
     if not circuit.Solution.Converged:
@@ -92,6 +92,7 @@ q_sem = {}
 dss.Text.Command = "Clear"
 dss.Text.Command = f'Redirect "{MASTER}"'
 dss.Text.Command = "Set mode=daily stepsize=1h number=1"
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
     if not circuit.Solution.Converged:
@@ -111,6 +112,7 @@ dss.Text.Command = "New Capacitor.CAP2 bus1=9051 phases=3 kvar=1200 kv=23.1"
 dss.Text.Command = f"New CapControl.CC2 element=Line.smt_14449 terminal=1 capacitor=CAP2 type=kvar onsetting={onsetting} offsetting={offsetting}"
 
 perdas_com = 0.0
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
     if not circuit.Solution.Converged:

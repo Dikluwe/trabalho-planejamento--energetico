@@ -6,9 +6,9 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
 
 from dss import dss
+from fase_00 import configuracao
 
 import json
 with open(HERE / "parametros.json", "r") as f:
@@ -48,6 +48,7 @@ def metricas(circuit):
         kva_map[circuit.Transformers.Name] = circuit.Transformers.kVA
         idx = circuit.Transformers.Next
 
+    circuit.Solution.dblHour = 0.0
     for h in range(24):
         circuit.Solution.Solve()
         perdas_kwh += circuit.Losses[0] / 1000.0
@@ -74,9 +75,7 @@ def metricas(circuit):
                 powers = circuit.ActiveCktElement.Powers
                 n = circuit.ActiveCktElement.NumPhases
                 if len(powers) >= n * 2:
-                    p = sum(powers[0:n*2:2])
-                    q = sum(powers[1:n*2+1:2])
-                    s = (p**2 + q**2)**0.5
+                    s = configuracao.calcular_potencia_aparente(circuit, nome)
                     pct = 100 * s / kva
                     trafo_max[nome] = max(trafo_max.get(nome, 0), pct)
             idx = circuit.Transformers.Next

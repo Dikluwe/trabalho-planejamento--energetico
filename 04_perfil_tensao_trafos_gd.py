@@ -4,7 +4,6 @@ from pathlib import Path
 from fase_00.configuracao import calcular_potencia_aparente
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
 
 from dss import dss
 
@@ -33,6 +32,7 @@ all_bus_names = list(circuit.AllBusNames)
 v_min_bus = {}  # {nome: (vpu_min, kv_base)}
 v_max_bus = {}
 
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
     for nome in all_bus_names:
@@ -118,6 +118,7 @@ circuit = carregar(1.0) # Carrega do disco apenas uma vez
 for ano, mult in [(ano, 1.0 + (ano-1)*config["simulacao"]["crescimento_carga"]) for ano in (1, 2, 3)]:
     dss.Text.Command = f"Set LoadMult={mult}" # Altera o fator de carga direto na memória
     trafo_max = {}
+    circuit.Solution.dblHour = 0.0
     for h in range(24):
         circuit.Solution.Solve()
         if not circuit.Solution.Converged:
@@ -178,6 +179,7 @@ all_bus_names = list(circuit.AllBusNames)
 h_perdas_com = {}
 h_vmin_com   = {}
 
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
     h_perdas_com[h] = circuit.Losses[0] / 1000.0
@@ -224,6 +226,7 @@ print(f"  PVSystems desabilitados : {n_pv}")
 h_perdas_sem = {}
 h_vmin_sem   = {}
 
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
     h_perdas_sem[h] = circuit.Losses[0] / 1000.0
@@ -245,6 +248,7 @@ print(f"\n  {'Hora':>4} {'Perd c/GD':>10} {'Perd s/GD':>10} {'Delta':>8} {'Vmin 
 print(f"  {'-'*58}")
 
 delta_total = 0.0
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     delta = h_perdas_sem[h] - h_perdas_com[h]
     delta_total += delta

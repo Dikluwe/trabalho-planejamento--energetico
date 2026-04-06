@@ -31,6 +31,7 @@ def main():
     q_max_noc = {}
     bus2_linha = {}
 
+    circuit.Solution.dblHour = 0.0
     for h in range(24):
         circuit.Solution.Solve()
         if not circuit.Solution.Converged:
@@ -101,6 +102,7 @@ def main():
     # Roda sem capacitor
     configuracao.inicializar_dss(dss, MASTER)
     perdas_ref = []
+    circuit.Solution.dblHour = 0.0
     for h in range(24):
         circuit.Solution.Solve()
         perdas_ref.append(circuit.Losses[0] / 1000.0)
@@ -115,6 +117,7 @@ def main():
 
     delta_total = 0.0
     print(f"\nTeste de Redução de Perdas (Diário):")
+    circuit.Solution.dblHour = 0.0
     for h in range(24):
         circuit.Solution.Solve()
         if not circuit.Solution.Converged:

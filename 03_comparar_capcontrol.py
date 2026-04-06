@@ -7,7 +7,6 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
 
 from dss import dss
 
@@ -47,6 +46,7 @@ circuit = dss.ActiveCircuit
 
 q_ref      = {}
 perdas_ref = {}
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
     perdas_ref[h] = circuit.Losses[0] / 1000.0
@@ -72,6 +72,7 @@ q_op2      = {}
 perdas_op2 = {}
 ligado_op2 = {}
 
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     # Força o estado conforme o loadshape antes de resolver
     estado = states_op2[h]
@@ -106,6 +107,7 @@ perdas_op3 = {}
 ligado_op3 = {}
 estado_atual = 0  # começa desligado
 
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     # Lógica de controle manual:
     # - Dentro da janela sem GD: usa histerese de Q
@@ -143,6 +145,7 @@ print(f"  {'-'*88}")
 delta2 = delta3 = 0.0
 lig2 = lig3 = 0
 
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     d2 = perdas_ref[h] - perdas_op2[h]
     d3 = perdas_ref[h] - perdas_op3[h]

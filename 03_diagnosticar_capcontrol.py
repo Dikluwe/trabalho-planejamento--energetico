@@ -5,9 +5,9 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
 
 from dss import dss
+from fase_00 import configuracao
 
 def carregar():
     dss.Text.Command = "Clear"
@@ -55,12 +55,7 @@ dss.Text.Command = "Set mode=daily stepsize=1h number=7"
 circuit.Solution.Solve()
 
 # Carregamento original
-circuit.SetActiveElement("Transformer.trf_6_4910a")
-powers = circuit.ActiveCktElement.Powers
-n_fases = circuit.ActiveCktElement.NumPhases
-p = sum(powers[0:n_fases*2:2])
-q = sum(powers[1:n_fases*2+1:2])
-s_orig = (p**2 + q**2)**0.5
+s_orig = configuracao.calcular_potencia_aparente(circuit, "trf_6_4910a")
 print(f"\nCarregamento hora 7 (sem tap):")
 print(f"  S = {s_orig:.2f} kVA  ({100*s_orig/circuit.Transformers.kVA:.1f}%)")
 
@@ -77,12 +72,8 @@ dss.Text.Command = "Set mode=daily stepsize=1h number=7"
 dss.Text.Command = "Edit Transformer.TRF_6_4910A wdg=1 tap=1.0333"
 circuit.Solution.Solve()
 
-circuit.SetActiveElement("Transformer.trf_6_4910a")
 circuit.Transformers.Name = "trf_6_4910a"
-powers = circuit.ActiveCktElement.Powers
-p = sum(powers[0:n_fases*2:2])
-q = sum(powers[1:n_fases*2+1:2])
-s_wdg1 = (p**2 + q**2)**0.5
+s_wdg1 = configuracao.calcular_potencia_aparente(circuit, "trf_6_4910a")
 circuit.SetActiveBus("et6_4910")
 v_sec_wdg1 = circuit.ActiveBus.VMagAngle[0]
 v_pu_wdg1 = v_sec_wdg1 / (kv_base * 1000) if kv_base > 0 else 0
@@ -96,11 +87,7 @@ dss.Text.Command = "Set mode=daily stepsize=1h number=7"
 dss.Text.Command = "Edit Transformer.TRF_6_4910A wdg=2 tap=0.9667"
 circuit.Solution.Solve()
 
-circuit.SetActiveElement("Transformer.trf_6_4910a")
-powers = circuit.ActiveCktElement.Powers
-p = sum(powers[0:n_fases*2:2])
-q = sum(powers[1:n_fases*2+1:2])
-s_wdg2 = (p**2 + q**2)**0.5
+s_wdg2 = configuracao.calcular_potencia_aparente(circuit, "trf_6_4910a")
 circuit.SetActiveBus("et6_4910")
 v_sec_wdg2 = circuit.ActiveBus.VMagAngle[0]
 v_pu_wdg2 = v_sec_wdg2 / (kv_base * 1000) if kv_base > 0 else 0

@@ -6,7 +6,6 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
 
 from dss import dss
 
@@ -31,6 +30,7 @@ q_max_linha = {}   # {nome_linha: q_max_kvar}
 q_medio_linha = {} # {nome_linha: q_medio_kvar}
 p_max_linha = {}
 
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
 
