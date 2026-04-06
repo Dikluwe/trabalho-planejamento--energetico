@@ -5,6 +5,7 @@
 
 import sys
 from pathlib import Path
+from fase_00.configuracao import calcular_potencia_aparente
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -37,6 +38,16 @@ def carregar(loadmult=1.0, gd_fator=1.0):
             idx = circuit.ActiveClass.Next
     return dss.ActiveCircuit
 
+def atualizar_cenario(circuit, loadmult, gd_fator):
+    dss.Text.Command = f"Set LoadMult={loadmult}"
+    circuit.SetActiveClass("PVSystem")
+    idx = circuit.ActiveClass.First
+    while idx > 0:
+        nome = circuit.ActiveCktElement.Name.split(".")[1]
+        dss.Text.Command = f"Edit PVSystem.{nome} irradiance={gd_fator:.4f}"
+        idx = circuit.ActiveClass.Next
+
+
 def v_pu_bus(circuit, nome):
     circuit.SetActiveBus(nome)
     kv = circuit.ActiveBus.kVBase
@@ -49,14 +60,9 @@ def v_pu_bus(circuit, nome):
     return vpu if vpu > 0.01 else None
 
 def trafo_loading(circuit, nome, kva):
-    circuit.SetActiveElement(f"Transformer.{nome}")
-    powers = circuit.ActiveCktElement.Powers
-    n = circuit.ActiveCktElement.NumPhases
-    if len(powers) < n * 2 or kva <= 0:
-        return 0.0
-    p = sum(powers[0:n*2:2])
-    q = sum(powers[1:n*2+1:2])
-    return 100 * (p**2 + q**2)**0.5 / kva
+    if kva <= 0: return 0.0
+    s_kva = calcular_potencia_aparente(circuit, nome)
+    return 100 * s_kva / kva
 
 # Lê kVA dos trafos uma vez
 circuit = carregar(1.0)
@@ -99,13 +105,19 @@ print(f"  Potência total na hora de pico: {loadshape_max:.1f} kW")
 
 # Roda apenas a hora de pico com LoadMult=1.0 fixo
 # (simula toda a carga no pico simultâneo)
+circuit = carregar(1.0)
 for ano in range(1, ANOS_SIMULACAO + 1):
     mult_carga = 1.0 + (ano - 1) * CRESCIMENTO_CARGA
     gd_fat     = max(0.5, 1.0 - (ano - 1) * DEGRADACAO_GD)
-    circuit = carregar(mult_carga, gd_fat)
+    
+    atualizar_cenario(circuit, mult_carga, gd_fat)
+    
     # Avança até a hora de pico
     for h in range(hora_pico):
         circuit.Solution.Solve()
+        if not circuit.Solution.Converged:
+            print(f"Erro: Fluxo de carga não convergiu no ano {ano}, hora {h}.")
+            sys.exit(1)
 
     # Carregamento dos trafos críticos
     pct_4910 = trafo_loading(circuit, TRAFOS_CRITICOS[0], kva_trafo.get(TRAFOS_CRITICOS[0], 30))
@@ -157,13 +169,19 @@ for trafo in TRAFOS_CRITICOS:
     print(f"  {'-'*(50 + (ANOS_SIMULACAO-3)*12)}")
 
     horas_por_ano = {}
+    circuit = carregar(1.0)
     for ano in range(1, ANOS_SIMULACAO + 1):
         mult_carga = 1.0 + (ano - 1) * CRESCIMENTO_CARGA
         gd_fat     = max(0.5, 1.0 - (ano - 1) * DEGRADACAO_GD)
-        circuit = carregar(mult_carga, gd_fat)
+        
+        atualizar_cenario(circuit, mult_carga, gd_fat)
         carregamentos = []
+        
         for h in range(24):
             circuit.Solution.Solve()
+            if not circuit.Solution.Converged:
+                print(f"Erro: Fluxo de carga não convergiu no ano {ano}, hora {h}.")
+                sys.exit(1)
             pct = trafo_loading(circuit, trafo, kva)
             carregamentos.append(pct)
         horas_por_ano[ano] = carregamentos
@@ -184,11 +202,12 @@ print("="*70)
 print(f"\n  {'Ano':>4} {'Carga':>8} {'GD (%)':>8} {'trf_1 %':>12} {'trf_2 %':>11} {'Perdas kWh':>12} {'Vmin BT':>9}")
 print(f"  {'-'*70}")
 
+circuit = carregar(1.0)
 for ano in range(1, ANOS_SIMULACAO + 1):
     mult_carga = 1.0 + (ano - 1) * CRESCIMENTO_CARGA
     gd_fat     = 1.0 - (ano - 1) * DEGRADACAO_GD
 
-    circuit = carregar(mult_carga, gd_fat)
+    atualizar_cenario(circuit, mult_carga, gd_fat)
     perdas_dia = 0.0
     pct_1_max = 0.0
     pct_2_max  = 0.0
@@ -196,6 +215,9 @@ for ano in range(1, ANOS_SIMULACAO + 1):
 
     for h in range(24):
         circuit.Solution.Solve()
+        if not circuit.Solution.Converged:
+            print(f"Erro: Fluxo de carga não convergiu no ano {ano}, hora {h}.")
+            sys.exit(1)
         perdas_dia += circuit.Losses[0] / 1000.0
 
         p1 = trafo_loading(circuit, TRAFOS_CRITICOS[0], kva_trafo.get(TRAFOS_CRITICOS[0], 30))
