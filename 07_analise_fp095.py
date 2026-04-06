@@ -13,6 +13,12 @@ from fase_00 import configuracao
 
 MASTER = configuracao.MASTER_DSS
 
+def set_fp(pf):
+    idx = dss.ActiveCircuit.PVSystems.First
+    while idx > 0:
+        dss.ActiveCircuit.PVSystems.PF = pf
+        idx = dss.ActiveCircuit.PVSystems.Next
+
 def main():
     circuit = configuracao.inicializar_dss(dss, MASTER)
     
@@ -22,6 +28,7 @@ def main():
 
     # Coleta tensões base (FP 1.0)
     v_max_base = 0.0
+    circuit.Solution.dblHour = 0.0
     for h in range(24):
         circuit.Solution.Solve()
         if not circuit.Solution.Converged:
@@ -31,17 +38,11 @@ def main():
     print(f"  Vmax Base (FP 1.0): {v_max_base:.4f} pu")
     
     # Aplica FP 0.95 em todos os inversores (Capacitivo p/ mitigar sobretensão)
-    print("  Alterando todas as GDs para FP 0.95 (Capacitivo)...")
-    circuit.SetActiveClass("PVSystem")
-    idx = circuit.ActiveClass.First
-    while idx > 0:
-        nome = circuit.ActiveCktElement.Name.split(".")[1]
-        # Inversores modernos: PF < 0 costuma ser capacitivo ou via sinal
-        dss.Text.Command = f"Edit PVSystem.{nome} pf=-0.95"
-        idx = circuit.ActiveClass.Next
+    set_fp(-0.95)
         
     # Coleta novas tensões
     v_max_novo = 0.0
+    circuit.Solution.dblHour = 0.0
     for h in range(24):
         circuit.Solution.Solve()
         if not circuit.Solution.Converged:

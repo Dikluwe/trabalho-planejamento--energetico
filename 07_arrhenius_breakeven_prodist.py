@@ -11,7 +11,6 @@ from pathlib import Path
 from collections import defaultdict
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
 
 from dss import dss
 
@@ -308,6 +307,7 @@ all_bus = list(circuit.AllBusNames)
 # Coleta tensão por hora por barramento BT
 leituras = defaultdict(list)  # {nome_bus: [vpu_h1, vpu_h2, ...]}
 
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
     for nome in all_bus:

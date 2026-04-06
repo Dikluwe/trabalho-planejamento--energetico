@@ -7,7 +7,6 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
 
 from dss import dss
 
@@ -53,6 +52,7 @@ print(f"  Comprimento total estimado: >50 km (rede rural extensa)")
 # Coleta tensão mínima diária por barramento MT
 v_mt = {}
 v_bt = {}
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
     for nome in all_bus_names:
@@ -123,6 +123,7 @@ h_p_gd     = {}  # geração fotovoltaica total
 h_perdas   = {}  # perdas totais
 h_p_carga  = {}  # consumo total das cargas
 
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
 
@@ -155,6 +156,7 @@ print(f"  {'-'*64}")
 e_sub = e_gd = e_perd = e_carga = 0.0
 horas_reverso = 0
 
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     p_sub  = h_p_total[h]
     p_gd   = h_p_gd[h]

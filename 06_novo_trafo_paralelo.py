@@ -30,10 +30,10 @@ def main():
         raise RuntimeError("FALHA DE CONVERGÊNCIA: Trafo paralelo")
         
     circuit.SetActiveElement(f"Transformer.{TRAFO_ALVO}")
-    p1 = (sum(circuit.ActiveCktElement.Powers[0:6:2])**2 + sum(circuit.ActiveCktElement.Powers[1:6:2])**2)**0.5
+    p1 = configuracao.calcular_potencia_aparente(circuit, TRAFO_ALVO)
     
     circuit.SetActiveElement("Transformer.trf_paralelo")
-    p2 = (sum(circuit.ActiveCktElement.Powers[0:6:2])**2 + sum(circuit.ActiveCktElement.Powers[1:6:2])**2)**0.5
+    p2 = configuracao.calcular_potencia_aparente(circuit, "trf_paralelo")
     
     print(f"  Carregamento Trafo Antigo: {100*p1/30:.2f}%")
     print(f"  Carregamento Trafo Novo  : {100*p2/30:.2f}%")

@@ -25,6 +25,7 @@ def main():
     # Exemplo: scan de todos os barramentos BT por tensões > 1.05 pu
     
     print("  Escaneando barramentos com violação (V > 1.05 pu)...")
+    circuit.Solution.dblHour = 0.0
     for h in range(24):
         circuit.Solution.Solve()
         if not circuit.Solution.Converged:
@@ -41,16 +42,16 @@ def main():
     print(f"  {'-'*20}")
 
     # LOOP DE PERFORMANCE: Mudar FP sem resetar o circuito
-    for fp in [0.90, 0.92, 0.95, 1.00]:
-        # Altera todos os inversores
-        circuit.SetActiveClass("PVSystem")
-        idx = circuit.ActiveClass.First
+    for fp in [-0.90, -0.92, -0.95, 1.00]:
+        # Altera todos os inversores via API nativa (mais rápido)
+        idx = dss.ActiveCircuit.PVSystems.First
         while idx > 0:
-            dss.Text.Command = f"Edit PVSystem.{circuit.ActiveCktElement.Name.split('.')[1]} PF={fp}"
-            idx = circuit.ActiveClass.Next
+            dss.ActiveCircuit.PVSystems.PF = fp
+            idx = dss.ActiveCircuit.PVSystems.Next
             
         # Resolve e pega o pior caso
         v_pior = 0.0
+        circuit.Solution.dblHour = 0.0
         for h in range(24):
             circuit.Solution.Solve()
             v_pior = max(v_pior, max(circuit.AllBusVmagPu))

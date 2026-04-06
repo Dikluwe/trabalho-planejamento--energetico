@@ -8,7 +8,6 @@ from pathlib import Path
 from collections import deque
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
 
 from dss import dss
 
@@ -35,6 +34,7 @@ def metricas_24h(circuit):
     vmin_bt = 999.0
     pct_4910_max = 0.0
     horas_rev = 0
+    circuit.Solution.dblHour = 0.0
     for h in range(24):
         circuit.Solution.Solve()
         perdas += circuit.Losses[0] / 1000.0
@@ -146,6 +146,7 @@ print(f"  {'-'*45}")
 horas_reverso = 0
 p_rev_max = 0.0
 
+circuit.Solution.dblHour = 0.0
 for h in range(24):
     circuit.Solution.Solve()
 
@@ -261,6 +262,7 @@ print(f"  Transformadores afetados  : {n_trafos}")
 
 # Simula a abertura e lê tensões na hora de pico
 circuit_n1 = carregar(1.0, [f"Open Line.{LINHA_N1} 1"])
+circuit.Solution.dblHour = 0.0
 for h in range(9):
     try:
         circuit_n1.Solution.Solve()

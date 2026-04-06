@@ -1,5 +1,5 @@
 ================================================================================
-PIPELINE DE PLANEJAMENTO ENERGÉTICO INICIADA — 2026-04-06 11:31
+PIPELINE DE PLANEJAMENTO ENERGÉTICO INICIADA — 2026-04-06 12:13
 ================================================================================
 Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigravity/planejamento-energetico/trabalho-planejamento -energetico/Resultados/relatorio_tecnico_completo.txt
 
@@ -8,7 +8,7 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
    [00.01] FASE 1: SIMULAÇÃO BASE E MÓDULOS NUCLEARES
 ================================================================================
 
-[11:31:15] >>> Executando main_trabalho.py ...
+[12:13:35] >>> Executando main_trabalho.py ...
 ================================================================================
 TRABALHO 1a — PLANEJAMENTO ENERGÉTICO (CRELUZ)
 ================================================================================
@@ -54,13 +54,13 @@ TRABALHO 1a — PLANEJAMENTO ENERGÉTICO (CRELUZ)
   Capacitor fixo 600 kvar (barra 9051) | VPL: USD   -39,971.98
   Capacitor automatico 1200 kvar (barra 9051) | VPL: USD   -78,681.12
 ================================================================================
-      [OK] Finalizado main_trabalho.py em 77.53s
+      [OK] Finalizado main_trabalho.py em 79.69s
 
 ================================================================================
    [00.02] FASE 2: ORQUESTRAÇÃO DE SOLUÇÕES (ATUALIZAÇÃO DE BANCO)
 ================================================================================
 
-[11:32:33] >>> Executando 03_melhor_ponto_capacitor.py ...
+[12:14:55] >>> Executando 03_melhor_ponto_capacitor.py ...
 
 ================================================================================
 [03.01] ANÁLISE NOTURNA DE REATIVO — MELHOR PONTO PARA CAPACITOR AUTOMÁTICO
@@ -73,13 +73,13 @@ Teste de Redução de Perdas (Diário):
   Economia de energia estimada: 0.56 MWh/ano
 ================================================================================
 
-      [OK] Finalizado 03_melhor_ponto_capacitor.py em 2.04s
+      [OK] Finalizado 03_melhor_ponto_capacitor.py em 2.05s
 
 ================================================================================
    [00.03] FASE 3: ESTUDOS E DIMENSIONAMENTOS (LENDO JSON)
 ================================================================================
 
-[11:32:35] >>> Executando 02_analisar_trafo.py ...
+[12:14:57] >>> Executando 02_analisar_trafo.py ...
 
 ================================================================================
 [02.04] ANÁLISE DINÂMICA — TRF_6_4910A
@@ -92,7 +92,7 @@ Teste de Redução de Perdas (Diário):
 
       [OK] Finalizado 02_analisar_trafo.py em 0.75s
 
-[11:32:35] >>> Executando 02_analisar_linha.py ...
+[12:14:58] >>> Executando 02_analisar_linha.py ...
 
 ================================================================================
 [02.05] ANÁLISE DE LINHAS — CARREGAMENTO MÁXIMO
@@ -101,9 +101,9 @@ Teste de Redução de Perdas (Diário):
   Carregamento: 9.59%
 ================================================================================
 
-      [OK] Finalizado 02_analisar_linha.py em 0.45s
+      [OK] Finalizado 02_analisar_linha.py em 0.49s
 
-[11:32:36] >>> Executando 02_horizonte_tap.py ...
+[12:14:58] >>> Executando 02_horizonte_tap.py ...
 
 ================================================================================
 [02.03] ANÁLISE DE HORIZONTE — TRF_6_4910A
@@ -129,9 +129,9 @@ CONCLUSÃO POR DERIVAÇÃO:
   Derivação 5 (tap=1.1299): sobrecarga no Ano 4 (fator 1.30) | ganho: +1 ano(s)
 ================================================================================
 
-      [OK] Finalizado 02_horizonte_tap.py em 12.33s
+      [OK] Finalizado 02_horizonte_tap.py em 11.41s
 
-[11:32:48] >>> Executando 02_impacto_tap_bt.py ...
+[12:15:10] >>> Executando 02_impacto_tap_bt.py ...
 
 ================================================================================
 [02.06] IMPACTO DO TAP NA TENSÃO BT — TRF_6_4910A
@@ -142,9 +142,9 @@ Barramento Secundário: et6_4910
   Tap 1.050 | Tensão BT: 0.9366 pu
 ================================================================================
 
-      [OK] Finalizado 02_impacto_tap_bt.py em 0.40s
+      [OK] Finalizado 02_impacto_tap_bt.py em 0.38s
 
-[11:32:49] >>> Executando 02_remanejamento_trafo.py ...
+[12:15:10] >>> Executando 02_remanejamento_trafo.py ...
 
 ================================================================================
 [02.07] ANÁLISE DE REMANEJAMENTO — TRF_6_4910A
@@ -156,7 +156,7 @@ Barramento Secundário: et6_4910
 
       [OK] Finalizado 02_remanejamento_trafo.py em 0.42s
 
-[11:32:49] >>> Executando 03_diagnosticar_capcontrol.py ...
+[12:15:11] >>> Executando 03_diagnosticar_capcontrol.py ...
 
 ============================================================
 [03.02] DIAGNÓSTICO DO TAP — trf_6_4910a
@@ -200,9 +200,9 @@ Testando CapControl com element=Line.smt_6110
 
   Comando alternativo para CapControl baseado em kvar:
   New CapControl.CC2 element=Line.smt_6110 terminal=1 capacitor=CAP2 type=kvar onsetting=200 offsetting=150
-      [OK] Finalizado 03_diagnosticar_capcontrol.py em 1.02s
+      [OK] Finalizado 03_diagnosticar_capcontrol.py em 0.98s
 
-[11:32:50] >>> Executando 03_testar_capcontrol.py ...
+[12:15:12] >>> Executando 03_testar_capcontrol.py ...
 
 ============================================================
 [03.04] TESTE DO CAPACITOR AUTOMÁTICO — barra 9051
@@ -261,9 +261,9 @@ Comando correto para o main_trabalho.py:
   "New Capacitor.CAP2 bus1=9051 phases=3 kvar=1200 kv=23.1",
   "New CapControl.CC2 element=Line.smt_14449 terminal=1 capacitor=CAP2 type=kvar onsetting=50 offsetting=30",
   "Set maxcontroliter=100",
-      [OK] Finalizado 03_testar_capcontrol.py em 1.59s
+      [OK] Finalizado 03_testar_capcontrol.py em 1.57s
 
-[11:32:52] >>> Executando 03_comparar_capcontrol.py ...
+[12:15:13] >>> Executando 03_comparar_capcontrol.py ...
 
 ==========================================================================================
 [03.06] COMPARAÇÃO DE ESTRATÉGIAS — CAPACITOR 50 kvar NO BARRAMENTO 181
@@ -308,9 +308,9 @@ Comando correto para o main_trabalho.py:
   Opção 3: capacitor ligado só fora do horário de GD, com histerese de Q
            onsetting=53 kvar / offsetting=6 kvar
 ==========================================================================================
-      [OK] Finalizado 03_comparar_capcontrol.py em 1.57s
+      [OK] Finalizado 03_comparar_capcontrol.py em 1.59s
 
-[11:32:53] >>> Executando 04_perfil_tensao_trafos_gd.py ...
+[12:15:15] >>> Executando 04_perfil_tensao_trafos_gd.py ...
 
 ======================================================================
 [04.01] PERFIL DE TENSÃO — CASO BASE (Ano 1, LoadMult=1.0)
@@ -382,9 +382,9 @@ Trafos com carregamento > 80% em algum ano:
   Redução de perdas anual           : 15.39 MWh/ano
   Valor da GD para a rede (35 USD): USD 538.59/ano
 ======================================================================
-      [OK] Finalizado 04_perfil_tensao_trafos_gd.py em 2.34s
+      [OK] Finalizado 04_perfil_tensao_trafos_gd.py em 2.25s
 
-[11:32:56] >>> Executando 04_pior_caso_duracao_degradacao.py ...
+[12:15:17] >>> Executando 04_pior_caso_duracao_degradacao.py ...
 
 ======================================================================
 [04.04] PIOR CASO DIÁRIO — LoadMult no pico (hora 12, máximo do perfil)
@@ -528,9 +528,9 @@ Trafos com carregamento > 80% em algum ano:
   Degradação GD: 0.7%/ano (painel cristalino típico)
   Carga: +10.0%/ano conforme enunciado
 ======================================================================
-      [OK] Finalizado 04_pior_caso_duracao_degradacao.py em 8.07s
+      [OK] Finalizado 04_pior_caso_duracao_degradacao.py em 7.42s
 
-[11:33:04] >>> Executando 05_montecarlo_despacho_gd.py ...
+[12:15:24] >>> Executando 05_montecarlo_despacho_gd.py ...
 
 ======================================================================
 [05.01] MONTE CARLO — ANO DE SOBRECARGA DO trf_6_4910a
@@ -591,9 +591,9 @@ Trafos com carregamento > 80% em algum ano:
   Resultado define se o controle de Q dos inversores é benéfico
   para esta rede sem custo adicional de equipamento.
 ======================================================================
-      [OK] Finalizado 05_montecarlo_despacho_gd.py em 31.89s
+      [OK] Finalizado 05_montecarlo_despacho_gd.py em 30.59s
 
-[11:33:36] >>> Executando 05_regulador_crescimento_assimetrico.py ...
+[12:15:55] >>> Executando 05_regulador_crescimento_assimetrico.py ...
 
 ======================================================================
 [05.03] REGULADOR DE TENSÃO
@@ -642,9 +642,9 @@ Trafos com carregamento > 80% em algum ano:
   a sobrecarga ocorre mais cedo e o tap pode não ser suficiente.
   O remanejamento torna-se prioritário antes do Ano 3.
 ======================================================================
-      [OK] Finalizado 05_regulador_crescimento_assimetrico.py em 4.10s
+      [OK] Finalizado 05_regulador_crescimento_assimetrico.py em 4.05s
 
-[11:33:40] >>> Executando 05_remanejamento_15anos.py ...
+[12:15:59] >>> Executando 05_remanejamento_15anos.py ...
 
 ================================================================================
 [05.05] ESTUDO DE LONGUÍSSIMO PRAZO — 15 ANOS
@@ -660,9 +660,9 @@ Transformer.trf_6_4910a  26.5  27.9  28.8  28.2  ...  55.5  58.8  60.0  58.6
 [2 rows x 15 columns]
 ================================================================================
 
-      [OK] Finalizado 05_remanejamento_15anos.py em 0.86s
+      [OK] Finalizado 05_remanejamento_15anos.py em 0.83s
 
-[11:33:41] >>> Executando 06_novo_trafo_paralelo.py ...
+[12:16:00] >>> Executando 06_novo_trafo_paralelo.py ...
 
 ================================================================================
 [06.01] MODELAGEM DE TRAFO PARALELO — TRF_6_4910A
@@ -672,9 +672,9 @@ Buses: 9051 (MT) <-> et6_4910 (BT)
   Carregamento Trafo Novo  : 252.42%
 ================================================================================
 
-      [OK] Finalizado 06_novo_trafo_paralelo.py em 0.47s
+      [OK] Finalizado 06_novo_trafo_paralelo.py em 0.45s
 
-[11:33:41] >>> Executando 06_recondutoramento.py ...
+[12:16:00] >>> Executando 06_recondutoramento.py ...
 
 ================================================================================
 [06.04] ANÁLISE DE RECONDUTORAMENTO
@@ -686,20 +686,19 @@ Buses: 9051 (MT) <-> et6_4910 (BT)
 
       [OK] Finalizado 06_recondutoramento.py em 0.45s
 
-[11:33:41] >>> Executando 07_analise_fp095.py ...
+[12:16:01] >>> Executando 07_analise_fp095.py ...
 
 ================================================================================
 [07.01] ANÁLISE DE IMPACTO DE FATOR DE POTÊNCIA (FP 0.95 CAP)
 ================================================================================
   Vmax Base (FP 1.0): 1.0863 pu
-  Alterando todas as GDs para FP 0.95 (Capacitivo)...
-  Vmax Novo (FP 0.95): 1.0863 pu
-  Redução de Tensão  : 0.0000 pu
+  Vmax Novo (FP 0.95): 1.0227 pu
+  Redução de Tensão  : 0.0636 pu
 ================================================================================
 
-      [OK] Finalizado 07_analise_fp095.py em 0.68s
+      [OK] Finalizado 07_analise_fp095.py em 0.73s
 
-[11:33:42] >>> Executando 07_arrhenius_breakeven_prodist.py ...
+[12:16:02] >>> Executando 07_arrhenius_breakeven_prodist.py ...
 
 ======================================================================
 [07.02] CUSTO ESPERADO DE FALHA — MODELO DE ARRHENIUS
@@ -796,9 +795,9 @@ Buses: 9051 (MT) <-> et6_4910 (BT)
   CSV PRODIST exportado: prodist_drp_drc.csv
   Barramentos BT avaliados: 844
 ======================================================================
-      [OK] Finalizado 07_arrhenius_breakeven_prodist.py em 0.71s
+      [OK] Finalizado 07_arrhenius_breakeven_prodist.py em 0.73s
 
-[11:33:43] >>> Executando 07_expansao_gd_fluxo_n1.py ...
+[12:16:02] >>> Executando 07_expansao_gd_fluxo_n1.py ...
 
 ======================================================================
 [07.07] IMPACTO DA EXPANSÃO DA GD — +20% de capacidade no Ano 3
@@ -869,21 +868,21 @@ Buses: 9051 (MT) <-> et6_4910 (BT)
   Amostra de barramentos downstream após abertura (hora 9):
   Barramento                 Tensão (pu)     Status
   --------------------------------------------------
-  7301                            0.0000 SEM TENSÃO
-  7361                            0.0000 SEM TENSÃO
-  7341                            0.0000 SEM TENSÃO
+  828101                          0.0000 SEM TENSÃO
   427371                          0.0000 SEM TENSÃO
-  mrt_13941trf_16_2916a           0.0000 SEM TENSÃO
-  323761                          0.0000 SEM TENSÃO
-  13961                           0.0000 SEM TENSÃO
-  71921                           0.0000 SEM TENSÃO
-  13851                           0.0000 SEM TENSÃO
-  323751                          0.0000 SEM TENSÃO
-  17891                           0.0000 SEM TENSÃO
-  13951                           0.0000 SEM TENSÃO
-  641921                          0.0000 SEM TENSÃO
-  mrt_7321trf_16_3545a            0.0000 SEM TENSÃO
+  641911                          0.0000 SEM TENSÃO
+  71911                           0.0000 SEM TENSÃO
+  7321                            0.0000 SEM TENSÃO
+  641941                          0.0000 SEM TENSÃO
   mrt_27781trf_16_1144a           0.0000 SEM TENSÃO
+  27781                           0.0000 SEM TENSÃO
+  13961                           0.0000 SEM TENSÃO
+  323751                          0.0000 SEM TENSÃO
+  7241                            0.0000 SEM TENSÃO
+  641921                          0.0000 SEM TENSÃO
+  17881                           0.0000 SEM TENSÃO
+  640621                          0.0000 SEM TENSÃO
+  553801                          0.0000 SEM TENSÃO
 
   Total sem tensão (<0,5 pu): 15 (de 15 amostrados)
 
@@ -892,9 +891,9 @@ Buses: 9051 (MT) <-> et6_4910 (BT)
   e 6 transformadores de distribuição.
   Recomendação: chave seccionadora de emergência no ramal adjacente.
 ======================================================================
-      [OK] Finalizado 07_expansao_gd_fluxo_n1.py em 1.99s
+      [OK] Finalizado 07_expansao_gd_fluxo_n1.py em 2.09s
 
-[11:33:45] >>> Executando 07_perfil_tensao_balanco_sensibilidade.py ...
+[12:16:04] >>> Executando 07_perfil_tensao_balanco_sensibilidade.py ...
 
 ======================================================================
 [07.10] PERFIL DE TENSÃO POR DISTÂNCIA ELÉTRICA DA SUBESTAÇÃO
@@ -998,7 +997,7 @@ Buses: 9051 (MT) <-> et6_4910 (BT)
 ======================================================================
       [OK] Finalizado 07_perfil_tensao_balanco_sensibilidade.py em 1.08s
 
-[11:33:46] >>> Executando 08_sobretensao.py ...
+[12:16:05] >>> Executando 08_sobretensao.py ...
 
 ================================================================================
 [08.01] INVESTIGAÇÃO DE SOBRETENSÕES — CASO BASE
@@ -1008,12 +1007,132 @@ Buses: 9051 (MT) <-> et6_4910 (BT)
 [08.06] MITIGAÇÃO — IMPACTO DO FP NOS BARRAMENTOS COM SOBRETENSÃO
   FP      Vmax (pu)
   --------------------
-  0.90       1.0863
-  0.92       1.0863
-  0.95       1.0863
-  1.00       1.0863
+  -0.90      1.0101
+  -0.92      1.0149
+  -0.95      1.0227
+  1.00       1.0486
 ================================================================================
 
-      [OK] Finalizado 08_sobretensao.py em 1.03s
+      [OK] Finalizado 08_sobretensao.py em 1.02s
 
-[11:33:47] >>> Executando 09_ranking_gd.py ...
+[12:16:06] >>> Executando 09_ranking_gd.py ...
+
+================================================================================
+[09.01] RANKING DE GD — MELHOR LOCAL PARA INJEÇÃO
+================================================================================
+  Testando 2320 barramentos para injeção de 100kW...
+
+  Top 10 barramentos para redução de perdas:
+    29601                0.656 kW
+    2301                 0.653 kW
+    1961                 0.652 kW
+    50101                0.650 kW
+    74721                0.650 kW
+    822371               0.649 kW
+    824351               0.649 kW
+    7911                 0.647 kW
+    544751               0.647 kW
+    7761                 0.647 kW
+================================================================================
+
+      [OK] Finalizado 09_ranking_gd.py em 66.13s
+
+================================================================================
+   [00.04] FASE 4: EXPORTADORES E RENDERIZADORES GRAFICOS
+================================================================================
+
+[12:17:13] >>> Executando 10_exportar_geojson.py ...
+Coordenadas: 2757 barramentos
+
+Gerando GeoJSONs...
+  rede_linhas_mt.geojson               2226 features    1030.3 KB
+  rede_linhas_bt.geojson                409 features     188.8 KB
+  rede_trafos.geojson                   136 features      51.5 KB
+  rede_gd.geojson                         6 features       1.9 KB
+  rede_problemas.geojson                 19 features       6.7 KB
+
+Como importar no QGIS:
+  1. Layer > Add Layer > Add Vector Layer
+  2. Seleciona qualquer .geojson — o QGIS posiciona automaticamente em WGS84
+  3. Repete para cada camada
+  4. Para estilizar: duplo clique na camada > Symbology
+     - Trafos: Categorized por "status" (normal/alerta/sobrecarga)
+     - GD: tamanho proporcional ao campo "Pmpp_kW"
+     - Problemas: Categorized por "tipo_problema"
+
+Dica: arraste todos os .geojson de uma vez para a janela do QGIS.
+
+      [OK] Finalizado 10_exportar_geojson.py em 0.58s
+
+[12:17:13] >>> Executando 10_exportar_rede_svg.py ...
+Coordenadas carregadas: 2757 barramentos
+Linhas MT com coords: 2226
+Linhas BT com coords: 409
+Transformadores com coords: 136
+PVSystems com coords: 6
+
+Gerando SVGs...
+  Gerado: rede_completa.svg
+  Gerado: rede_linhas_mt.svg
+  Gerado: rede_linhas_bt.svg
+  Gerado: rede_trafos.svg
+  Gerado: rede_gd.svg
+  Gerado: rede_problemas.svg
+
+Todos os SVGs gerados em /home/dikluwe/Documentos/Antigravity/planejamento-energetico/trabalho-planejamento -energetico
+      [OK] Finalizado 10_exportar_rede_svg.py em 0.52s
+
+[12:17:14] >>> Executando 10_exportar_rede_svg_geo.py ...
+Coordenadas: 2757 barramentos
+Bounding box:
+  Longitude: -53.772925 → -53.536368  (Δ=0.236558°)
+  Latitude : -27.894635 → -27.508314  (Δ=0.386322°)
+
+Escalas SVG (em graus):
+  stroke-width MT : 0.000189°
+  stroke-width BT : 0.000095°
+  raio trafo base : 0.000284°
+Linhas MT: 2226  BT: 409
+Trafos: 136  PVSystems: 6
+
+Gerando SVGs georreferenciados...
+  rede_completa_geo.svg                  363.6 KB
+  rede_linhas_mt_geo.svg                 281.8 KB
+  rede_linhas_bt_geo.svg                  51.4 KB
+  rede_trafos_geo.svg                     25.4 KB
+  rede_gd_geo.svg                          2.0 KB
+  rede_problemas_geo.svg                 286.7 KB
+  visualizar_rede.html                     3.9 KB
+
+Pronto. Para visualizar:
+  1. Abra a pasta Finais/ no terminal
+  2. python -m http.server 8080
+  3. Acesse http://localhost:8080/visualizar_rede.html
+
+Para usar no QGIS:
+  Layer > Add Layer > Add Vector Layer > seleciona rede_completa_geo.svg
+  (o QGIS lê o viewBox em graus e posiciona automaticamente)
+
+Para usar no Inkscape com georreferenciamento:
+  Abra qualquer *_geo.svg — o viewBox já está em lon/lat
+
+      [OK] Finalizado 10_exportar_rede_svg_geo.py em 0.49s
+
+[12:17:14] >>> Executando 11_graficos_svg.py ...
+Carregando resultados dos arquivos CSV...
+  Dados carregados.
+
+Gerando gráficos...
+  grafico_carregamento_trafo.svg              4 KB
+  grafico_balanco_energetico.svg              4 KB
+  grafico_tensao_bt.svg                       5 KB
+  grafico_vpl_sensibilidade.svg               2 KB
+  grafico_duracao_carga.svg                   4 KB
+  grafico_ranking_pvsystems.svg              10 KB
+
+Todos os gráficos gerados.
+      [OK] Finalizado 11_graficos_svg.py em 0.34s
+
+================================================================================
+[00.05] PIPELINE CONCLUÍDA COM SUCESSO EM 219.06 SEGUNDOS
+================================================================================
