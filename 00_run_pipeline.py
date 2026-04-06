@@ -83,31 +83,37 @@ def rodar_script(nome_script):
     comando = [sys.executable, nome_script]
     
     try:
-        resultado = subprocess.run(
-            comando, 
-            cwd=str(HERE), 
-            text=True, 
-            encoding="utf-8", # Força UTF-8 para evitar problemas no Windows
-            capture_output=True,
-            check=True
+        # Usa Popen para capturar output em tempo real e enviar para o LoggerMultiStream
+        processo = subprocess.Popen(
+            comando,
+            cwd=str(HERE),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            encoding="utf-8"
         )
         
-        if resultado.stdout:
-            sys.stdout.write(resultado.stdout)
+        # Lê a saída em tempo real
+        for linha in processo.stdout:
+            sys.stdout.write(f"      {linha}")
+            sys.stdout.flush()
+            
+        processo.wait()
+        
+        if processo.returncode != 0:
+            log(f"      [FALHA] O script {nome_script} retornou código {processo.returncode}")
+            return False
             
         tempo = time.time() - inicio
         log(f"      [OK] Finalizado {nome_script} em {tempo:.2f}s")
         return True
-        
-    except subprocess.CalledProcessError as err:
-        log(f"      [FALHA FATAL] Ocorreu um erro no {nome_script}")
-        log("-" * 60)
-        log(err.stderr if err.stderr else str(err))
-        log("-" * 60)
+    except Exception as e:
+        log(f"      [ERRO CRÍTICO] Falha ao executar {nome_script}: {e}")
         return False
         
 def main():
     sys.stdout = LoggerMultiStream(LOG_FILE)
+    sys.stderr = sys.stdout
     
     log("="*80)
     log(f"PIPELINE DE PLANEJAMENTO ENERGÉTICO INICIADA — {datetime.now().strftime('%Y-%m-%d %H:%M')}")

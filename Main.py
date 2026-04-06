@@ -143,13 +143,11 @@ def CollectLineRowsForHour(hour: int):
     lineName = lines.Name
     isSwitch = lines.IsSwitch
 
-    if lines.Name =='SMT_27096':
-      a=1
+
     if IsValidNetworkLine(lineName, isSwitch):
       circuit.SetActiveElement(elementName)
       element = circuit.ActiveCktElement
-      if element.Name =='SMT_27096':
-        a=1
+
       currentsMagAng = element.CurrentsMagAng
 
       losses = element.Losses

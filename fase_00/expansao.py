@@ -15,7 +15,7 @@ import pandas as pd
 
 # Importa o programa do professor como módulo
 import Main as professor
-from . import financeiro
+from . import financeiro, configuracao
 
 @dataclass
 class Alternativa:
@@ -99,7 +99,11 @@ def rodar_cenario(
         "dfNetworkSummary": df_network_summary,
     }
 
-def extrair_indicadores(resultado: dict) -> dict:
+def extrair_indicadores(
+    resultado: dict,
+    limite_min_pu: float = 0.95,
+    limite_max_pu: float = 1.05,
+) -> dict:
     df_energy = resultado["dfEnergySummary"]
     df_voltages = resultado["dfVoltages"]
     df_meter_hour = resultado["dfMeterByHour"]
@@ -110,6 +114,8 @@ def extrair_indicadores(resultado: dict) -> dict:
     compensacao = financeiro.compensacao_prodist_mensal(
         df_voltages=df_voltages,
         df_meter_by_hour=df_meter_hour,
+        limite_min_pu=limite_min_pu,
+        limite_max_pu=limite_max_pu,
     )
 
     return {
@@ -128,7 +134,8 @@ def avaliar_alternativa(
     preco_compra_usd_mwh: float = 35.0,
 ) -> dict:
     print(f"\n>>> Avaliando: {alternativa.descricao}")
-    fatores = [1.0, 1.1, 1.2]
+    c = configuracao.CRESCIMENTO
+    fatores = [1.0, 1.0 + c, 1.0 + 2*c]
     bases = [indicadores_base_ano1, indicadores_base_ano2, indicadores_base_ano3]
     beneficios = []
 
@@ -138,7 +145,11 @@ def avaliar_alternativa(
             comandos_modificacao=alternativa.comandos_dss,
             fator_carga=fator,
         )
-        ind_proposta = extrair_indicadores(resultado_proposta)
+        ind_proposta = extrair_indicadores(
+            resultado_proposta,
+            limite_min_pu=configuracao.LIMITE_MIN_PU,
+            limite_max_pu=configuracao.LIMITE_MAX_PU
+        )
         delta_perdas = base["perdas_dia_kwh"] - ind_proposta["perdas_dia_kwh"]
         delta_comp = base["compensacao_mensal_usd"] - ind_proposta["compensacao_mensal_usd"]
 
@@ -163,10 +174,15 @@ def avaliar_alternativa(
 
 def rodar_caso_base_3_anos(dss_file_path: str, output_folder_base: str) -> tuple[dict, dict, dict]:
     resultados = []
-    for ano, fator in enumerate([1.0, 1.1, 1.2], start=1):
+    c = configuracao.CRESCIMENTO
+    for ano, fator in enumerate([1.0, 1.0 + c, 1.0 + 2*c], start=1):
         print(f"\n>>> Caso base — Ano {ano} (fator {fator})")
         resultado = rodar_cenario(dss_file_path, [], fator, output_folder=f"{output_folder_base}_ano{ano}")
-        resultados.append(extrair_indicadores(resultado))
+        resultados.append(extrair_indicadores(
+            resultado,
+            limite_min_pu=configuracao.LIMITE_MIN_PU,
+            limite_max_pu=configuracao.LIMITE_MAX_PU
+        ))
     return resultados[0], resultados[1], resultados[2]
 
 def imprimir_tabela_comparativa(indicadores_base: dict, resultados_alternativas: list[dict]) -> None:

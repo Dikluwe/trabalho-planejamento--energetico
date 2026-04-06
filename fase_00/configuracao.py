@@ -11,10 +11,8 @@ import sys
 import json
 from pathlib import Path
 
-# Garante que a raiz do projeto está no path para que o pacote fase_00 seja importável
+# Definição do diretório raiz do projeto (um nível acima de fase_00/)
 HERE = Path(__file__).resolve().parent.parent
-if str(HERE) not in sys.path:
-    sys.path.insert(0, str(HERE))
 
 # Carregamento centralizado do JSON
 CONFIG_FILE = HERE / "parametros.json"

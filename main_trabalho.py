@@ -19,10 +19,7 @@ O programa:
 import sys
 from pathlib import Path
 
-# Adiciona o diretório atual ao path para garantir que o Python ache as pastas
 HERE = Path(__file__).resolve().parent
-if str(HERE) not in sys.path:
-    sys.path.insert(0, str(HERE))
 
 import Main as professor
 from fase_00 import financeiro, expansao, configuracao

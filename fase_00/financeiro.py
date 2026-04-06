@@ -64,6 +64,8 @@ def custo_perdas_mensal(
 def _classificar_violacao_prodist(
     tensao_pu: float,
     nivel: str,
+    limite_min_pu: float = 0.92,
+    limite_max_pu: float = 1.05,
 ) -> tuple[bool, bool]:
     """
     Classifica uma leitura de tensão como precária ou crítica conforme
@@ -90,25 +92,28 @@ def _classificar_violacao_prodist(
     Retorna (is_precaria, is_critica).
     """
     if nivel == "LV":
-        # Tabela 5 — 380/220V (secundário trifásico CRELUZ)
-        ad_inf, ad_sup = 0.921, 1.050
-        pr_inf, cr_inf = 0.871, 0.871   # precária começa em 0,871
-        cr_sup         = 1.061           # crítico superior > 403V
-        # Precária superior: 399–403V → 1,050–1,061 pu
-        pr_sup = 1.061
+        # BT 380/220V — Tabela 5
+        ad_inf = limite_min_pu
+        ad_sup = limite_max_pu
+        
+        # Diferença PRODIST: Crítica inf é ~0.05 abaixo da adequada inf (0.921 - 0.871)
+        cr_inf = ad_inf - 0.05
+        # Crítica sup é ~0.011 acima da adequada sup (1.061 - 1.050)
+        cr_sup = ad_sup + 0.011
 
         is_critica  = tensao_pu < cr_inf or tensao_pu > cr_sup
-        is_precaria = (not is_critica) and (
-            tensao_pu < ad_inf or tensao_pu > ad_sup
-        )
+        is_precaria = (not is_critica) and (tensao_pu < ad_inf or tensao_pu > ad_sup)
     else:
-        # Tabela 3 — MT > 2,3 kV e < 69 kV (23,1 kV CRELUZ)
-        ad_inf, ad_sup = 0.930, 1.050
-        cr_inf,  cr_sup = 0.900, 1.050  # crítico: < 0,90 ou > 1,05
+        # MT > 2,3 kV e < 69 kV — Tabela 3
+        ad_inf = limite_min_pu
+        ad_sup = limite_max_pu
+        
+        # Diferença PRODIST: Crítica inf é ~0.03 abaixo da adequada inf (0.93 - 0.90)
+        cr_inf = ad_inf - 0.03
+        cr_sup = ad_sup
 
         is_critica  = tensao_pu < cr_inf or tensao_pu > cr_sup
         is_precaria = (not is_critica) and tensao_pu < ad_inf
-        # Nota: Tabela 3 não tem faixa precária superior — acima de 1,05 é direto crítico
 
     return is_precaria, is_critica
 
@@ -116,6 +121,8 @@ def _classificar_violacao_prodist(
 def compensacao_prodist_mensal(
     df_voltages: pd.DataFrame,
     df_meter_by_hour: pd.DataFrame,
+    limite_min_pu: float = 0.92,
+    limite_max_pu: float = 1.05,
     tusd_usd_mwh: float = 90.0,
     leituras_por_hora: int = 6,
     leituras_mes_prodist: int = 1008,
@@ -185,7 +192,7 @@ def compensacao_prodist_mensal(
         n_criticas  = 0
         for _, row in grupo.iterrows():
             is_prec, is_crit = _classificar_violacao_prodist(
-                float(row["voltagePu"]), nivel
+                float(row["voltagePu"]), nivel, limite_min_pu, limite_max_pu
             )
             if is_prec:
                 n_precarias += 1
