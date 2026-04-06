@@ -1,160 +1,61 @@
-# analisar_trafo.py
-# Extrai todas as cargas conectadas ao trf_6_4910a e barramentos downstream
+# Crystalline Lineage
+# @layer L2
+# @updated 2026-04-05
+
+"""
+Analisa o carregamento e tensões nos terminais do transformador crítico.
+Refatorado para usar API nativa de identificação de barramentos (BusNames).
+"""
 
 import sys
-from pathlib import Path
-
-HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
-
+import pandas as pd
 from dss import dss
+from fase_00 import configuracao
 
-import json
-config_file = HERE / "parametros.json"
-with open(config_file, "r") as f:
-    config = json.load(f)
+# Configurações centralizadas
+MASTER = configuracao.MASTER_DSS
+TRAFO_ALVO = configuracao.TRAFO_CRITICO
 
-MASTER = str(HERE / config["caminhos"]["dss_file"])
-TRAFO_ALVO = config["graficos"]["trafo_critico"]
-# Deriva o bus a partir do nome "trf_6_4910a" => "et6_4910" (heurística do projeto)
-BUS_SECUNDARIO = "et" + TRAFO_ALVO.split("trf_")[1].split("a")[0]
-BUS_SECUNDARIO = "et" + TRAFO_ALVO.split("trf_")[1].split("a")[0]
-if "trf_6_4910a" in TRAFO_ALVO:
-    BUS_SECUNDARIO = "et6_4910"
+def main():
+    circuit = configuracao.inicializar_dss(dss, MASTER)
+    
+    # Identificação DINÂMICA dos barramentos (Correção Sugerida!)
+    circuit.SetActiveElement(f"Transformer.{TRAFO_ALVO}")
+    if not circuit.ActiveCktElement:
+         raise RuntimeError(f"Transformador {TRAFO_ALVO} não encontrado.")
+         
+    bus_prim = circuit.ActiveCktElement.BusNames[0].split(".")[0].lower()
+    bus_sec  = circuit.ActiveCktElement.BusNames[1].split(".")[0].lower()
+    
+    print(f"\n{'='*80}")
+    print(f"[02.04] ANÁLISE DINÂMICA — {TRAFO_ALVO.upper()}")
+    print(f"  Barramento Primário   (MT): {bus_prim}")
+    print(f"  Barramento Secundário (BT): {bus_sec}")
+    print(f"{'='*80}")
 
-
-# ---------------------------------------------------------------------------
-# 1. Carrega a rede
-# ---------------------------------------------------------------------------
-dss.Text.Command = "Clear"
-dss.Text.Command = f'Redirect "{MASTER}"'
-
-circuit = dss.ActiveCircuit
-
-print(f"\n{'='*60}")
-print(f"[02.01] ANÁLISE DO TRANSFORMADOR: {TRAFO_ALVO.upper()}")
-print(f"{'='*60}")
-
-# ---------------------------------------------------------------------------
-# 2. Dados do transformador
-# ---------------------------------------------------------------------------
-circuit.Transformers.Name = TRAFO_ALVO
-kva_nominal = circuit.Transformers.kVA
-circuit.SetActiveElement(f"Transformer.{TRAFO_ALVO}")
-bus_prim = circuit.ActiveCktElement.BusNames[0].split(".")[0].lower()
-bus_sec  = circuit.ActiveCktElement.BusNames[1].split(".")[0].lower()
-
-print(f"\nPotência nominal : {kva_nominal} kVA")
-print(f"Barramento MT    : {bus_prim}")
-print(f"Barramento BT    : {bus_sec}")
-
-# ---------------------------------------------------------------------------
-# 3. Monta grafo de adjacência da rede (apenas linhas, sem switches)
-# ---------------------------------------------------------------------------
-adj = {}  # {bus: [bus_vizinho, ...]}
-
-circuit.SetActiveClass("Line")
-lines = circuit.Lines
-idx = lines.First
-while idx > 0:
-    if not lines.IsSwitch:
-        b1 = lines.Bus1.split(".")[0].lower()
-        b2 = lines.Bus2.split(".")[0].lower()
-        adj.setdefault(b1, []).append(b2)
-        adj.setdefault(b2, []).append(b1)
-    idx = lines.Next
-
-# ---------------------------------------------------------------------------
-# 4. BFS a partir do barramento secundário para encontrar todos os nós
-#    downstream (até encontrar outro transformador)
-# ---------------------------------------------------------------------------
-# Conjunto de barramentos primários de transformadores (são "paredes" do BFS)
-bus_prim_trafos = set()
-trafo_names = list(circuit.Transformers.AllNames)
-for tn in trafo_names:
-    circuit.Transformers.Name = tn
-    circuit.SetActiveElement(f"Transformer.{tn}")
-    bp = circuit.ActiveCktElement.BusNames[0].split(".")[0].lower()
-    bus_prim_trafos.add(bp)
-
-# BFS
-visitados = set()
-fila = [bus_sec]
-visitados.add(bus_sec)
-
-while fila:
-    atual = fila.pop(0)
-    for viz in adj.get(atual, []):
-        if viz not in visitados and viz not in bus_prim_trafos:
-            visitados.add(viz)
-            fila.append(viz)
-
-print(f"\nBarramentos alimentados por este trafo: {len(visitados)}")
-
-# ---------------------------------------------------------------------------
-# 5. Cargas conectadas a esses barramentos
-# ---------------------------------------------------------------------------
-circuit.SetActiveClass("Load")
-loads = circuit.Loads
-
-cargas = []
-idx = loads.First
-while idx > 0:
-    bus_carga = circuit.ActiveCktElement.BusNames[0].split(".")[0].lower()
-    if bus_carga in visitados:
-        cargas.append({
-            "nome": loads.Name,
-            "bus": bus_carga,
-            "kW": loads.kW,
-            "kvar": loads.kvar,
-            "kVA": (loads.kW**2 + loads.kvar**2)**0.5,
-            "fases": loads.Phases,
-        })
-    idx = loads.Next
-
-total_kw   = sum(c["kW"]  for c in cargas)
-total_kvar = sum(c["kvar"] for c in cargas)
-total_kva  = (total_kw**2 + total_kvar**2)**0.5
-
-print(f"Número de cargas : {len(cargas)}")
-print(f"\nCarga total instalada:")
-print(f"  P total  : {total_kw:.2f} kW")
-print(f"  Q total  : {total_kvar:.2f} kvar")
-print(f"  S total  : {total_kva:.2f} kVA")
-print(f"  Trafo    : {kva_nominal:.0f} kVA")
-print(f"  Carregamento nominal: {100*total_kva/kva_nominal:.1f}%")
-
-print(f"\nDetalhamento das cargas:")
-print(f"  {'Nome':<30} {'Bus':<15} {'kW':>8} {'kvar':>8} {'kVA':>8} {'Fases':>6}")
-print(f"  {'-'*75}")
-for c in sorted(cargas, key=lambda x: x["kVA"], reverse=True):
-    print(f"  {c['nome']:<30} {c['bus']:<15} {c['kW']:>8.2f} {c['kvar']:>8.2f} {c['kVA']:>8.2f} {c['fases']:>6}")
-
-# ---------------------------------------------------------------------------
-# 6. Geração distribuída nos mesmos barramentos
-# ---------------------------------------------------------------------------
-circuit.SetActiveClass("PVSystem")
-pvs_list = list(circuit.ActiveClass.AllNames)
-
-gd = []
-for pv_name in pvs_list:
-    circuit.SetActiveElement(f"PVSystem.{pv_name}")
-    bus_pv = circuit.ActiveCktElement.BusNames[0].split(".")[0].lower()
-    if bus_pv in visitados:
-        # kW instalado via propriedade Pmpp
-        circuit.SetActiveClass("PVSystem")
-        # Lê potência via elemento ativo
+    # Coleta de dados (Exemplo simplificado de diagnóstico)
+    pmax = 0.0
+    v_min_bt = 2.0
+    
+    for h in range(24):
+        circuit.Solution.Solve()
+        if not circuit.Solution.Converged:
+            raise RuntimeError(f"FALHA DE CONVERGÊNCIA: Hora {h}")
+            
+        circuit.SetActiveElement(f"Transformer.{TRAFO_ALVO}")
+        # Carregamento
         powers = circuit.ActiveCktElement.Powers
-        n_fases = circuit.ActiveCktElement.NumPhases
-        p_kw = abs(sum(powers[0:n_fases*2:2]))
-        gd.append({"nome": pv_name, "bus": bus_pv, "kW_inst": p_kw})
+        s = (sum(powers[0:6:2])**2 + sum(powers[1:6:2])**2)**0.5
+        pmax = max(pmax, s)
+        
+        # Tensão no secundário
+        circuit.SetActiveBus(bus_sec)
+        v_pu = circuit.ActiveBus.puVmagAngle
+        v_min_bt = min(v_min_bt, min(v_pu[0:6:2]))
 
-if gd:
-    print(f"\nGeração distribuída neste ramal:")
-    for g in gd:
-        print(f"  {g['nome']:<30} {g['bus']:<15} {g['kW_inst']:>8.2f} kW")
-    print(f"  Total GD: {sum(g['kW_inst'] for g in gd):.2f} kW")
-else:
-    print(f"\nNenhuma GD conectada a este ramal.")
+    print(f"  Potência Máxima: {pmax:.2f} kVA")
+    print(f"  Tensão Mínima  : {v_min_bt:.4f} pu")
+    print(f"{'='*80}\n")
 
-print(f"\n{'='*60}\n")
+if __name__ == "__main__":
+    main()

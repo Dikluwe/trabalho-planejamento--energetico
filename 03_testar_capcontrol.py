@@ -44,6 +44,9 @@ print(f"  {'-'*40}")
 q_max_base = 0.0
 for h in range(24):
     circuit.Solution.Solve()
+    if not circuit.Solution.Converged:
+        print(f"Erro: O fluxo de carga não convergiu na hora {h}.")
+        sys.exit(1)
     circuit.SetActiveElement("Line.smt_14449")
     powers = circuit.ActiveCktElement.Powers
     n = circuit.ActiveCktElement.NumPhases
@@ -91,6 +94,9 @@ dss.Text.Command = f'Redirect "{MASTER}"'
 dss.Text.Command = "Set mode=daily stepsize=1h number=1"
 for h in range(24):
     circuit.Solution.Solve()
+    if not circuit.Solution.Converged:
+        print(f"Erro: O fluxo de carga não convergiu na hora {h}.")
+        sys.exit(1)
     circuit.SetActiveElement("Line.smt_14449")
     powers = circuit.ActiveCktElement.Powers
     n = circuit.ActiveCktElement.NumPhases
@@ -107,6 +113,9 @@ dss.Text.Command = f"New CapControl.CC2 element=Line.smt_14449 terminal=1 capaci
 perdas_com = 0.0
 for h in range(24):
     circuit.Solution.Solve()
+    if not circuit.Solution.Converged:
+        print(f"Erro: O fluxo de carga não convergiu na hora {h}.")
+        sys.exit(1)
     circuit.SetActiveElement("Line.smt_14449")
     powers = circuit.ActiveCktElement.Powers
     n = circuit.ActiveCktElement.NumPhases

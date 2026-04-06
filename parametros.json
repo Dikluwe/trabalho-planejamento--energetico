@@ -88,9 +88,9 @@
   ],
   "capacitor_alvo": {
     "barramento": "181",
-    "linha_referencia": "smt_6350",
+    "linha_referencia": "Line.smt_6350",
     "kvar_calculado": 50,
-    "onsetting_sugerido": 37,
-    "offsetting_sugerido": 15
+    "onsetting_sugerido": 53,
+    "offsetting_sugerido": 6
   }
 }

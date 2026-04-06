@@ -1,7 +1,7 @@
 # Crystalline Lineage
 # @prompt 00_nucleo/prompts/expansao.md
 # @layer L4
-# @updated 2026-04-04
+# @updated 2026-04-05
 
 """
 Ponto de entrada do Trabalho 1a — Planejamento Energético.
@@ -13,70 +13,35 @@ arquivos .dss da CRELUZ. Execute com:
 
 O programa:
   1. Roda o caso base para os 3 anos de crescimento de carga
-  2.- [x] Criar `parametros.json` com valores atuais do script [Finais/parametros.json](file:///home/dikluwe/Documentos/Antigravity/planejamento-energetico/Finais/parametros.json)
-- [x] Modificar `01_main_trabalho.py` para carregar o JSON
-- [x] Refatorar a criação da lista `ALTERNATIVAS` em `01_main_trabalho.py`
-- [ ] Validar importações e dependências nos módulos `00_*.py`
-- [ ] Testar execução completa do script
-- [ ] Criar Walkthrough final
+  2. Avalia alternativas de intervenção conforme parametros.json
 """
 
 import sys
 from pathlib import Path
 
-# Garante que Main.py e os módulos novos estão no path
+# Adiciona o diretório atual ao path para garantir que o Python ache as pastas
 HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
 import Main as professor
-import importlib.util
-import json
+from fase_00 import financeiro, expansao, configuracao
+from fase_00.expansao import Alternativa
 
-def load_module(name, filename):
-    path = HERE / filename
-    if not path.exists():
-        print(f"ERRO: Arquivo {filename} não encontrado em {HERE}")
-        sys.exit(1)
-    spec = importlib.util.spec_from_file_location(name, str(path))
-    module = importlib.util.module_from_spec(spec)
-    # Injeta no sys.modules para que outros scripts possam importar pelo nome curto
-    sys.modules[name] = module 
-    spec.loader.exec_module(module)
-    return module
-
-# Importa módulos com prefixo numérico de forma que as interdependências funcionem
-financeiro = load_module("financeiro", "00_financeiro.py")
-expansao = load_module("expansao", "00_expansao.py")
-
-from expansao import Alternativa
-
-
-# ---------------------------------------------------------------------------
-# Carregamento de Parâmetros (Arquivo JSON)
-# ---------------------------------------------------------------------------
-
-CONFIG_FILE = HERE / "parametros.json"
-if not CONFIG_FILE.exists():
-    print(f"ERRO: Arquivo de configuração {CONFIG_FILE.name} não encontrado.")
-    sys.exit(1)
-
-with open(CONFIG_FILE, "r", encoding="utf-8") as f:
-    config = json.load(f)
-
-# Configuração de caminhos e arquivos
-DSS_FILE = str(HERE / config["caminhos"]["dss_file"])
+# Parâmetros carregados centralizadamente no módulo configuracao
+config = configuracao.config
+DSS_FILE = configuracao.MASTER_DSS
 OUTPUT_BASE = str(HERE / config["caminhos"]["output_base"])
 
 # Parâmetros econômicos
-TAXA_DESCONTO = config["economico"]["taxa_desconto"]
-TARIFA_VENDA_USD_MWH = config["economico"]["tarifa_venda_usd_mwh"]
-PRECO_COMPRA_USD_MWH = config["economico"]["preco_compra_usd_mwh"]
+TAXA_DESCONTO = configuracao.TAXA_DESCONTO
+TARIFA_VENDA_USD_MWH = configuracao.TARIFA_VENDA
+PRECO_COMPRA_USD_MWH = configuracao.PRECO_COMPRA
 TUSD_USD_MWH = config["economico"]["tusd_usd_mwh"]
 
 # Limites técnicos
-LIMITE_MIN_PU = config["tecnico"]["limite_min_pu"]
-LIMITE_MAX_PU = config["tecnico"]["limite_max_pu"]
+LIMITE_MIN_PU = configuracao.LIMITE_MIN_PU
+LIMITE_MAX_PU = configuracao.LIMITE_MAX_PU
 
 # ---------------------------------------------------------------------------
 # Alternativas de intervenção (Carregadas dinamicamente)

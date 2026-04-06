@@ -1,66 +1,37 @@
-# remanejamento_trafo.py
-# Identifica transformadores subutilizados que poderiam ser substituídos
-# por unidades menores, liberando um trafo maior para o trf_6_4910a
+# Crystalline Lineage
+# @layer L2
+# @updated 2026-04-05
 
 import sys
-from pathlib import Path
+from dss import dss
+from fase_00 import configuracao
 
-HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
+MASTER = configuracao.MASTER_DSS
+TRAFO_ALVO = configuracao.TRAFO_CRITICO
 
-import pandas as pd
-import json
-with open(HERE / "parametros.json", "r") as f:
-    config = json.load(f)
-MASTER = str(HERE / config["caminhos"]["dss_file"])
+def main():
+    circuit = configuracao.inicializar_dss(dss, MASTER)
+    
+    print(f"\n{'='*80}")
+    print(f"[02.07] ANÁLISE DE REMANEJAMENTO — {TRAFO_ALVO.upper()}")
+    print(f"{'='*80}")
 
-# Lê o summary já gerado pelo caso base ano 1
-csv_path = HERE / "Resultados_ano1" / "TransformerSummary.csv"
+    # Identifica o barramento MT via API
+    circuit.SetActiveElement(f"Transformer.{TRAFO_ALVO}")
+    bus_mt = circuit.ActiveCktElement.BusNames[0].split(".")[0].lower()
+    
+    print(f"  Barramento MT: {bus_mt}")
+    print(f"  Avaliando troca por transformador de 45 kVA...")
+    
+    dss.Text.Command = f"Edit Transformer.{TRAFO_ALVO} kVA=45"
+    circuit.Solution.Solve()
+    if not circuit.Solution.Converged:
+        raise RuntimeError(f"FALHA DE CONVERGÊNCIA: Remanejamento 45kVA")
+        
+    powers = circuit.ActiveCktElement.Powers
+    s = (sum(powers[0:6:2])**2 + sum(powers[1:6:2])**2)**0.5
+    print(f"  Novo Carregamento (45 kVA): {100 * s / 45:.2f}%")
+    print(f"{'='*80}\n")
 
-if not csv_path.exists():
-    print(f"Arquivo não encontrado: {csv_path}")
-    print("Rode main_trabalho.py primeiro para gerar os CSVs.")
-    sys.exit(1)
-
-df = pd.read_csv(csv_path)
-
-print(f"\n{'='*70}")
-print("[02.05] TRANSFORMADORES DISPONÍVEIS PARA REMANEJAMENTO")
-print(f"{'='*70}")
-
-# Transformadores de 45 kVA
-df45 = df[df["ratedKva"] == 45.0].sort_values("maxLoadingPct")
-print(f"\nTrafos de 45 kVA na rede: {len(df45)}")
-if not df45.empty:
-    print(df45[["transformer","ratedKva","maxLoadingPct","meanLoadingPct","overloadHours"]].to_string(index=False))
-
-# Transformadores de 30 kVA (mesma classe do problema)
-df30 = df[df["ratedKva"] == 30.0].sort_values("maxLoadingPct")
-print(f"\nTrafos de 30 kVA na rede: {len(df30)}")
-print(df30[["transformer","ratedKva","maxLoadingPct","meanLoadingPct","overloadHours"]].to_string(index=False))
-
-# Todos os trafos ordenados por potência nominal
-print(f"\n{'='*70}")
-print("[02.06] INVENTÁRIO COMPLETO POR POTÊNCIA NOMINAL")
-print(f"{'='*70}")
-resumo = df.groupby("ratedKva").agg(
-    quantidade=("transformer","count"),
-    max_carregamento_max=("maxLoadingPct","max"),
-    media_carregamento_medio=("meanLoadingPct","mean"),
-).reset_index().sort_values("ratedKva")
-print(resumo.to_string(index=False))
-
-# Candidatos a remanejamento: trafos com carregamento médio < 30%
-# e potência >= 45 kVA — poderiam ser substituídos por um menor
-print(f"\n{'='*70}")
-print("[02.07] CANDIDATOS A REMANEJAMENTO (meanLoadingPct < 30% e ratedKva >= 45)")
-print(f"{'='*70}")
-candidatos = df[
-    (df["meanLoadingPct"] < 30.0) &
-    (df["ratedKva"] >= 45.0)
-].sort_values(["ratedKva","meanLoadingPct"])
-
-if candidatos.empty:
-    print("Nenhum trafo de 45+ kVA com carregamento médio abaixo de 30%.")
-else:
-    print(candidatos[["transformer","ratedKva","maxLoadingPct","meanLoadingPct"]].to_string(index=False))
+if __name__ == "__main__":
+    main()

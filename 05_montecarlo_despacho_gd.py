@@ -60,6 +60,8 @@ random.seed(SEED)
 ano_sobrecarga = []  # ano em que cada simulação ultrapassa 100%
 nunca_sobrecarrega = 0
 
+circuit = carregar(1.0)  # Carrega o disco apenas uma vez aqui
+
 for sim in range(N_SIMULACOES):
     # Crescimento uniforme entre 5% e 15% ao ano
     taxa = random.uniform(0.05, 0.15)
@@ -69,7 +71,7 @@ for sim in range(N_SIMULACOES):
         mult    = 1.0 + (ano - 1) * taxa
         gd_fat  = max(0.5, 1.0 - (ano - 1) * DEGRADACAO_GD)
 
-        circuit = carregar(mult)
+        dss.Text.Command = f"Set LoadMult={mult}"  # Altera apenas na memória
         circuit.PVSystems.First
         idx = circuit.PVSystems.First
         while idx > 0:

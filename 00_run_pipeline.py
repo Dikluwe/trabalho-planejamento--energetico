@@ -15,10 +15,10 @@ RESULTADOS_DIR.mkdir(exist_ok=True)
 # Listagem sequencial de execução (DAG)
 PIPELINE = [
     ("[00.01] FASE 1: SIMULAÇÃO BASE E MÓDULOS NUCLEARES", [
-        "01_main_trabalho.py"
+        "main_trabalho.py"  # Renomeado conforme diretriz
     ]),
     ("[00.02] FASE 2: ORQUESTRAÇÃO DE SOLUÇÕES (ATUALIZAÇÃO DE BANCO)", [
-        "03_melhor_ponto_capacitor.py",  # Grava parametros no JSON
+        "03_melhor_ponto_capacitor.py",
     ]),
     ("[00.03] FASE 3: ESTUDOS E DIMENSIONAMENTOS (LENDO JSON)", [
         "02_analisar_trafo.py",
@@ -78,19 +78,20 @@ def rodar_script(nome_script):
     log(f"\n[{datetime.now().strftime('%H:%M:%S')}] >>> Executando {nome_script} ...")
     inicio = time.time()
     
-    # Roda usando uv (garantindo que o venv local gerencie imports)
-    comando = ["uv", "run", "python", nome_script]
+    # Roda usando o executável do Python ATUAL (mais robusto que uv run explícito)
+    # Garante que o ambiente virtual atual seja usado
+    comando = [sys.executable, nome_script]
     
     try:
         resultado = subprocess.run(
             comando, 
             cwd=str(HERE), 
             text=True, 
+            encoding="utf-8", # Força UTF-8 para evitar problemas no Windows
             capture_output=True,
             check=True
         )
         
-        # Joga o conteudo stdout do subprocesso pro script orquestrador printar (interceptado pelo Logger)
         if resultado.stdout:
             sys.stdout.write(resultado.stdout)
             

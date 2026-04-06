@@ -76,10 +76,10 @@ for h in range(24):
     # Força o estado conforme o loadshape antes de resolver
     estado = states_op2[h]
     dss.Text.Command = f"Edit Capacitor.CAPX states=[{estado}]"
-    try:
-        circuit.Solution.Solve()
-    except Exception:
-        pass
+    circuit.Solution.Solve()
+    if not circuit.Solution.Converged:
+        print(f"Erro: O fluxo de carga não convergiu na hora {h}.")
+        sys.exit(1)
     perdas_op2[h] = circuit.Losses[0] / 1000.0
     circuit.SetActiveElement(f"Line.{MELHOR_NOME}")
     powers = circuit.ActiveCktElement.Powers
@@ -119,10 +119,10 @@ for h in range(24):
         estado_atual = 0  # força desligado durante GD
 
     dss.Text.Command = f"Edit Capacitor.CAPX states=[{estado_atual}]"
-    try:
-        circuit.Solution.Solve()
-    except Exception:
-        pass
+    circuit.Solution.Solve()
+    if not circuit.Solution.Converged:
+        print(f"Erro: O fluxo de carga não convergiu na hora {h}.")
+        sys.exit(1)
     perdas_op3[h] = circuit.Losses[0] / 1000.0
     circuit.SetActiveElement(f"Line.{MELHOR_NOME}")
     powers = circuit.ActiveCktElement.Powers

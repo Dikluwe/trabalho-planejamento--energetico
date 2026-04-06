@@ -1,6 +1,7 @@
 # 04_perfil_tensao_trafos_gd.py
 import sys
 from pathlib import Path
+from fase_00.configuracao import calcular_potencia_aparente
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -113,11 +114,16 @@ while idx > 0:
 
 resultado_trafos = {}
 
+circuit = carregar(1.0) # Carrega do disco apenas uma vez
 for ano, mult in [(ano, 1.0 + (ano-1)*config["simulacao"]["crescimento_carga"]) for ano in (1, 2, 3)]:
-    circuit = carregar(mult)
+    dss.Text.Command = f"Set LoadMult={mult}" # Altera o fator de carga direto na memória
     trafo_max = {}
     for h in range(24):
         circuit.Solution.Solve()
+        if not circuit.Solution.Converged:
+            print(f"Erro: O fluxo de carga não convergiu no ano {ano}, hora {h}.")
+            sys.exit(1)
+            
         circuit.SetActiveClass("Transformer")
         trafos = circuit.Transformers
         idx = trafos.First
@@ -125,15 +131,10 @@ for ano, mult in [(ano, 1.0 + (ano-1)*config["simulacao"]["crescimento_carga"]) 
             nome = trafos.Name
             kva  = kva_trafo.get(nome, trafos.kVA)
             if kva > 0:
-                circuit.SetActiveElement(f"Transformer.{nome}")
-                powers = circuit.ActiveCktElement.Powers
-                n = circuit.ActiveCktElement.NumPhases
-                if len(powers) >= n * 2:
-                    p = sum(powers[0:n*2:2])
-                    q = sum(powers[1:n*2+1:2])
-                    s = (p**2 + q**2)**0.5
-                    pct = 100 * s / kva
-                    trafo_max[nome] = max(trafo_max.get(nome, 0), pct)
+                # Usa a função centralizada em vez de repetir o cálculo
+                s_kva = calcular_potencia_aparente(circuit, nome) 
+                pct = 100 * s_kva / kva
+                trafo_max[nome] = max(trafo_max.get(nome, 0), pct)
             idx = trafos.Next
     for nome, pct in trafo_max.items():
         if nome not in resultado_trafos:
