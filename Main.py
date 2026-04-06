@@ -74,7 +74,6 @@ def SolveDailyStep(
   solution,
   hour: int
 ):
-  dss.Text.Command = f"Set mode=daily stepsize=1h number={hour + 1}"
   solution.Solve()
 
   if not solution.Converged:
@@ -91,23 +90,26 @@ def CollectVoltageRowsForHour(
   rows = []
   circuit = dss.ActiveCircuit
 
-  for phase in [1, 2, 3]:
-    nodeNames = circuit.AllNodeNamesByPhase(phase)
-    nodeVoltages = circuit.AllNodeVmagPUByPhase(phase)
-
-    if nodeNames is None or nodeVoltages is None:
+  for busName in loadBusSet:
+    circuit.SetActiveBus(busName)
+    bus = circuit.ActiveBus
+    
+    # puVmagAngle retorna uma lista com [magnitude1, angulo1, magnitude2, angulo2...]
+    # [0::2] pega apenas as magnitudes das tensões
+    voltagesPu = bus.puVmagAngle[0::2] 
+    nodes = bus.Nodes
+    
+    if len(voltagesPu) == 0 or len(nodes) == 0:
       continue
 
-    for nodeName, voltagePu in zip(nodeNames, nodeVoltages):
-      busName = nodeName.split(".")[0].lower()
+    currentBusData = busData.get(busName, {
+      "baseKv": 0.0,
+      "voltageLevel": "Unknown"
+    })
 
-      if busName not in loadBusSet:
-        continue
-
-      currentBusData = busData.get(busName, {
-        "baseKv": 0.0,
-        "voltageLevel": "Unknown"
-      })
+    for i, voltagePu in enumerate(voltagesPu):
+      phase = nodes[i]
+      nodeName = f"{busName}.{phase}"
 
       violationPu = 0.0
       if voltagePu < lowerVoltageLimitPu:
@@ -145,7 +147,6 @@ def CollectLineRowsForHour(hour: int):
 
 
     if IsValidNetworkLine(lineName, isSwitch):
-      circuit.SetActiveElement(elementName)
       element = circuit.ActiveCktElement
 
       currentsMagAng = element.CurrentsMagAng
@@ -585,6 +586,7 @@ def RunDailySimulationAndCollect(
   dss.Text.Command = "Reset Meters"
   previousMeterState = BuildPreviousMeterState(CollectMeterState())
 
+  dss.Text.Command = "Set mode=daily stepsize=1h number=1"
   for hour in range(totalHours):
     SolveDailyStep(
       solution=solution,

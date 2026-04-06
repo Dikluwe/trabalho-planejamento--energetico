@@ -108,8 +108,16 @@ def extrair_indicadores(
     df_voltages = resultado["dfVoltages"]
     df_meter_hour = resultado["dfMeterByHour"]
 
-    energia_dia_kwh = df_energy["totalEnergyKWh"].sum() if not df_energy.empty else 0.0
-    perdas_dia_kwh = df_energy["totalLossesKWh"].sum() if not df_energy.empty else 0.0
+    medidor = configuracao.MEDIDOR_SUBESTACAO.lower()
+    df_medidor = df_energy[df_energy["meterName"].str.lower() == medidor]
+
+    if not df_medidor.empty:
+        energia_dia_kwh = df_medidor["totalEnergyKWh"].iloc[0]
+        perdas_dia_kwh = df_medidor["totalLossesKWh"].iloc[0]
+    else:
+        # Fallback para o primeiro medidor se não encontrar pelo nome exato
+        energia_dia_kwh = df_energy["totalEnergyKWh"].iloc[0] if not df_energy.empty else 0.0
+        perdas_dia_kwh = df_energy["totalLossesKWh"].iloc[0] if not df_energy.empty else 0.0
 
     compensacao = financeiro.compensacao_prodist_mensal(
         df_voltages=df_voltages,

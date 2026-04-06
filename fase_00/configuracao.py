@@ -34,6 +34,7 @@ RESULTADOS_DIR.mkdir(exist_ok=True)
 
 # Parâmetros técnicos frequentes
 TRAFO_CRITICO = config["graficos"]["trafo_critico"]
+MEDIDOR_SUBESTACAO = config["graficos"]["medidor_subestacao"]
 CRESCIMENTO = config["simulacao"]["crescimento_carga"]
 LIMITE_MIN_PU = config["tecnico"]["limite_min_pu"]
 LIMITE_MAX_PU = config["tecnico"]["limite_max_pu"]
@@ -66,10 +67,11 @@ def calcular_potencia_aparente(circuit, nome_elemento, tipo_elemento="Transforme
     return (p**2 + q**2)**0.5
 
 
-def ajustar_irradiancia_gd(circuit, fator):
-    """Ajusta a irradiância de todos os sistemas fotovoltaicos (PVSystem) do circuito."""
+def ajustar_potencia_gd(circuit, fator):
+    """Ajusta a potência nominal (Pmpp e kVA) de todos os sistemas fotovoltaicos (PVSystem)."""
     idx = circuit.PVSystems.First
     while idx > 0:
-        circuit.PVSystems.Irradiance = fator
+        circuit.PVSystems.Pmpp *= fator
+        circuit.PVSystems.kVA *= fator
         idx = circuit.PVSystems.Next
 

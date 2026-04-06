@@ -171,13 +171,22 @@ def compensacao_prodist_mensal(
     drp_limite = 3.0    # %
     drc_limite = 0.5    # %
 
-    # TUSD em USD/kWh
-    tusd_usd_kwh = tusd_usd_mwh / 1000.0
-
-    energia_total_dia_kwh = df_meter_by_hour["deltaActiveEnergyKWh"].sum()
+    from fase_00 import configuracao
+    medidor = configuracao.MEDIDOR_SUBESTACAO.lower()
+    df_medidor = df_meter_by_hour[df_meter_by_hour["meterName"].str.lower() == medidor]
+    
+    if not df_medidor.empty:
+        energia_total_dia_kwh = df_medidor["deltaActiveEnergyKWh"].sum()
+    else:
+        # Fallback se não encontrar o medidor pelo nome
+        energia_total_dia_kwh = df_meter_by_hour["deltaActiveEnergyKWh"].sum() / (1 + df_voltages["bus"].nunique()/50) # Heurística se falhar
+        
     n_nos = df_voltages["bus"].nunique()
     if n_nos == 0:
         return 0.0
+
+    # TUSD em USD/kWh
+    tusd_usd_kwh = tusd_usd_mwh / 1000.0
 
     # Consumo mensal estimado por nó (proxy para EUSD individual)
     energia_mes_por_no_kwh = (energia_total_dia_kwh * 30.0) / n_nos
