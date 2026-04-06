@@ -39,20 +39,22 @@ def main():
     dss.Text.Command = "New Generator.GD_TEST phases=3 kv=23.1 kw=100 pf=1.0 model=1 enabled=no"
 
     for b in buses_mt:
-        # Apenas EDITAMOS o barramento e habilitamos
-        dss.Text.Command = f"Edit Generator.GD_TEST Bus1={b} enabled=yes"
+        # Usa interface de objeto (muito mais rápido que dss.Text)
+        circuit.Generators.Name = "GD_TEST"
+        circuit.ActiveCktElement.BusNames = [b]
+        circuit.ActiveCktElement.Properties("enabled").Val = "yes"
         
         circuit.Solution.Solve()
         if not circuit.Solution.Converged:
-            dss.Text.Command = "Edit Generator.GD_TEST enabled=no"
+            circuit.ActiveCktElement.Properties("enabled").Val = "no"
             continue
             
         loss_new = circuit.Losses[0] / 1000.0
         reduction = loss_base - loss_new
         results.append({"bus": b, "reduction": reduction})
         
-        # Desabilita para não interferir na próxima busca de perdas base (se houver)
-        dss.Text.Command = "Edit Generator.GD_TEST enabled=no"
+        # Desabilita via objeto
+        circuit.ActiveCktElement.Properties("enabled").Val = "no"
     
     # Ordena e mostra top 10
     results.sort(key=lambda x: x["reduction"], reverse=True)

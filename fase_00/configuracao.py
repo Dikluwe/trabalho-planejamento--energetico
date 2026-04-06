@@ -67,3 +67,11 @@ def calcular_potencia_aparente(circuit, nome_elemento, tipo_elemento="Transforme
     q = sum(pw[1:n*2+1:2])
     return (p**2 + q**2)**0.5
 
+
+def ajustar_irradiancia_gd(circuit, fator):
+    """Ajusta a irradiância de todos os sistemas fotovoltaicos (PVSystem) do circuito."""
+    idx = circuit.PVSystems.First
+    while idx > 0:
+        circuit.PVSystems.Irradiance = fator
+        idx = circuit.PVSystems.Next
+

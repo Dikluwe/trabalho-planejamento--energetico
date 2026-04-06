@@ -35,7 +35,7 @@ def main():
     print(f"  Simulando troca de condutor...")
     
     # Exemplo de comando de troca de condutor
-    # dss.Text.Command = f"Edit Line.{pior_linha} linecode=4_0_CA"
+    dss.Text.Command = f"Edit Line.{pior_linha} linecode=4_0_CA"
     
     circuit.Solution.Solve()
     if not circuit.Solution.Converged:

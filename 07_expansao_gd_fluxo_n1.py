@@ -282,11 +282,11 @@ for bname in amostra:
         vmag = circuit_n1.ActiveBus.VMagAngle
         if len(vmag) >= 1:
             vpu = vmag[0] / (kv * 1000)  # kVBase já é tensão de fase
-            status = "OK" if vpu > 0.93 else ("precário" if vpu > 0.5 else "SEM TENSÃO")
-            if vpu < 0.5: n_sem += 1
+            status = "OK (Caminho Alternativo)" if vpu > 0.1 else "SEM TENSÃO (Isolado)"
+            if vpu <= 0.1: n_sem += 1
             print(f"  {bname:<25} {vpu:>12.4f} {status:>10}")
 
-print(f"\n  Total sem tensão (<0,5 pu): {n_sem} (de {min(15, len(downstream))} amostrados)")
+print(f"\n  Total sem tensão (<0,1 pu): {n_sem} (de {min(15, len(downstream))} amostrados)")
 print(f"\n  Conclusão: rede radial sem redundância.")
 print(f"  Abertura de {LINHA_N1} interrompe {len(downstream)} barramentos MT")
 print(f"  e {n_trafos} transformadores de distribuição.")

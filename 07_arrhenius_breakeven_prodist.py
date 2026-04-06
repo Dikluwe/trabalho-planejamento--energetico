@@ -52,17 +52,14 @@ def faa(carregamento_pct):
     delta_topo = (carregamento_pct / 100) ** 1.6 * 55  # elevação no topo
     delta_pq   = (carregamento_pct / 100) ** 1.6 * 23  # ponto quente
     theta_h = theta_a + delta_topo + delta_pq
-    return math.exp((theta_h - 98) / 6 * math.log(2))
+    return math.exp((theta_h - 98) / 6 * math.log(2)), theta_h
 
 print(f"\n  Modelo IEEE C57.91 — temperatura ambiente: 30°C")
 print(f"  {'Carregamento':>14} {'θH (°C)':>9} {'FAA':>8} {'Vida equiv.':>12}")
 print(f"  {'-'*48}")
 
 for pct in [80, 88.5, 97.1, 100, 105.7, 110, 120]:
-    theta_a = 30
-    delta = (pct/100)**1.6
-    theta_h = theta_a + delta*55 + delta*23
-    f = faa(pct)
+    f, theta_h = faa(pct)
     vida_eq = VIDA_UTIL_TRAFO / f if f > 0 else 999
     print(f"  {pct:>13.1f}% {theta_h:>9.1f} {f:>8.3f} {vida_eq:>11.1f} anos")
 
@@ -80,19 +77,19 @@ risco_total  = 0.0
 
 for ano in [1, 2, 3]:
     pct   = pct_sob[ano]
-    f     = faa(pct)
+    f, _  = faa(pct)
     h_sob = horas_sob[ano]
     h_nom = 8760 - h_sob  # horas em carregamento normal
 
     # Consumo de vida útil
-    delta_vida_h = h_nom * f + h_sob * faa(pct) - 8760  # horas "extras" consumidas
-    consumo_pct  = (h_nom * 1.0 + h_sob * f) / vida_total_h * 100
+    delta_vida_h = h_sob * (f - 1)  # horas "extras" consumidas
+    consumo_pct  = (8760 + delta_vida_h) / vida_total_h * 100
 
     # Probabilidade de falha simplificada (taxa de falha de Weibull)
     # P(falha/ano) ≈ horas_em_sobrecarga / vida_restante_estimada
     vida_restante_h = vida_total_h - (ano - 1) * 8760 * 1.0
     if vida_restante_h > 0 and h_sob > 0:
-        p_falha = min(0.99, h_sob * f / vida_restante_h * 10)
+        p_falha = min(0.99, h_sob * f / vida_restante_h)
     else:
         p_falha = 0.001  # taxa base de falha
 
