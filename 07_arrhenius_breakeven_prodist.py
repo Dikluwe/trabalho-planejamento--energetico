@@ -324,9 +324,13 @@ for h in range(24):
 
 def faixas_prodist(vpus):
     """Retorna DRP e DRC em % (relativo a 1008 leituras mensais).
-    Fator correto: 1h de violação = 6 leituras × 7 dias = 42 leituras mensais.
+    
+    Como só simulamos 24h (1 dia típico), aplicamos fator de extrapolação:
+    - 24 leituras horárias × 6 (conversão 10min) × 7 (dias) = 1008 leituras equivalentes
     """
-    n_total = 1008  # leituras mensais padrão PRODIST (7 dias × 24h × 6)
+    n_total = 1008  # base PRODIST (7 dias × 24h × 6 leituras/h)
+    # Fator de correção: escala 24h → 7 dias + conversão hora → 10min
+    # 24 leituras × 42 = 1008 leituras equivalentes
     fator   = 42    # 6 leituras/h × 7 dias
 
     n_prec = sum(1 for v in vpus if 0.871 <= v < 0.921 or 1.050 < v <= 1.061) * fator
