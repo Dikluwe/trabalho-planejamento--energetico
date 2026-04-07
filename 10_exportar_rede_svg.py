@@ -20,7 +20,7 @@ with open(HERE / "parametros.json", "r") as f:
 MASTER = str(HERE / config["caminhos"]["dss_file"])
 TRAFO_CRITICO = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
 from dss import dss
-COORDS_CSV = HERE / "buscoords.csv"
+COORDS_CSV = HERE / "dss" / "buscoords.csv"
 
 # ---------------------------------------------------------------------------
 # 1. Carrega coordenadas
@@ -179,7 +179,7 @@ def gerar_svg(nome_arquivo, camadas_fn, W=1200, H=1200):
 
     linhas_svg.append('</svg>')
 
-    path = HERE / nome_arquivo
+    path = HERE / "Resultados" / "graficos" / nome_arquivo
     with open(path, 'w') as f:
         f.write('\n'.join(linhas_svg))
     print(f"  Gerado: {nome_arquivo}")

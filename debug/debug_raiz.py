@@ -4,7 +4,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
+MASTER = str(HERE.parent / "dss" / "Master.dss")
 dss.Text.Command = "Clear"
 dss.Text.Command = f'Redirect "{MASTER}"'
 dss.Text.Command = "Set mode=daily stepsize=1h number=1"

@@ -213,7 +213,7 @@ print(f"\n{'='*70}")
 print("[07.05] EXPORTANDO CSV CONSOLIDADO")
 print("="*70)
 
-csv_path = HERE / "resultados_consolidados.csv"
+csv_path = HERE / "Resultados" / "resultados_consolidados.csv"
 
 linhas = [
     # Cabeçalho
@@ -366,7 +366,7 @@ else:
     print(f"  Rede dentro dos limites regulatórios em todas as barras.")
 
 # Exporta CSV PRODIST
-prodist_path = HERE / "prodist_drp_drc.csv"
+prodist_path = HERE / "Resultados" / "prodist_drp_drc.csv"
 with open(prodist_path, 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f, delimiter=';')
     writer.writerow(["Barramento", "Vmin_pu", "Vmax_pu", "Vmed_pu",

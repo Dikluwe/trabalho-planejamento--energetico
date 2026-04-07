@@ -15,7 +15,7 @@ with open(HERE / "parametros.json", "r") as f:
     config = json.load(f)
 MASTER = str(HERE / config["caminhos"]["dss_file"])
 TRAFO_CRITICO = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
-COORDS_CSV = HERE / "buscoords.csv"
+COORDS_CSV = HERE / "dss" / "buscoords.csv"
 
 from dss import dss
 
@@ -283,7 +283,7 @@ def escrever_svg(nome, camadas, titulo=""):
     for camada in camadas:
         linhas.extend(camada())
     linhas.extend(svg_footer())
-    path = HERE / nome
+    path = HERE / "Resultados" / "graficos" / nome
     with open(path, 'w', encoding='utf-8') as f:
         f.write('\n'.join(linhas))
     kb = path.stat().st_size / 1024
@@ -429,14 +429,14 @@ html = f"""<!DOCTYPE html>
 </body>
 </html>"""
 
-html_path = HERE / "visualizar_rede.html"
+html_path = HERE / "Resultados" / "graficos" / "visualizar_rede.html"
 with open(html_path, 'w', encoding='utf-8') as f:
     f.write(html)
 print(f"  {'visualizar_rede.html':<35} {html_path.stat().st_size/1024:>8.1f} KB")
 
 print(f"""
 Pronto. Para visualizar:
-  1. Abra a pasta Finais/ no terminal
+  1. Abra a pasta Resultados/graficos/ no terminal
   2. python -m http.server 8080
   3. Acesse http://localhost:8080/visualizar_rede.html
 

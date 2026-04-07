@@ -1,6 +1,6 @@
 {
   "caminhos": {
-    "dss_file": "Master.dss",
+    "dss_file": "dss/Master.dss",
     "output_base": "Resultados"
   },
   "economico": {

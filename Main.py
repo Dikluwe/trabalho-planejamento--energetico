@@ -717,9 +717,9 @@ def RunDailyNetworkAnalysis(
 
 def BuildDefaultPaths():
   currentFolder = Path(__file__).resolve().parent
-  dssFilePath = currentFolder / "Master.dss"
+  dssFilePath = currentFolder / "dss" / "Master.dss"
   outputFolderPath = currentFolder / "Resultados"
-  csvFolderPath = outputFolderPath / "buscoords.csv"
+  csvFolderPath = currentFolder / "dss" / "buscoords.csv"
   return dssFilePath, outputFolderPath, csvFolderPath
 
 

@@ -119,8 +119,8 @@ def svg_fim():
     return ['</svg>']
 
 def salvar(nome, linhas):
-    pasta_graficos = HERE / "graficos"
-    pasta_graficos.mkdir(exist_ok=True)
+    pasta_graficos = HERE / "Resultados" / "graficos"
+    pasta_graficos.mkdir(parents=True, exist_ok=True)
     path = pasta_graficos / nome
     with open(path, 'w', encoding='utf-8') as f:
         f.write('\n'.join(linhas))

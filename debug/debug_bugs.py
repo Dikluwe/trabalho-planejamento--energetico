@@ -4,7 +4,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from dss import dss
 
-MASTER = str(HERE / "Master.dss")
+MASTER = str(HERE.parent / "dss" / "Master.dss")
 
 def carregar(mult=1.0):
     dss.Text.Command = "Clear"

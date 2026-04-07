@@ -15,7 +15,7 @@ with open(HERE / "parametros.json", "r") as f:
     config = json.load(f)
 MASTER = str(HERE / config["caminhos"]["dss_file"])
 TRAFO_CRITICO = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
-COORDS_CSV = HERE / "buscoords.csv"
+COORDS_CSV = HERE / "dss" / "buscoords.csv"
 
 # ---------------------------------------------------------------------------
 # 1. Coordenadas
@@ -176,7 +176,7 @@ for bus in BUSES_SOBRETENSAO:
 # ---------------------------------------------------------------------------
 def salvar_geojson(nome, features):
     gj = {"type": "FeatureCollection", "features": features}
-    path = HERE / nome
+    path = HERE / "Resultados" / nome
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(gj, f, ensure_ascii=False, indent=2)
     kb = path.stat().st_size / 1024

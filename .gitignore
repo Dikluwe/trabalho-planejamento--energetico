@@ -31,18 +31,18 @@ ENV/
 .idea/
 
 # Project Specific - Results & Blobs
-Finais/Resultados/
-Finais/Resultados_ano*/
-Finais/_temp_cenario_*/
-Finais/graficos/
-Finais/mapa/
-Finais/debug/
-Finais/*.svg
-Finais/*.geojson
-Finais/*.csv
+Resultados/
+Resultados_ano*/
+_temp_cenario_*/
+graficos/
+mapa/
+debug/
+*.svg
+*.geojson
+*.csv
 !Finais/buscoords.csv  # Mantendo coordenadas se forem fonte
-Finais/*.zip
-Finais/*.tar.gz
+*.zip
+*.tar.gz
 *.pdf
 out.txt
 
