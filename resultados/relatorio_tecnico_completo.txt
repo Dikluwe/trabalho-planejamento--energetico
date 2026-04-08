@@ -1,0 +1,63 @@
+================================================================================
+PIPELINE DE PLANEJAMENTO ENERGÉTICO — 2026-04-08 14:05
+================================================================================
+Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigravity/planejamento-energetico/trabalho-planejamento-energetico/resultados/relatorio_tecnico_completo.txt
+
+
+================================================================================
+   [00.01] FASE 1: SIMULAÇÃO BASE E MÓDULOS NUCLEARES
+================================================================================
+
+[14:05:10] >>> Executando etapas/01_simulacao_base.py ...
+      ================================================================================
+      ETAPA 01 — SIMULAÇÃO BASE E ALTERNATIVAS (CRELUZ)
+      ================================================================================
+      
+      [01.01] Rodando caso base (3 anos)...
+            Ano 1 (fator 1.0)...
+            Ano 2 (fator 1.1)...
+            Ano 3 (fator 1.2)...
+      
+      [01.02] Diagnóstico financeiro (Ano 1):
+        Energia Fornecida : 360.93 MWh/mês
+        Perdas            : 13.72 MWh/mês (3.80%)
+        Resultado Operac. : USD -163,788.41/mês
+      
+      [01.03] Avaliando 6 alternativa(s)...
+      
+      >>> Avaliando: Ajuste de tap — trf_6_4910a (+1 derivacao)
+      
+      >>> Avaliando: Ajuste de tap — trf_6_4910a + trf_11_305a
+      
+      >>> Avaliando: Capacitor fixo 600 kvar (barra 9051)
+      
+      >>> Avaliando: Capacitor automatico 1200 kvar (barra 9051)
+      
+      >>> Avaliando: Recondutoramento smt_29422 — 4/0 CA
+      
+      >>> Avaliando: Recondutoramento smt_29422 — 336,4 CA
+      
+      ================================================================================
+      [01.04] RESULTADOS COMPARATIVOS (VPL)
+      ================================================================================
+        Ajuste de tap — trf_6_4910a + trf_11_305a | VPL: USD     3,793.24
+        Recondutoramento smt_29422 — 4/0 CA      | VPL: USD      -985.30
+        Recondutoramento smt_29422 — 336,4 CA    | VPL: USD    -1,064.44
+        Ajuste de tap — trf_6_4910a (+1 derivacao) | VPL: USD    -9,641.80
+        Capacitor fixo 600 kvar (barra 9051)     | VPL: USD  -436,155.61
+        Capacitor automatico 1200 kvar (barra 9051) | VPL: USD  -874,252.44
+      ================================================================================
+      [OK] Finalizado etapas/01_simulacao_base.py em 51.62s
+
+================================================================================
+   [00.02] FASE 2: ORQUESTRAÇÃO DE SOLUÇÕES (ATUALIZAÇÃO DE BANCO)
+================================================================================
+
+[14:06:01] >>> Executando etapas/03_melhor_ponto_capacitor.py ...
+      Traceback (most recent call last):
+        File "/home/dikluwe/Documentos/Antigravity/planejamento-energetico/trabalho-planejamento-energetico/etapas/03_melhor_ponto_capacitor.py", line 14, in <module>
+          from core import configuracao
+      ModuleNotFoundError: No module named 'core'
+      [FALHA] O script etapas/03_melhor_ponto_capacitor.py retornou código 1
+
+[!] Falha ao executar etapas/03_melhor_ponto_capacitor.py. Execução interrompida.

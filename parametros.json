@@ -1,7 +1,7 @@
 {
   "caminhos": {
     "dss_file": "dss/Master.dss",
-    "output_base": "Resultados"
+    "output_base": "resultados"
   },
   "economico": {
     "taxa_desconto": 0.14,
