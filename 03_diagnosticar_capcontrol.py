@@ -9,12 +9,15 @@ HERE = Path(__file__).resolve().parent
 from dss import dss
 from fase_00 import configuracao
 
+
 def carregar():
     dss.Text.Command = "Clear"
     dss.Text.Command = f'Redirect "{MASTER}"'
     dss.Text.Command = "Set mode=daily stepsize=1h number=1"
 
+
 import json
+
 config_file = HERE / "parametros.json"
 if not config_file.exists():
     print("Execute 03_melhor_ponto_capacitor.py primeiro para gerar config no JSON.")
@@ -26,15 +29,15 @@ with open(config_file, "r") as f:
 MASTER = str(HERE / config["caminhos"]["dss_file"])
 
 c_alvo = config.get("capacitor_alvo", {})
-MELHOR_BUS  = c_alvo.get("barramento", "9051")
-CAP_KVAR    = c_alvo.get("kvar_calculado", 1200)
+MELHOR_BUS = c_alvo.get("barramento", "9051")
+CAP_KVAR = c_alvo.get("kvar_calculado", 1200)
 
 # ---------------------------------------------------------------------------
 # 1. Diagnóstico do tap
 # ---------------------------------------------------------------------------
-print("\n" + "="*60)
+print("\n" + "=" * 60)
 print("[03.02] DIAGNÓSTICO DO TAP — trf_6_4910a")
-print("="*60)
+print("=" * 60)
 
 carregar()
 circuit = dss.ActiveCircuit
@@ -48,7 +51,9 @@ print(f"  Num windings: {circuit.Transformers.NumWindings}")
 # Lê tensão e tap por winding
 for wdg in [1, 2]:
     circuit.Transformers.Wdg = wdg
-    print(f"  Winding {wdg}   : kV={circuit.Transformers.kV:.4f}  tap={circuit.Transformers.Tap:.4f}")
+    print(
+        f"  Winding {wdg}   : kV={circuit.Transformers.kV:.4f}  tap={circuit.Transformers.Tap:.4f}"
+    )
 
 # Resolve o caso base (hora 7 — pico de carga)
 dss.Text.Command = "Set mode=daily stepsize=1h number=7"
@@ -57,7 +62,7 @@ circuit.Solution.Solve()
 # Carregamento original
 s_orig = configuracao.calcular_potencia_aparente(circuit, "trf_6_4910a")
 print(f"\nCarregamento hora 7 (sem tap):")
-print(f"  S = {s_orig:.2f} kVA  ({100*s_orig/circuit.Transformers.kVA:.1f}%)")
+print(f"  S = {s_orig:.2f} kVA  ({100 * s_orig / circuit.Transformers.kVA:.1f}%)")
 
 # Tensão no secundário
 circuit.SetActiveBus("et6_4910")
@@ -78,7 +83,7 @@ circuit.SetActiveBus("et6_4910")
 v_sec_wdg1 = circuit.ActiveBus.VMagAngle[0]
 v_pu_wdg1 = v_sec_wdg1 / (kv_base * 1000) if kv_base > 0 else 0
 print(f"\nCom wdg=1 tap=1.0333 (primário +1 derivação):")
-print(f"  S = {s_wdg1:.2f} kVA  ({100*s_wdg1/30:.1f}%)")
+print(f"  S = {s_wdg1:.2f} kVA  ({100 * s_wdg1 / 30:.1f}%)")
 print(f"  V secundário: {v_sec_wdg1:.1f} V  ({v_pu_wdg1:.4f} pu)")
 
 # Testa tap wdg=2 tap=0.9667 (nosso atual — abaixa secundário)
@@ -92,7 +97,7 @@ circuit.SetActiveBus("et6_4910")
 v_sec_wdg2 = circuit.ActiveBus.VMagAngle[0]
 v_pu_wdg2 = v_sec_wdg2 / (kv_base * 1000) if kv_base > 0 else 0
 print(f"\nCom wdg=2 tap=0.9667 (secundário -1 derivação — atual):")
-print(f"  S = {s_wdg2:.2f} kVA  ({100*s_wdg2/30:.1f}%)")
+print(f"  S = {s_wdg2:.2f} kVA  ({100 * s_wdg2 / 30:.1f}%)")
 print(f"  V secundário: {v_sec_wdg2:.1f} V  ({v_pu_wdg2:.4f} pu)")
 
 print(f"\nConclusão tap:")
@@ -108,9 +113,9 @@ else:
 # ---------------------------------------------------------------------------
 # 2. Diagnóstico do CapControl
 # ---------------------------------------------------------------------------
-print("\n" + "="*60)
+print("\n" + "=" * 60)
 print("[03.03] DIAGNÓSTICO DO CAPCONTROL")
-print("="*60)
+print("=" * 60)
 
 carregar()
 
@@ -134,7 +139,9 @@ if linhas_alvo:
     print(f"\nTestando CapControl com element=Line.{linha_ref}")
 
     dss.Text.Command = "Set mode=daily stepsize=1h number=1"
-    dss.Text.Command = f"New Capacitor.CAP2 bus1={MELHOR_BUS} phases=3 kvar={CAP_KVAR} kv=23.1"
+    dss.Text.Command = (
+        f"New Capacitor.CAP2 bus1={MELHOR_BUS} phases=3 kvar={CAP_KVAR} kv=23.1"
+    )
     dss.Text.Command = f"New CapControl.CC2 element=Line.{linha_ref} terminal=1 capacitor=CAP2 type=kvar onsetting=200 offsetting=150"
 
     # Resolve 24h e verifica se o capacitor atuou
@@ -145,21 +152,25 @@ if linhas_alvo:
     circuit.SetActiveElement("Capacitor.CAP2")
     print(f"  Capacitor CAP2 existe: {circuit.ActiveCktElement.Name}")
 
-    # Verifica potência reativa no barramento 
+    # Verifica potência reativa no barramento
     circuit.SetActiveBus(MELHOR_BUS)
     v_bus = circuit.ActiveBus.VMagAngle
-    print(f"  Tensão barra {MELHOR_BUS}: {v_bus[0]:.1f} V  ({v_bus[0]/(23100/3**0.5):.4f} pu)")
+    print(
+        f"  Tensão barra {MELHOR_BUS}: {v_bus[0]:.1f} V  ({v_bus[0] / (23100 / 3**0.5):.4f} pu)"
+    )
 
     # Lê perdas totais com capacitor
     perdas_com = circuit.Losses[0] / 1000.0
     print(f"  Perdas totais: {perdas_com:.2f} kW")
 
     print(f"\n  Comando alternativo para CapControl baseado em kvar:")
-    print(f"  New CapControl.CC2 element=Line.{linha_ref} terminal=1 capacitor=CAP2 type=kvar onsetting=200 offsetting=150")
+    print(
+        f"  New CapControl.CC2 element=Line.{linha_ref} terminal=1 capacitor=CAP2 type=kvar onsetting=200 offsetting=150"
+    )
 else:
     print(f"  Nenhuma linha encontrada no barramento {MELHOR_BUS}")
     print("  Verificando transformador como elemento de referência...")
-    
+
     # Verifica se o transformador funciona como referência
     circuit.SetActiveElement("Transformer.TRF_6_4910A")
     print(f"  Transformer.TRF_6_4910A existe: {circuit.ActiveCktElement.Name}")

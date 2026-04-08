@@ -11,6 +11,7 @@ sys.path.insert(0, str(HERE))
 from dss import dss
 
 import json
+
 with open(HERE / "parametros.json", "r") as f:
     config = json.load(f)
 MASTER = str(HERE / config["caminhos"]["dss_file"])
@@ -62,11 +63,12 @@ for bname in all_bus:
             if vpu > 1.050 or vpu < 0.921:
                 BUSES_SOBRETENSAO.append(bname)
 
-TRAFOS_SOBRECARGA  = [TRAFO_CRITICO]
+TRAFOS_SOBRECARGA = [TRAFO_CRITICO]
 
 # ---------------------------------------------------------------------------
 # 3. Coleta features
 # ---------------------------------------------------------------------------
+
 
 def feature_line(coords_list, props):
     return {
@@ -75,12 +77,14 @@ def feature_line(coords_list, props):
         "properties": props,
     }
 
+
 def feature_point(lon, lat, props):
     return {
         "type": "Feature",
         "geometry": {"type": "Point", "coordinates": [lon, lat]},
         "properties": props,
     }
+
 
 feat_mt, feat_bt = [], []
 circuit.SetActiveClass("Line")
@@ -93,11 +97,11 @@ while idx > 0:
         circuit.SetActiveBus(b1)
         kv = circuit.ActiveBus.kVBase
         props = {
-            "nome":     circuit.Lines.Name,
+            "nome": circuit.Lines.Name,
             "is_switch": circuit.Lines.IsSwitch,
             "normAmps": circuit.Lines.NormAmps,
             "length_m": round(circuit.Lines.Length * 1000, 1),
-            "kVBase":   round(kv, 3),
+            "kVBase": round(kv, 3),
         }
         line = feature_line([[c1[0], c1[1]], [c2[0], c2[1]]], props)
         if kv > 1.0:
@@ -111,7 +115,7 @@ circuit.SetActiveClass("Transformer")
 idx = circuit.Transformers.First
 while idx > 0:
     nome = circuit.Transformers.Name
-    kva  = circuit.Transformers.kVA
+    kva = circuit.Transformers.kVA
     circuit.SetActiveElement(f"Transformer.{nome}")
     buses = list(circuit.ActiveCktElement.BusNames)
     bus_bt = buses[1].split(".")[0].lower() if len(buses) > 1 else ""
@@ -119,37 +123,50 @@ while idx > 0:
     powers = circuit.ActiveCktElement.Powers
     n = circuit.ActiveCktElement.NumPhases
     pct = 0.0
-    if len(powers) >= n*2 and kva > 0:
-        p = sum(powers[0:n*2:2]); q = sum(powers[1:n*2+1:2])
-        pct = round(100*(p**2+q**2)**0.5/kva, 1)
+    if len(powers) >= n * 2 and kva > 0:
+        p = sum(powers[0 : n * 2 : 2])
+        q = sum(powers[1 : n * 2 + 1 : 2])
+        pct = round(100 * (p**2 + q**2) ** 0.5 / kva, 1)
     pos = coords.get(bus_bt) or coords.get(bus_mt)
     if pos:
         status = "sobrecarga" if pct > 100 else ("alerta" if pct > 80 else "normal")
-        feat_trafos.append(feature_point(pos[0], pos[1], {
-            "nome":        nome,
-            "kVA":         kva,
-            "loading_pct": pct,
-            "status":      status,
-            "bus_mt":      bus_mt,
-            "bus_bt":      bus_bt,
-        }))
+        feat_trafos.append(
+            feature_point(
+                pos[0],
+                pos[1],
+                {
+                    "nome": nome,
+                    "kVA": kva,
+                    "loading_pct": pct,
+                    "status": status,
+                    "bus_mt": bus_mt,
+                    "bus_bt": bus_bt,
+                },
+            )
+        )
     idx = circuit.Transformers.Next
 
 feat_gd = []
 idx = circuit.PVSystems.First
 while idx > 0:
-    nome   = circuit.PVSystems.Name
-    pmpp   = circuit.PVSystems.Pmpp
-    kva    = circuit.PVSystems.kVArated
+    nome = circuit.PVSystems.Name
+    pmpp = circuit.PVSystems.Pmpp
+    kva = circuit.PVSystems.kVArated
     bus_pv = circuit.ActiveCktElement.BusNames[0].split(".")[0].lower()
     if bus_pv in coords:
         pos = coords[bus_pv]
-        feat_gd.append(feature_point(pos[0], pos[1], {
-            "nome":  nome,
-            "Pmpp_kW": pmpp,
-            "kVA":   kva,
-            "bus":   bus_pv,
-        }))
+        feat_gd.append(
+            feature_point(
+                pos[0],
+                pos[1],
+                {
+                    "nome": nome,
+                    "Pmpp_kW": pmpp,
+                    "kVA": kva,
+                    "bus": bus_pv,
+                },
+            )
+        )
     idx = circuit.PVSystems.Next
 
 # Problemas: trafos sobrecarregados + barramentos com sobretensão
@@ -158,18 +175,27 @@ for t in feat_trafos:
     if t["properties"]["nome"].lower() in TRAFOS_SOBRECARGA:
         p = dict(t["properties"])
         p["tipo_problema"] = "sobrecarga_trafo"
-        feat_prob.append(feature_point(
-            t["geometry"]["coordinates"][0],
-            t["geometry"]["coordinates"][1], p))
+        feat_prob.append(
+            feature_point(
+                t["geometry"]["coordinates"][0], t["geometry"]["coordinates"][1], p
+            )
+        )
 
 for bus in BUSES_SOBRETENSAO:
     pos = coords.get(bus)
     if pos:
-        feat_prob.append(feature_point(pos[0], pos[1], {
-            "nome":           bus,
-            "tipo_problema":  "sobretensao_bt",
-            "descricao":      "Vmax > 1.050 pu — violação PRODIST Tabela 5",
-        }))
+        feat_prob.append(
+            feature_point(
+                pos[0],
+                pos[1],
+                {
+                    "nome": bus,
+                    "tipo_problema": "sobretensao_bt",
+                    "descricao": "Vmax > 1.050 pu — violação PRODIST Tabela 5",
+                },
+            )
+        )
+
 
 # ---------------------------------------------------------------------------
 # 4. Escreve GeoJSONs
@@ -177,19 +203,20 @@ for bus in BUSES_SOBRETENSAO:
 def salvar_geojson(nome, features):
     gj = {"type": "FeatureCollection", "features": features}
     path = HERE / "Resultados" / nome
-    with open(path, 'w', encoding='utf-8') as f:
+    with open(path, "w", encoding="utf-8") as f:
         json.dump(gj, f, ensure_ascii=False, indent=2)
     kb = path.stat().st_size / 1024
     print(f"  {nome:<35} {len(features):>5} features  {kb:>8.1f} KB")
     return path
 
+
 print("\nGerando GeoJSONs...")
 arquivos = []
-arquivos.append(salvar_geojson("rede_linhas_mt.geojson",  feat_mt))
-arquivos.append(salvar_geojson("rede_linhas_bt.geojson",  feat_bt))
-arquivos.append(salvar_geojson("rede_trafos.geojson",     feat_trafos))
-arquivos.append(salvar_geojson("rede_gd.geojson",         feat_gd))
-arquivos.append(salvar_geojson("rede_problemas.geojson",  feat_prob))
+arquivos.append(salvar_geojson("rede_linhas_mt.geojson", feat_mt))
+arquivos.append(salvar_geojson("rede_linhas_bt.geojson", feat_bt))
+arquivos.append(salvar_geojson("rede_trafos.geojson", feat_trafos))
+arquivos.append(salvar_geojson("rede_gd.geojson", feat_gd))
+arquivos.append(salvar_geojson("rede_problemas.geojson", feat_prob))
 
 print(f"""
 Como importar no QGIS:

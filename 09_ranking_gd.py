@@ -13,57 +13,61 @@ from fase_00 import configuracao
 
 MASTER = configuracao.MASTER_DSS
 
+
 def main():
     circuit = configuracao.inicializar_dss(dss, MASTER)
-    
-    print(f"\n{'='*80}")
+
+    print(f"\n{'=' * 80}")
     print(f"[09.01] RANKING DE GD — MELHOR LOCAL PARA INJEÇÃO")
-    print(f"{'='*80}")
+    print(f"{'=' * 80}")
 
     # Coleta perdas base
     circuit.Solution.Solve()
     loss_base = circuit.Losses[0] / 1000.0
-    
+
     results = []
-    
+
     # Escaneia todos os barramentos MT para testar injeção de 100kW
     buses_mt = []
     for b in circuit.AllBusNames:
         circuit.SetActiveBus(b)
-        if circuit.ActiveBus.kVBase > 1.0: # Apenas MT
+        if circuit.ActiveBus.kVBase > 1.0:  # Apenas MT
             buses_mt.append(b)
 
     print(f"  Testando {len(buses_mt)} barramentos para injeção de 100kW...")
 
     # Cria o gerador de teste uma ÚNICA VEZ (desabilitado inicialmente)
-    dss.Text.Command = "New Generator.GD_TEST phases=3 kv=23.1 kw=100 pf=1.0 model=1 enabled=no"
+    dss.Text.Command = (
+        "New Generator.GD_TEST phases=3 kv=23.1 kw=100 pf=1.0 model=1 enabled=no"
+    )
 
     for b in buses_mt:
         # Usa interface de objeto (muito mais rápido que dss.Text)
         circuit.Generators.Name = "GD_TEST"
         circuit.ActiveCktElement.BusNames = [b]
         circuit.ActiveCktElement.Properties("enabled").Val = "yes"
-        
+
         circuit.Solution.Solve()
         if not circuit.Solution.Converged:
             circuit.ActiveCktElement.Properties("enabled").Val = "no"
             continue
-            
+
         loss_new = circuit.Losses[0] / 1000.0
         reduction = loss_base - loss_new
         results.append({"bus": b, "reduction": reduction})
-        
+
         # Desabilita via objeto
         circuit.ActiveCktElement.Properties("enabled").Val = "no"
-    
+
     # Ordena e mostra top 10
     results.sort(key=lambda x: x["reduction"], reverse=True)
-    
+
     print("\n  Top 10 barramentos para redução de perdas:")
     for res in results[:10]:
         print(f"    {res['bus']:<15} {res['reduction']:>10.3f} kW")
-        
-    print(f"{'='*80}\n")
+
+    print(f"{'=' * 80}\n")
+
 
 if __name__ == "__main__":
     main()

@@ -11,14 +11,16 @@ HERE = Path(__file__).resolve().parent
 from dss import dss
 
 import json
+
 with open(HERE / "parametros.json", "r") as f:
     config = json.load(f)
 
-MASTER        = str(HERE / config["caminhos"]["dss_file"])
-CUSTO_PERDAS  = config["economico"]["preco_compra_usd_mwh"]
-TARIFA_VENDA  = config["economico"]["tarifa_venda_usd_mwh"]
-TUSD          = config["economico"]["tusd_usd_mwh"]
-VIDA_UTIL     = 15
+MASTER = str(HERE / config["caminhos"]["dss_file"])
+CUSTO_PERDAS = config["economico"]["preco_compra_usd_mwh"]
+TARIFA_VENDA = config["economico"]["tarifa_venda_usd_mwh"]
+TUSD = config["economico"]["tusd_usd_mwh"]
+VIDA_UTIL = 15
+
 
 def carregar(loadmult=1.0, cmds=None):
     dss.Text.Command = "Clear"
@@ -30,12 +32,13 @@ def carregar(loadmult=1.0, cmds=None):
             dss.Text.Command = c
     return dss.ActiveCircuit
 
+
 # ===========================================================================
 # 1. PERFIL DE TENSÃO POR DISTÂNCIA ELÉTRICA
 # ===========================================================================
-print("\n" + "="*70)
+print("\n" + "=" * 70)
 print("[07.10] PERFIL DE TENSÃO POR DISTÂNCIA ELÉTRICA DA SUBESTAÇÃO")
-print("="*70)
+print("=" * 70)
 
 circuit = carregar(1.0)
 all_bus_names = list(circuit.AllBusNames)
@@ -62,7 +65,9 @@ for h in range(24):
         if len(vmag) < 1 or kv <= 0:
             continue
         nn = circuit.ActiveBus.NumNodes
-        vbase = kv * 1000  # kVBase já é tensão de fase nesta rede if nn >= 3 else kv * 1000
+        vbase = (
+            kv * 1000
+        )  # kVBase já é tensão de fase nesta rede if nn >= 3 else kv * 1000
         vpu = vmag[0] / vbase
         if vpu < 0.01 or vpu > 1.2:
             continue
@@ -78,9 +83,9 @@ vpus_mt = sorted(v_mt.values())
 n = len(vpus_mt)
 print(f"\n  Perfil de tensão MT ({n} barramentos com tensão válida):")
 print(f"  {'Percentil':>10} {'Tensão (pu)':>12}")
-print(f"  {'-'*24}")
+print(f"  {'-' * 24}")
 for pct in [0, 10, 25, 50, 75, 90, 95, 99, 100]:
-    idx_p = min(int(pct/100 * n), n-1)
+    idx_p = min(int(pct / 100 * n), n - 1)
     print(f"  {pct:>9}%  {vpus_mt[idx_p]:>12.4f}")
 
 # Barramentos críticos MT
@@ -96,9 +101,9 @@ vpus_bt = sorted(v_bt.values())
 nb = len(vpus_bt)
 print(f"\n  Perfil de tensão BT ({nb} barramentos com tensão válida):")
 print(f"  {'Percentil':>10} {'Tensão (pu)':>12}")
-print(f"  {'-'*24}")
+print(f"  {'-' * 24}")
 for pct in [0, 10, 25, 50, 75, 90, 100]:
-    idx_p = min(int(pct/100 * nb), nb-1)
+    idx_p = min(int(pct / 100 * nb), nb - 1)
     print(f"  {pct:>9}%  {vpus_bt[idx_p]:>12.4f}")
 
 criticos_bt = [(b, v) for b, v in v_bt.items() if v < 0.921]
@@ -112,16 +117,16 @@ if criticos_bt:
 # ===========================================================================
 # 2. BALANÇO ENERGÉTICO HORA A HORA
 # ===========================================================================
-print(f"\n{'='*70}")
+print(f"\n{'=' * 70}")
 print("[07.11] BALANÇO ENERGÉTICO HORA A HORA — COM GD vs SEM GD (Ano 1)")
-print("="*70)
+print("=" * 70)
 
 # COM GD
 circuit = carregar(1.0)
-h_p_total  = {}  # potência total fornecida pela subestação
-h_p_gd     = {}  # geração fotovoltaica total
-h_perdas   = {}  # perdas totais
-h_p_carga  = {}  # consumo total das cargas
+h_p_total = {}  # potência total fornecida pela subestação
+h_p_gd = {}  # geração fotovoltaica total
+h_perdas = {}  # perdas totais
+h_p_carga = {}  # consumo total das cargas
 
 circuit.Solution.dblHour = 0.0
 for h in range(24):
@@ -142,24 +147,26 @@ for h in range(24):
         powers = circuit.ActiveCktElement.Powers
         n = circuit.ActiveCktElement.NumPhases
         if len(powers) >= n * 2:
-            p_gd += abs(sum(powers[0:n*2:2]))
+            p_gd += abs(sum(powers[0 : n * 2 : 2]))
         idx = circuit.ActiveClass.Next
     h_p_gd[h] = p_gd
 
     # Carga total = fonte + GD - perdas
     h_p_carga[h] = h_p_total[h] + h_p_gd[h] - h_perdas[h]
 
-print(f"\n  {'Hora':>4} {'Subestação':>12} {'GD (kW)':>9} {'Perdas':>8} "
-      f"{'Carga':>8} {'GD/Carga':>10} {'Fluxo':>8}")
-print(f"  {'-'*64}")
+print(
+    f"\n  {'Hora':>4} {'Subestação':>12} {'GD (kW)':>9} {'Perdas':>8} "
+    f"{'Carga':>8} {'GD/Carga':>10} {'Fluxo':>8}"
+)
+print(f"  {'-' * 64}")
 
 e_sub = e_gd = e_perd = e_carga = 0.0
 horas_reverso = 0
 
 circuit.Solution.dblHour = 0.0
 for h in range(24):
-    p_sub  = h_p_total[h]
-    p_gd   = h_p_gd[h]
+    p_sub = h_p_total[h]
+    p_gd = h_p_gd[h]
     p_perd = h_perdas[h]
     p_carg = h_p_carga[h]
     gd_pct = 100 * p_gd / p_carg if p_carg > 0 else 0
@@ -169,60 +176,65 @@ for h in range(24):
     if reverso:
         horas_reverso += 1
 
-    e_sub  += p_sub
-    e_gd   += p_gd
+    e_sub += p_sub
+    e_gd += p_gd
     e_perd += p_perd
     e_carga += p_carg
 
-    print(f"  {h+1:>4} {p_sub:>12.1f} {p_gd:>9.1f} {p_perd:>8.2f} "
-          f"{p_carg:>8.1f} {gd_pct:>9.1f}% {fluxo:>9}")
+    print(
+        f"  {h + 1:>4} {p_sub:>12.1f} {p_gd:>9.1f} {p_perd:>8.2f} "
+        f"{p_carg:>8.1f} {gd_pct:>9.1f}% {fluxo:>9}"
+    )
 
-print(f"  {'-'*64}")
-print(f"  {'TOTAL':>4} {e_sub:>12.1f} {e_gd:>9.1f} {e_perd:>8.2f} "
-      f"{e_carga:>8.1f} {100*e_gd/e_carga:>9.1f}%")
+print(f"  {'-' * 64}")
+print(
+    f"  {'TOTAL':>4} {e_sub:>12.1f} {e_gd:>9.1f} {e_perd:>8.2f} "
+    f"{e_carga:>8.1f} {100 * e_gd / e_carga:>9.1f}%"
+)
 
 print(f"\n  Energia fornecida pela subestação: {e_sub:.1f} kWh/dia")
 print(f"  Energia gerada pela GD           : {e_gd:.1f} kWh/dia")
 print(f"  Perdas totais                    : {e_perd:.1f} kWh/dia")
 print(f"  Consumo total das cargas         : {e_carga:.1f} kWh/dia")
-print(f"  Participação da GD no consumo    : {100*e_gd/e_carga:.1f}%")
+print(f"  Participação da GD no consumo    : {100 * e_gd / e_carga:.1f}%")
 print(f"  Horas com fluxo reverso          : {horas_reverso}/24")
 
 # ===========================================================================
 # 3. SENSIBILIDADE DO VPL À TAXA DE DESCONTO
 # ===========================================================================
-print(f"\n{'='*70}")
+print(f"\n{'=' * 70}")
 print("[07.12] SENSIBILIDADE DO VPL — TAXA DE DESCONTO")
-print("="*70)
+print("=" * 70)
 
 # Benefícios anuais calculados no main_trabalho (tap nos dois trafos)
 # Ano 1: USD 970, Ano 2: USD 760, Ano 3: USD 794 (mensal × 12)
-BEN = {1: 970.04*12/12, 2: 760.16*12/12, 3: 796.47*12/12}
+BEN = {1: 970.04 * 12 / 12, 2: 760.16 * 12 / 12, 3: 796.47 * 12 / 12}
 CAPEX = config["alternativas"][1]["custo_inicial_usd"]
 
 print(f"\n  Alternativa: Tap trf_6_4910a + trf_11_305a")
 print(f"  CAPEX: USD {CAPEX:,.0f}")
-print(f"  Benefícios anuais: Ano1={BEN[1]:,.0f}  Ano2={BEN[2]:,.0f}  Ano3={BEN[3]:,.0f}")
+print(
+    f"  Benefícios anuais: Ano1={BEN[1]:,.0f}  Ano2={BEN[2]:,.0f}  Ano3={BEN[3]:,.0f}"
+)
 
 print(f"\n  {'Taxa':>8} {'VPL':>12} {'Atrativo':>10} {'Payback':>10}")
-print(f"  {'-'*44}")
+print(f"  {'-' * 44}")
+
 
 def _find_tir(ben, capex, vida):
-    for taxa in [x/1000 for x in range(1, 1000)]:
+    for taxa in [x / 1000 for x in range(1, 1000)]:
         residual = capex * (vida - 3) / vida
         fluxos = [-capex, ben[1], ben[2], ben[3] + residual]
-        vpl = sum(f / (1 + taxa)**t for t, f in enumerate(fluxos))
+        vpl = sum(f / (1 + taxa) ** t for t, f in enumerate(fluxos))
         if vpl < 0:
             return taxa
     return 1.0
 
+
 for taxa in [0.06, 0.08, 0.10, 0.12, 0.14, 0.16, 0.18, 0.20, 0.25]:
     residual = CAPEX * (VIDA_UTIL - 3) / VIDA_UTIL
-    fluxos = [-CAPEX,
-              BEN[1],
-              BEN[2],
-              BEN[3] + residual]
-    vpl = sum(f / (1 + taxa)**t for t, f in enumerate(fluxos))
+    fluxos = [-CAPEX, BEN[1], BEN[2], BEN[3] + residual]
+    vpl = sum(f / (1 + taxa) ** t for t, f in enumerate(fluxos))
     atr = "SIM" if vpl > 0 else "NÃO"
 
     # Payback simples (sem desconto)
@@ -236,11 +248,11 @@ for taxa in [0.06, 0.08, 0.10, 0.12, 0.14, 0.16, 0.18, 0.20, 0.25]:
     if pb == ">":
         pb = ">3 anos"
 
-    print(f"  {taxa*100:>7.0f}% {vpl:>12,.0f} {atr:>10} {pb:>10}")
+    print(f"  {taxa * 100:>7.0f}% {vpl:>12,.0f} {atr:>10} {pb:>10}")
 
 
 tir = _find_tir(BEN, CAPEX, VIDA_UTIL)
 print(f"\n  Conclusão: o tap nos dois trafos é atrativo para qualquer")
-print(f"  taxa de desconto abaixo de {tir*100:.0f}% (TIR aproximada).")
-print(f"  TIR aproximada: {tir*100:.0f}%")
-print("="*70)
+print(f"  taxa de desconto abaixo de {tir * 100:.0f}% (TIR aproximada).")
+print(f"  TIR aproximada: {tir * 100:.0f}%")
+print("=" * 70)

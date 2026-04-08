@@ -1,6 +1,7 @@
 import numpy as np
 import logging
 
+
 class DSSExtractor:
     def __init__(self, circuit):
         self.circuit = circuit
@@ -13,7 +14,9 @@ class DSSExtractor:
 
             # Chamada de atenção 3: Tensão base zerada
             if base_kv <= 0:
-                logging.warning(f"A barra '{bus_name}' está com tensão base igual a zero. Execute o comando CalcVoltageBases no OpenDSS.")
+                logging.warning(
+                    f"A barra '{bus_name}' está com tensão base igual a zero. Execute o comando CalcVoltageBases no OpenDSS."
+                )
                 voltage_level = "Unknown"
             elif base_kv <= low_voltage_limit_kv:
                 voltage_level = "LV"
@@ -22,7 +25,7 @@ class DSSExtractor:
 
             bus_data[bus_name.lower()] = {
                 "baseKv": base_kv,
-                "voltageLevel": voltage_level
+                "voltageLevel": voltage_level,
             }
         return bus_data
 
@@ -39,45 +42,53 @@ class DSSExtractor:
 
         return load_bus_set
 
-    def get_voltages(self, hour: int, bus_data: dict, load_bus_set: set, lower_limit_pu: float, upper_limit_pu: float) -> list:
+    def get_voltages(
+        self,
+        hour: int,
+        bus_data: dict,
+        load_bus_set: set,
+        lower_limit_pu: float,
+        upper_limit_pu: float,
+    ) -> list:
         rows = []
         for bus_name in load_bus_set:
             self.circuit.SetActiveBus(bus_name)
             bus = self.circuit.ActiveBus
-            
-            voltages_pu = bus.puVmagAngle[0::2] 
+
+            voltages_pu = bus.puVmagAngle[0::2]
             nodes = bus.Nodes
-            
+
             if len(voltages_pu) == 0 or len(nodes) == 0:
                 continue
 
-            current_bus_data = bus_data.get(bus_name, {
-                "baseKv": 0.0,
-                "voltageLevel": "Unknown"
-            })
+            current_bus_data = bus_data.get(
+                bus_name, {"baseKv": 0.0, "voltageLevel": "Unknown"}
+            )
 
             for i, voltage_pu in enumerate(voltages_pu):
                 phase = nodes[i]
                 node_name = f"{bus_name}.{phase}"
 
                 violation_pu = 0.0
-                if voltage_pu > 0: # Evita erro matemático se a tensão for 0 absoluto
+                if voltage_pu > 0:  # Evita erro matemático se a tensão for 0 absoluto
                     if voltage_pu < lower_limit_pu:
                         violation_pu = lower_limit_pu - voltage_pu
                     elif voltage_pu > upper_limit_pu:
                         violation_pu = voltage_pu - upper_limit_pu
 
-                rows.append({
-                    "hour": hour,
-                    "node": node_name,
-                    "bus": bus_name,
-                    "phase": phase,
-                    "voltagePu": voltage_pu,
-                    "baseKvLN": current_bus_data["baseKv"],
-                    "voltageLevel": current_bus_data["voltageLevel"],
-                    "violationPu": violation_pu,
-                    "hasViolation": int(violation_pu > 0)
-                })
+                rows.append(
+                    {
+                        "hour": hour,
+                        "node": node_name,
+                        "bus": bus_name,
+                        "phase": phase,
+                        "voltagePu": voltage_pu,
+                        "baseKvLN": current_bus_data["baseKv"],
+                        "voltageLevel": current_bus_data["voltageLevel"],
+                        "violationPu": violation_pu,
+                        "hasViolation": int(violation_pu > 0),
+                    }
+                )
 
         return rows
 
@@ -119,20 +130,22 @@ class DSSExtractor:
                     active_losses_kw = losses[0] / 1000.0
                     reactive_losses_kvar = losses[1] / 1000.0
 
-                rows.append({
-                    "hour": hour,
-                    "element": element_name,
-                    "line": line_name,
-                    "bus1": lines.Bus1.split(".")[0],
-                    "bus2": lines.Bus2.split(".")[0],
-                    "normAmps": norm_amps,
-                    "maxCurrentA": max_current_a,
-                    "loadingRatio": loading_ratio,
-                    "loadingPct": loading_pct,
-                    "isOverloaded": is_overloaded,
-                    "activeLossesKw": active_losses_kw,
-                    "reactiveLossesKvar": reactive_losses_kvar
-                })
+                rows.append(
+                    {
+                        "hour": hour,
+                        "element": element_name,
+                        "line": line_name,
+                        "bus1": lines.Bus1.split(".")[0],
+                        "bus2": lines.Bus2.split(".")[0],
+                        "normAmps": norm_amps,
+                        "maxCurrentA": max_current_a,
+                        "loadingRatio": loading_ratio,
+                        "loadingPct": loading_pct,
+                        "isOverloaded": is_overloaded,
+                        "activeLossesKw": active_losses_kw,
+                        "reactiveLossesKvar": reactive_losses_kvar,
+                    }
+                )
 
             current_index = lines.Next
 
@@ -144,8 +157,6 @@ class DSSExtractor:
 
         for transformer_name in transformer_names:
             self.circuit.Transformers.Name = transformer_name
-            rated_kva = self.circuit.Transformers.kVA
-
             self.circuit.SetActiveElement(f"Transformer.{transformer_name}")
             active_element = self.circuit.ActiveCktElement
             powers = active_element.Powers
@@ -154,35 +165,60 @@ class DSSExtractor:
                 continue
 
             terminal_count = active_element.NumTerminals
-            
-            # Chamada de atenção 4: Transformadores complexos
-            if terminal_count > 2 and hour == 0:
-                logging.warning(f"O transformador '{transformer_name}' tem {terminal_count} terminais. O cálculo de sobrecarga atual considera apenas o primeiro enrolamento.")
 
-            active_powers = [powers[i] for i in range(0, len(powers), 2)]
-            reactive_powers = [powers[i + 1] for i in range(0, len(powers), 2)]
+            # O Aviso 4 (transformadores complexos) foi removido,
+            # pois o cálculo agora varre todos os terminais fisicamente.
 
-            phase_count_first_terminal = len(active_powers) // terminal_count
-            active_power_kw = sum(active_powers[:phase_count_first_terminal])
-            reactive_power_kvar = sum(reactive_powers[:phase_count_first_terminal])
+            max_loading_pct = 0.0
+            max_apparent_power_kva = 0.0
+            max_rated_kva = 0.0
 
-            apparent_power_kva = np.sqrt(active_power_kw ** 2 + reactive_power_kvar ** 2)
+            # A lista 'powers' traz [P1, Q1, P2, Q2...] de TODOS os terminais sequencialmente.
+            # Descobrimos a quantidade exata de valores pertencentes a cada terminal.
+            values_per_terminal = len(powers) // terminal_count
 
-            loading_pct = np.nan
-            is_overloaded = 0
+            for wdg in range(1, terminal_count + 1):
+                # Selecionamos o enrolamento atual (1, 2, 3...) para ler seu limite nominal específico
+                self.circuit.Transformers.Wdg = wdg
+                rated_kva = self.circuit.Transformers.kVA
 
-            if rated_kva is not None and rated_kva > 0:
-                loading_pct = 100.0 * apparent_power_kva / rated_kva
-                is_overloaded = int(loading_pct > 100.0)
+                # Recorta da lista 'powers' apenas os dados que entram neste terminal
+                start_idx = (wdg - 1) * values_per_terminal
+                end_idx = start_idx + values_per_terminal
+                terminal_powers = powers[start_idx:end_idx]
 
-            rows.append({
-                "hour": hour,
-                "transformer": transformer_name,
-                "apparentPowerKva": apparent_power_kva,
-                "ratedKva": rated_kva,
-                "loadingPct": loading_pct,
-                "isOverloaded": is_overloaded
-            })
+                # Separa P e Q e soma os dados de todas as fases do terminal
+                active_power_kw = sum(terminal_powers[0::2])
+                reactive_power_kvar = sum(terminal_powers[1::2])
+
+                # Potência aparente total fluindo por este lado do equipamento (S)
+                apparent_power_kva = np.sqrt(
+                    active_power_kw**2 + reactive_power_kvar**2
+                )
+
+                # Avalia o carregamento apenas para este enrolamento
+                loading_pct = 0.0
+                if rated_kva is not None and rated_kva > 0:
+                    loading_pct = 100.0 * apparent_power_kva / rated_kva
+
+                # Armazena o "pior caso" — o enrolamento que estiver mais próximo de derreter
+                if loading_pct > max_loading_pct:
+                    max_loading_pct = loading_pct
+                    max_apparent_power_kva = apparent_power_kva
+                    max_rated_kva = rated_kva
+
+            is_overloaded = int(max_loading_pct > 100.0)
+
+            rows.append(
+                {
+                    "hour": hour,
+                    "transformer": transformer_name,
+                    "apparentPowerKva": max_apparent_power_kva,
+                    "ratedKva": max_rated_kva,
+                    "loadingPct": max_loading_pct,
+                    "isOverloaded": is_overloaded,
+                }
+            )
 
         return rows
 
@@ -197,15 +233,27 @@ class DSSExtractor:
 
             # Chamada de atenção 5: Medidores sem registros suficientes
             if len(register_values) < 14:
-                logging.warning(f"O medidor '{meter_name}' tem menos de 14 registros. As perdas não serão calculadas.")
+                logging.warning(
+                    f"O medidor '{meter_name}' tem menos de 14 registros. As perdas não serão calculadas."
+                )
 
-            rows.append({
-                "meterName": meter_name,
-                "activeEnergyKWh": register_values[0] if len(register_values) > 0 else np.nan,
-                "reactiveEnergyKvarh": register_values[1] if len(register_values) > 1 else np.nan,
-                "activeLossesKWh": register_values[12] if len(register_values) > 12 else np.nan,
-                "reactiveLossesKvarh": register_values[13] if len(register_values) > 13 else np.nan
-            })
+            rows.append(
+                {
+                    "meterName": meter_name,
+                    "activeEnergyKWh": register_values[0]
+                    if len(register_values) > 0
+                    else np.nan,
+                    "reactiveEnergyKvarh": register_values[1]
+                    if len(register_values) > 1
+                    else np.nan,
+                    "activeLossesKWh": register_values[12]
+                    if len(register_values) > 12
+                    else np.nan,
+                    "reactiveLossesKvarh": register_values[13]
+                    if len(register_values) > 13
+                    else np.nan,
+                }
+            )
 
             current_index = meters.Next
 

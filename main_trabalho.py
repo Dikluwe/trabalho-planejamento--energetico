@@ -52,7 +52,7 @@ for alt_data in config["alternativas"]:
         comandos_dss=alt_data["comandos_dss"],
         custo_inicial_usd=alt_data["custo_inicial_usd"],
         custo_manutencao_anual_usd=alt_data.get("custo_manutencao_anual_usd", 0.0),
-        vida_util_anos=alt_data.get("vida_util_anos", 15)
+        vida_util_anos=alt_data.get("vida_util_anos", 15),
     )
     ALTERNATIVAS.append(alt)
 
@@ -60,6 +60,7 @@ for alt_data in config["alternativas"]:
 # ---------------------------------------------------------------------------
 # Execução
 # ---------------------------------------------------------------------------
+
 
 def main():
     print("=" * 80)
@@ -82,11 +83,17 @@ def main():
 
     print("\n[01.02] Diagnóstico financeiro do caso base (Ano 1 — carga nominal):")
     print(f"  Energia fornecida/mês  : {resumo['energia_fornecida_mwh_mes']:.2f} MWh")
-    print(f"  Perdas/mês             : {resumo['energia_perdas_mwh_mes']:.2f} MWh ({resumo['percentual_perdas_pct']:.2f}%)")
+    print(
+        f"  Perdas/mês             : {resumo['energia_perdas_mwh_mes']:.2f} MWh ({resumo['percentual_perdas_pct']:.2f}%)"
+    )
     print(f"  Faturamento/mês        : USD {resumo['faturamento_mensal_usd']:,.2f}")
     print(f"  Custo perdas/mês       : USD {resumo['custo_perdas_mensal_usd']:,.2f}")
-    print(f"  Compensação PRODIST/mês: USD {resumo['compensacao_prodist_mensal_usd']:,.2f}")
-    print(f"  Resultado operacional  : USD {resumo['resultado_operacional_mensal_usd']:,.2f}")
+    print(
+        f"  Compensação PRODIST/mês: USD {resumo['compensacao_prodist_mensal_usd']:,.2f}"
+    )
+    print(
+        f"  Resultado operacional  : USD {resumo['resultado_operacional_mensal_usd']:,.2f}"
+    )
 
     # 3. Filtra alternativas com comandos DSS definidos
     alternativas_ativas = [a for a in ALTERNATIVAS if a.comandos_dss]
@@ -100,7 +107,9 @@ def main():
         return
 
     # 4. Avalia cada alternativa
-    print(f"\n[01.03] Avaliando {len(alternativas_ativas)} alternativa(s) de intervenção...")
+    print(
+        f"\n[01.03] Avaliando {len(alternativas_ativas)} alternativa(s) de intervenção..."
+    )
     resultados = []
     for alt in alternativas_ativas:
         resultado = expansao.avaliar_alternativa(

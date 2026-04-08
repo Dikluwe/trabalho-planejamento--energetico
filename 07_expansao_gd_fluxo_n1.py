@@ -12,11 +12,13 @@ HERE = Path(__file__).resolve().parent
 from dss import dss
 
 import json
+
 with open(HERE / "parametros.json", "r") as f:
     config = json.load(f)
 
 MASTER = str(HERE / config["caminhos"]["dss_file"])
 DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
+
 
 def carregar(loadmult=1.0, cmds=None):
     dss.Text.Command = "Clear"
@@ -27,6 +29,7 @@ def carregar(loadmult=1.0, cmds=None):
         for c in cmds:
             dss.Text.Command = c
     return dss.ActiveCircuit
+
 
 def metricas_24h(circuit):
     all_bus = list(circuit.AllBusNames)
@@ -42,9 +45,10 @@ def metricas_24h(circuit):
         circuit.SetActiveElement("Transformer.trf_6_4910a")
         pw = circuit.ActiveCktElement.Powers
         n = circuit.ActiveCktElement.NumPhases
-        if len(pw) >= n*2:
-            p = sum(pw[0:n*2:2]); q = sum(pw[1:n*2+1:2])
-            pct_4910_max = max(pct_4910_max, 100*(p**2+q**2)**0.5/30)
+        if len(pw) >= n * 2:
+            p = sum(pw[0 : n * 2 : 2])
+            q = sum(pw[1 : n * 2 + 1 : 2])
+            pct_4910_max = max(pct_4910_max, 100 * (p**2 + q**2) ** 0.5 / 30)
 
         for bname in all_bus:
             circuit.SetActiveBus(bname)
@@ -53,8 +57,8 @@ def metricas_24h(circuit):
                 vmag = circuit.ActiveBus.VMagAngle
                 if len(vmag) >= 1:
                     nn = circuit.ActiveBus.NumNodes
-                    vb = kv*1000  # kVBase já é tensão de fase nesta rede
-                    vpu = vmag[0]/vb
+                    vb = kv * 1000  # kVBase já é tensão de fase nesta rede
+                    vpu = vmag[0] / vb
                     if 0.01 < vpu < vmin_bt:
                         vmin_bt = vpu
 
@@ -64,8 +68,8 @@ def metricas_24h(circuit):
         while idx > 0:
             pw2 = circuit.ActiveCktElement.Powers
             n2 = circuit.ActiveCktElement.NumPhases
-            if len(pw2) >= n2*2:
-                p_gd += abs(sum(pw2[0:n2*2:2]))
+            if len(pw2) >= n2 * 2:
+                p_gd += abs(sum(pw2[0 : n2 * 2 : 2]))
             idx = circuit.ActiveClass.Next
         p_total = abs(circuit.TotalPower[0])
         if p_gd > p_total:
@@ -78,6 +82,7 @@ def metricas_24h(circuit):
         "horas_rev": horas_rev,
     }
 
+
 def set_gd(circuit, irr_fator, escala_kva=1.0):
     """Aplica irradiância e opcionalmente escala kVA/Pmpp dos PVSystems.
     Usa a interface Python (circuit.PVSystems) para evitar problemas
@@ -89,49 +94,61 @@ def set_gd(circuit, irr_fator, escala_kva=1.0):
         pvs.Irradiance = irr_fator
         if escala_kva != 1.0:
             pmpp_orig = pvs.Pmpp
-            kva_orig  = pvs.kVArated
-            pvs.Pmpp     = pmpp_orig * escala_kva
-            pvs.kVArated = kva_orig  * escala_kva
+            kva_orig = pvs.kVArated
+            pvs.Pmpp = pmpp_orig * escala_kva
+            pvs.kVArated = kva_orig * escala_kva
         idx = pvs.Next
+
 
 # ===========================================================================
 # 4. EXPANSÃO DA GD
 # ===========================================================================
-print("\n" + "="*70)
+print("\n" + "=" * 70)
 print("[07.07] IMPACTO DA EXPANSÃO DA GD — +20% de capacidade no Ano 3")
-print("="*70)
+print("=" * 70)
 worst_case_mult = 1.0 + 2 * config["simulacao"]["crescimento_carga"]
-print(f"\n  Cenários (Ano 3, LoadMult={worst_case_mult:.2f}, degradação {DEGRADACAO_GD*100:.1f}%/ano):")
+print(
+    f"\n  Cenários (Ano 3, LoadMult={worst_case_mult:.2f}, degradação {DEGRADACAO_GD * 100:.1f}%/ano):"
+)
 print(f"  A. Caso base (GD degradada 1,4%)")
 print(f"  B. GD original +20% de nova capacidade instalada")
 print(f"  C. GD +20% + tap nos dois trafos")
 
 gd_f3 = 1.0 - 2 * DEGRADACAO_GD
 
-print(f"\n  {'Cenário':<42} {'trf_4910%':>10} {'Perdas kWh':>11} {'VminBT':>8} {'Rev h':>6}")
-print(f"  {'-'*80}")
+print(
+    f"\n  {'Cenário':<42} {'trf_4910%':>10} {'Perdas kWh':>11} {'VminBT':>8} {'Rev h':>6}"
+)
+print(f"  {'-' * 80}")
 
 cenarios = [
-    ("A — Base (GD degradada)",         1.0,  []),
-    ("B — GD +20%",                     1.2,  []),
-    ("C — GD +20% + tap dois trafos",   1.2,
-     ["Edit Transformer.TRF_6_4910A wdg=1 tap=1.0333",
-      "Edit Transformer.TRF_11_305A wdg=1 tap=1.0333"]),
+    ("A — Base (GD degradada)", 1.0, []),
+    ("B — GD +20%", 1.2, []),
+    (
+        "C — GD +20% + tap dois trafos",
+        1.2,
+        [
+            "Edit Transformer.TRF_6_4910A wdg=1 tap=1.0333",
+            "Edit Transformer.TRF_11_305A wdg=1 tap=1.0333",
+        ],
+    ),
 ]
 
 for label, escala, cmds in cenarios:
     circuit = carregar(1.2, cmds if cmds else None)
     set_gd(circuit, gd_f3, escala)
     m = metricas_24h(circuit)
-    print(f"  {label:<42} {m['pct_4910']:>10.1f} {m['perdas']:>11.1f} "
-          f"{m['vmin_bt']:>8.4f} {m['horas_rev']:>6}")
+    print(
+        f"  {label:<42} {m['pct_4910']:>10.1f} {m['perdas']:>11.1f} "
+        f"{m['vmin_bt']:>8.4f} {m['horas_rev']:>6}"
+    )
 
 # ===========================================================================
 # 5. FLUXO DE POTÊNCIA REVERSO
 # ===========================================================================
-print(f"\n{'='*70}")
+print(f"\n{'=' * 70}")
 print("[07.08] FLUXO DE POTÊNCIA REVERSO NA ENTRADA DO ALIMENTADOR")
-print("="*70)
+print("=" * 70)
 
 circuit = carregar(1.0)
 
@@ -141,7 +158,7 @@ print(f"\n  Linha monitorada: Line.{LINHA_ENTRADA}")
 print(f"  (conecta a subestação ao alimentador)")
 
 print(f"\n  {'Hora':>4} {'P entrada (kW)':>15} {'P GD (kW)':>11} {'Sentido':>10}")
-print(f"  {'-'*45}")
+print(f"  {'-' * 45}")
 
 horas_reverso = 0
 p_rev_max = 0.0
@@ -153,7 +170,7 @@ for h in range(24):
     circuit.SetActiveElement(f"Line.{LINHA_ENTRADA}")
     pw = circuit.ActiveCktElement.Powers
     n = circuit.ActiveCktElement.NumPhases
-    p_entrada = sum(pw[0:n*2:2]) if len(pw) >= n*2 else 0
+    p_entrada = sum(pw[0 : n * 2 : 2]) if len(pw) >= n * 2 else 0
 
     p_gd = 0.0
     circuit.SetActiveClass("PVSystem")
@@ -161,8 +178,8 @@ for h in range(24):
     while idx > 0:
         pw2 = circuit.ActiveCktElement.Powers
         n2 = circuit.ActiveCktElement.NumPhases
-        if len(pw2) >= n2*2:
-            p_gd += abs(sum(pw2[0:n2*2:2]))
+        if len(pw2) >= n2 * 2:
+            p_gd += abs(sum(pw2[0 : n2 * 2 : 2]))
         idx = circuit.ActiveClass.Next
 
     reverso = p_entrada < -1.0  # tolerância de 1 kW
@@ -171,7 +188,7 @@ for h in range(24):
         horas_reverso += 1
         p_rev_max = max(p_rev_max, abs(p_entrada))
 
-    print(f"  {h+1:>4} {p_entrada:>15.1f} {p_gd:>11.1f} {sentido:>10}")
+    print(f"  {h + 1:>4} {p_entrada:>15.1f} {p_gd:>11.1f} {sentido:>10}")
 
 print(f"\n  Horas com fluxo reverso: {horas_reverso}/24")
 if horas_reverso > 0:
@@ -191,9 +208,9 @@ else:
 # ===========================================================================
 # 6. ANÁLISE N-1
 # ===========================================================================
-print(f"\n{'='*70}")
+print(f"\n{'=' * 70}")
 print("[07.09] ANÁLISE N-1 — ABERTURA DA LINHA DE MAIOR CARREGAMENTO")
-print("="*70)
+print("=" * 70)
 
 LINHA_N1 = "smt_31408"
 circuit = carregar(1.0)
@@ -227,8 +244,10 @@ while idx > 0:
         circuit.SetActiveBus(b1)
         kv = circuit.ActiveBus.kVBase
         if kv > 1.0:
-            if b1 not in grafo: grafo[b1] = []
-            if b2 not in grafo: grafo[b2] = []
+            if b1 not in grafo:
+                grafo[b1] = []
+            if b2 not in grafo:
+                grafo[b2] = []
             grafo[b1].append(b2)
             grafo[b2].append(b1)
     idx = circuit.Lines.Next
@@ -271,7 +290,7 @@ for h in range(9):
 
 print(f"\n  Amostra de barramentos downstream após abertura (hora 9):")
 print(f"  {'Barramento':<25} {'Tensão (pu)':>12} {'Status':>10}")
-print(f"  {'-'*50}")
+print(f"  {'-' * 50}")
 
 n_sem = 0
 amostra = list(downstream)[:15]
@@ -283,12 +302,15 @@ for bname in amostra:
         if len(vmag) >= 1:
             vpu = vmag[0] / (kv * 1000)  # kVBase já é tensão de fase
             status = "OK (Caminho Alternativo)" if vpu > 0.1 else "SEM TENSÃO (Isolado)"
-            if vpu <= 0.1: n_sem += 1
+            if vpu <= 0.1:
+                n_sem += 1
             print(f"  {bname:<25} {vpu:>12.4f} {status:>10}")
 
-print(f"\n  Total sem tensão (<0,1 pu): {n_sem} (de {min(15, len(downstream))} amostrados)")
+print(
+    f"\n  Total sem tensão (<0,1 pu): {n_sem} (de {min(15, len(downstream))} amostrados)"
+)
 print(f"\n  Conclusão: rede radial sem redundância.")
 print(f"  Abertura de {LINHA_N1} interrompe {len(downstream)} barramentos MT")
 print(f"  e {n_trafos} transformadores de distribuição.")
 print(f"  Recomendação: chave seccionadora de emergência no ramal adjacente.")
-print("="*70)
+print("=" * 70)

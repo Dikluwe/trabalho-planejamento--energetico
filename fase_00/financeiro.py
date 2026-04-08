@@ -27,6 +27,7 @@ import pandas as pd
 # Caso base — energia e faturamento
 # ---------------------------------------------------------------------------
 
+
 def faturamento_mensal(
     energia_dia_kwh: float,
     tarifa_usd_mwh: float = 150.0,
@@ -60,6 +61,7 @@ def custo_perdas_mensal(
 # ---------------------------------------------------------------------------
 # Compensação PRODIST Módulo 8 — itens 26 a 29
 # ---------------------------------------------------------------------------
+
 
 def _classificar_violacao_prodist(
     tensao_pu: float,
@@ -95,24 +97,24 @@ def _classificar_violacao_prodist(
         # BT 380/220V — Tabela 5
         ad_inf = limite_min_pu
         ad_sup = limite_max_pu
-        
+
         # Diferença PRODIST: Crítica inf é ~0.05 abaixo da adequada inf (0.921 - 0.871)
         cr_inf = ad_inf - 0.05
         # Crítica sup é ~0.011 acima da adequada sup (1.061 - 1.050)
         cr_sup = ad_sup + 0.011
 
-        is_critica  = tensao_pu < cr_inf or tensao_pu > cr_sup
+        is_critica = tensao_pu < cr_inf or tensao_pu > cr_sup
         is_precaria = (not is_critica) and (tensao_pu < ad_inf or tensao_pu > ad_sup)
     else:
         # MT > 2,3 kV e < 69 kV — Tabela 3
         ad_inf = limite_min_pu
         ad_sup = limite_max_pu
-        
+
         # Diferença PRODIST: Crítica inf é ~0.03 abaixo da adequada inf (0.93 - 0.90)
         cr_inf = ad_inf - 0.03
         cr_sup = ad_sup
 
-        is_critica  = tensao_pu < cr_inf or tensao_pu > cr_sup
+        is_critica = tensao_pu < cr_inf or tensao_pu > cr_sup
         is_precaria = (not is_critica) and tensao_pu < ad_inf
 
     return is_precaria, is_critica
@@ -168,19 +170,22 @@ def compensacao_prodist_mensal(
     fator_mes = leituras_por_hora * 7  # 6 × 7 = 42
 
     # Limites PRODIST (item 28)
-    drp_limite = 3.0    # %
-    drc_limite = 0.5    # %
+    drp_limite = 3.0  # %
+    drc_limite = 0.5  # %
 
     from fase_00 import configuracao
+
     medidor = configuracao.MEDIDOR_SUBESTACAO.lower()
     df_medidor = df_meter_by_hour[df_meter_by_hour["meterName"].str.lower() == medidor]
-    
+
     if not df_medidor.empty:
         energia_total_dia_kwh = df_medidor["deltaActiveEnergyKWh"].sum()
     else:
         # Fallback se não encontrar o medidor pelo nome
-        energia_total_dia_kwh = df_meter_by_hour["deltaActiveEnergyKWh"].sum() / (1 + df_voltages["bus"].nunique()/50) # Heurística se falhar
-        
+        energia_total_dia_kwh = df_meter_by_hour["deltaActiveEnergyKWh"].sum() / (
+            1 + df_voltages["bus"].nunique() / 50
+        )  # Heurística se falhar
+
     n_nos = df_voltages["bus"].nunique()
     if n_nos == 0:
         return 0.0
@@ -198,7 +203,7 @@ def compensacao_prodist_mensal(
         nivel = grupo["voltageLevel"].iloc[0]  # "MV" ou "LV"
 
         n_precarias = 0
-        n_criticas  = 0
+        n_criticas = 0
         for _, row in grupo.iterrows():
             is_prec, is_crit = _classificar_violacao_prodist(
                 float(row["voltagePu"]), nivel, limite_min_pu, limite_max_pu
@@ -210,7 +215,7 @@ def compensacao_prodist_mensal(
 
         # Extrapola para o mês (pega a pior fase — aqui já é por nó)
         nlp_mes = int(n_precarias * fator_mes)
-        nlc_mes = int(n_criticas  * fator_mes)
+        nlc_mes = int(n_criticas * fator_mes)
 
         drp = (nlp_mes / leituras_mes_prodist) * 100.0
         drc = (nlc_mes / leituras_mes_prodist) * 100.0
@@ -229,8 +234,7 @@ def compensacao_prodist_mensal(
         eusd = energia_mes_por_no_kwh * tusd_usd_kwh
 
         comp = (
-            (drp - drp_limite) / 100.0 * k1
-            + (drc - drc_limite) / 100.0 * k2
+            (drp - drp_limite) / 100.0 * k1 + (drc - drc_limite) / 100.0 * k2
         ) * eusd
 
         if comp > 0:
@@ -242,6 +246,7 @@ def compensacao_prodist_mensal(
 # ---------------------------------------------------------------------------
 # VPL e valor residual
 # ---------------------------------------------------------------------------
+
 
 def vpl(fluxos: list[float], taxa: float = 0.14) -> float:
     """
@@ -277,6 +282,7 @@ def valor_residual_linear(
 # Benefícios anuais de uma intervenção
 # ---------------------------------------------------------------------------
 
+
 def beneficio_anual(
     delta_perdas_dia_kwh: float,
     delta_compensacao_mensal_usd: float,
@@ -302,6 +308,7 @@ def beneficio_anual(
 # ---------------------------------------------------------------------------
 # Montagem dos fluxos de caixa para 3 anos com crescimento de carga
 # ---------------------------------------------------------------------------
+
 
 def montar_fluxos(
     custo_inicial_usd: float,
@@ -333,6 +340,7 @@ def montar_fluxos(
 # Resumo financeiro do caso base (impressão pelo main)
 # ---------------------------------------------------------------------------
 
+
 def resumo_financeiro_caso_base(
     energia_dia_kwh: float,
     perdas_dia_kwh: float,
@@ -352,7 +360,9 @@ def resumo_financeiro_caso_base(
     return {
         "energia_fornecida_mwh_mes": energia_dia_kwh * 30.0 / 1000.0,
         "energia_perdas_mwh_mes": perdas_dia_kwh * 30.0 / 1000.0,
-        "percentual_perdas_pct": 100.0 * perdas_dia_kwh / energia_dia_kwh if energia_dia_kwh > 0 else 0.0,
+        "percentual_perdas_pct": 100.0 * perdas_dia_kwh / energia_dia_kwh
+        if energia_dia_kwh > 0
+        else 0.0,
         "faturamento_mensal_usd": fat,
         "custo_perdas_mensal_usd": custo,
         "compensacao_prodist_mensal_usd": compensacao_mensal_usd,

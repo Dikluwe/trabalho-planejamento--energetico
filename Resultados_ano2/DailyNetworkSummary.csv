@@ -1,2 +1,2 @@
-mvViolationPct,lvViolationPct,overloadedLines,overloadedTransformers,maxLineLoadingPct,maxTransformerLoadingPct,totalEnergyKWh,totalReactiveEnergyKvarh,totalLossesKWh,totalReactiveLossesKvarh,lossesPct
-0.0,40.15204271123491,0,0,74.52432175500367,97.11318167479668,14756.596230263123,3433.874830678961,636.9648110073947,-2453.329454351215,4.3164751618065855
+mvViolationPct,lvViolationPct,overloadedLines,overloadedTransformers,maxLineLoadingPct,maxTransformerLoadingPct,totalEnergyKWh,totalLossesKWh,lossesPct
+0.0,38.62000928505107,0,0,74.52432175500367,97.11318167479668,14756.596230263123,636.9648110073947,4.3164751618065855

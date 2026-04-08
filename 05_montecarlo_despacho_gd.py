@@ -11,13 +11,15 @@ HERE = Path(__file__).resolve().parent
 from dss import dss
 
 import json
+
 with open(HERE / "parametros.json", "r") as f:
     config = json.load(f)
 
 MASTER = str(HERE / config["caminhos"]["dss_file"])
 DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
-N_SIMULACOES  = 100
-SEED          = 42
+N_SIMULACOES = 100
+SEED = 42
+
 
 def carregar(loadmult=1.0, cmds=None):
     dss.Text.Command = "Clear"
@@ -25,8 +27,10 @@ def carregar(loadmult=1.0, cmds=None):
     dss.Text.Command = "Set mode=daily stepsize=1h number=1"
     dss.Text.Command = f"Set LoadMult={loadmult}"
     if cmds:
-        for c in cmds: dss.Text.Command = c
+        for c in cmds:
+            dss.Text.Command = c
     return dss.ActiveCircuit
+
 
 def trafo_pct_max(circuit, nome, kva, n_horas=24):
     """Carregamento máximo em n_horas horas."""
@@ -36,22 +40,24 @@ def trafo_pct_max(circuit, nome, kva, n_horas=24):
         circuit.Solution.Solve()
         circuit.SetActiveElement(f"Transformer.{nome}")
         pw = circuit.ActiveCktElement.Powers
-        n  = circuit.ActiveCktElement.NumPhases
-        if len(pw) >= n*2:
-            p = sum(pw[0:n*2:2]); q = sum(pw[1:n*2+1:2])
-            pmax = max(pmax, 100*(p**2+q**2)**0.5/kva)
+        n = circuit.ActiveCktElement.NumPhases
+        if len(pw) >= n * 2:
+            p = sum(pw[0 : n * 2 : 2])
+            q = sum(pw[1 : n * 2 + 1 : 2])
+            pmax = max(pmax, 100 * (p**2 + q**2) ** 0.5 / kva)
     return pmax
+
 
 # ===========================================================================
 # 1. MONTE CARLO — ANO DE SOBRECARGA DO trf_6_4910a
 # ===========================================================================
-print("\n" + "="*70)
+print("\n" + "=" * 70)
 print("[05.01] MONTE CARLO — ANO DE SOBRECARGA DO trf_6_4910a")
-print("="*70)
+print("=" * 70)
 print(f"\n  Parâmetros:")
 print(f"  Simulações : {N_SIMULACOES}")
 print(f"  Crescimento: uniforme entre 5% e 15%/ano")
-print(f"  Degradação GD: {DEGRADACAO_GD*100:.1f}%/ano (fixo)")
+print(f"  Degradação GD: {DEGRADACAO_GD * 100:.1f}%/ano (fixo)")
 print(f"  Limite de sobrecarga: 100%")
 print(f"  Horizonte máximo: 15 anos")
 
@@ -68,8 +74,8 @@ for sim in range(N_SIMULACOES):
     ano_sob = None
 
     for ano in range(1, 16):
-        mult    = 1.0 + (ano - 1) * taxa
-        gd_fat  = max(0.5, 1.0 - (ano - 1) * DEGRADACAO_GD)
+        mult = 1.0 + (ano - 1) * taxa
+        gd_fat = max(0.5, 1.0 - (ano - 1) * DEGRADACAO_GD)
 
         dss.Text.Command = f"Set LoadMult={mult}"  # Altera apenas na memória
         circuit.PVSystems.First
@@ -90,16 +96,21 @@ for sim in range(N_SIMULACOES):
 
 # Estatísticas
 from collections import Counter
+
 contagem = Counter(ano_sobrecarga)
 total_com_sob = len(ano_sobrecarga)
 
 print(f"\n  Resultados ({N_SIMULACOES} simulações):")
-print(f"  Simulações com sobrecarga até Ano 15: {total_com_sob} ({100*total_com_sob/N_SIMULACOES:.0f}%)")
-print(f"  Simulações sem sobrecarga até Ano 15: {nunca_sobrecarrega} ({100*nunca_sobrecarrega/N_SIMULACOES:.0f}%)")
+print(
+    f"  Simulações com sobrecarga até Ano 15: {total_com_sob} ({100 * total_com_sob / N_SIMULACOES:.0f}%)"
+)
+print(
+    f"  Simulações sem sobrecarga até Ano 15: {nunca_sobrecarrega} ({100 * nunca_sobrecarrega / N_SIMULACOES:.0f}%)"
+)
 
 print(f"\n  Distribuição do ano de sobrecarga:")
 print(f"  {'Ano':>5} {'Ocorrências':>13} {'% simulações':>14} {'% acumulado':>13}")
-print(f"  {'-'*48}")
+print(f"  {'-' * 48}")
 acum = 0
 for ano in range(1, 16):
     cnt = contagem.get(ano, 0)
@@ -121,16 +132,18 @@ if ano_sobrecarga:
     print(f"    P90 (90% das simulações sobrecarga antes): Ano {p90}")
     print(f"\n  Interpretação:")
     print(f"  Com crescimento de carga entre 5% e 15%/ano,")
-    print(f"  há {100*total_com_sob/N_SIMULACOES:.0f}% de probabilidade de sobrecarga até o Ano 15.")
+    print(
+        f"  há {100 * total_com_sob / N_SIMULACOES:.0f}% de probabilidade de sobrecarga até o Ano 15."
+    )
     print(f"  Em 50% dos cenários a sobrecarga ocorre até o Ano {p50}.")
     print(f"  A intervenção (tap) é recomendada independente da taxa de crescimento.")
 
 # ===========================================================================
 # 2. DESPACHO ÓTIMO DA GD — FP VARIÁVEL vs FP FIXO 0,92
 # ===========================================================================
-print(f"\n{'='*70}")
+print(f"\n{'=' * 70}")
 print("[05.02] DESPACHO ÓTIMO DA GD — FATOR DE POTÊNCIA VARIÁVEL")
-print("="*70)
+print("=" * 70)
 
 print(f"\n  Comparação de estratégias de FP nos PVSystems (Ano 1, LoadMult=1.0):")
 print(f"  A. FP fixo 0,92 (configuração atual)")
@@ -143,10 +156,10 @@ all_bus = None
 resultados_fp = {}
 
 for label, pf in [
-    ("A — FP 0,92 (atual)",        0.92),
-    ("B — FP 1,00 (só ativo)",     1.00),
-    ("C — FP 0,95 capacitivo",     0.95),
-    ("D — FP 0,90 capacitivo",     0.90),
+    ("A — FP 0,92 (atual)", 0.92),
+    ("B — FP 1,00 (só ativo)", 1.00),
+    ("C — FP 0,95 capacitivo", 0.95),
+    ("D — FP 0,90 capacitivo", 0.90),
 ]:
     circuit = carregar(1.0)
 
@@ -160,9 +173,9 @@ for label, pf in [
         idx = circuit.PVSystems.Next
 
     perdas_dia = 0.0
-    vmin_bt    = 999.0
-    vmax_bt    = 0.0
-    q_inj_dia  = 0.0
+    vmin_bt = 999.0
+    vmax_bt = 0.0
+    q_inj_dia = 0.0
 
     circuit.Solution.dblHour = 0.0
     for h in range(24):
@@ -172,12 +185,11 @@ for label, pf in [
         # Q injetado pela GD
         idx2 = circuit.PVSystems.First
         while idx2 > 0:
-            circuit.SetActiveElement(
-                f"PVSystem.{circuit.PVSystems.Name}")
+            circuit.SetActiveElement(f"PVSystem.{circuit.PVSystems.Name}")
             pw = circuit.ActiveCktElement.Powers
-            n  = circuit.ActiveCktElement.NumPhases
-            if len(pw) >= n*2:
-                q_inj_dia += abs(sum(pw[1:n*2+1:2]))
+            n = circuit.ActiveCktElement.NumPhases
+            if len(pw) >= n * 2:
+                q_inj_dia += abs(sum(pw[1 : n * 2 + 1 : 2]))
             idx2 = circuit.PVSystems.Next
 
         for bname in all_bus:
@@ -187,27 +199,31 @@ for label, pf in [
                 vmag = circuit.ActiveBus.VMagAngle
                 if len(vmag) >= 1:
                     nn = circuit.ActiveBus.NumNodes
-                    vb = kv*1000 if nn < 3 else kv*1000/3**0.5
-                    vpu = vmag[0]/vb
+                    vb = kv * 1000 if nn < 3 else kv * 1000 / 3**0.5
+                    vpu = vmag[0] / vb
                     if 0.01 < vpu:
                         vmin_bt = min(vmin_bt, vpu)
                         vmax_bt = max(vmax_bt, vpu)
 
     resultados_fp[label] = {
         "perdas": perdas_dia,
-        "vmin":   vmin_bt if vmin_bt < 999 else 0,
-        "vmax":   vmax_bt,
-        "q_inj":  q_inj_dia,
+        "vmin": vmin_bt if vmin_bt < 999 else 0,
+        "vmax": vmax_bt,
+        "q_inj": q_inj_dia,
     }
 
-print(f"\n  {'Estratégia':<26} {'Perdas kWh':>11} {'Vmin BT':>9} {'Vmax BT':>9} {'Q GD kvarh':>11}")
-print(f"  {'-'*70}")
+print(
+    f"\n  {'Estratégia':<26} {'Perdas kWh':>11} {'Vmin BT':>9} {'Vmax BT':>9} {'Q GD kvarh':>11}"
+)
+print(f"  {'-' * 70}")
 ref_perdas = resultados_fp["A — FP 0,92 (atual)"]["perdas"]
 for label, r in resultados_fp.items():
     delta = r["perdas"] - ref_perdas
     delta_str = f"({delta:+.1f})" if label != "A — FP 0,92 (atual)" else ""
-    print(f"  {label:<26} {r['perdas']:>8.1f} {delta_str:<5} "
-          f"{r['vmin']:>9.4f} {r['vmax']:>9.4f} {r['q_inj']:>11.1f}")
+    print(
+        f"  {label:<26} {r['perdas']:>8.1f} {delta_str:<5} "
+        f"{r['vmin']:>9.4f} {r['vmax']:>9.4f} {r['q_inj']:>11.1f}"
+    )
 
 melhor = min(resultados_fp.items(), key=lambda x: x[1]["perdas"])
 print(f"\n  Menor perda: {melhor[0]} ({melhor[1]['perdas']:.1f} kWh/dia)")
@@ -217,4 +233,4 @@ print(f"  se a rede já está supercompensada (FP > 0,95 globalmente).")
 print(f"  FP < 0,92 injeta mais reativo, útil apenas se houver déficit local.")
 print(f"  Resultado define se o controle de Q dos inversores é benéfico")
 print(f"  para esta rede sem custo adicional de equipamento.")
-print("="*70)
+print("=" * 70)
