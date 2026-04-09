@@ -3,7 +3,6 @@
 # 2. Despacho ótimo da GD — FP variável vs FP fixo 0,92
 
 import sys
-import json
 import random
 from pathlib import Path
 from collections import Counter
@@ -16,25 +15,13 @@ if str(ROOT) not in sys.path:
 
 # 2. Imports locais e de bibliotecas dependentes
 from dss import dss
+from core import configuracao
 
-# 3. Leitura do JSON usando ROOT em vez de HERE
-with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
-    config = json.load(f)
-
-MASTER = str(ROOT / config["caminhos"]["dss_file"])
+# 3. Parâmetros centralizados
+config = configuracao.config
 DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
 N_SIMULACOES = 100
 SEED = 42
-
-def carregar(loadmult=1.0, cmds=None):
-    dss.Text.Command = "Clear"
-    dss.Text.Command = f'Redirect "{MASTER}"'
-    dss.Text.Command = "Set mode=daily stepsize=1h number=1"
-    dss.Text.Command = f"Set LoadMult={loadmult}"
-    if cmds:
-        for c in cmds:
-            dss.Text.Command = c
-    return dss.ActiveCircuit
 
 
 def trafo_pct_max(circuit, nome, kva, n_horas=24):
@@ -71,7 +58,7 @@ random.seed(SEED)
 ano_sobrecarga = []  # ano em que cada simulação ultrapassa 100%
 nunca_sobrecarrega = 0
 
-circuit = carregar(1.0)  # Carrega o disco apenas uma vez aqui
+circuit = configuracao.carregar(dss, 1.0)  # Carrega o disco apenas uma vez aqui
 
 for sim in range(N_SIMULACOES):
     # Crescimento uniforme entre 5% e 15% ao ano
@@ -100,16 +87,6 @@ for sim in range(N_SIMULACOES):
         nunca_sobrecarrega += 1
 
 # Estatísticas
-from collections import Counter
-
-import sys
-from pathlib import Path
-HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
-
 contagem = Counter(ano_sobrecarga)
 total_com_sob = len(ano_sobrecarga)
 
@@ -174,7 +151,7 @@ for label, pf in [
     ("C — FP 0,95 capacitivo", 0.95),
     ("D — FP 0,90 capacitivo", 0.90),
 ]:
-    circuit = carregar(1.0)
+    circuit = configuracao.carregar(dss, 1.0)
 
     if all_bus is None:
         all_bus = list(circuit.AllBusNames)

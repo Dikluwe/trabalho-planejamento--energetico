@@ -3,7 +3,6 @@
 # para identificar onde um capacitor seria tecnicamente indicado
 
 import sys
-import json
 from pathlib import Path
 
 # 1. Ajuste do PATH absoluto (Sempre no topo)
@@ -14,23 +13,17 @@ if str(ROOT) not in sys.path:
 
 # 2. Imports externos
 from dss import dss
+from core import configuracao
 
-# 3. Leitura de arquivos apontando para a pasta raiz (ROOT)
-with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
-    config = json.load(f)
-
-MASTER = str(ROOT / config["caminhos"]["dss_file"])
+# 3. Parâmetros centralizados
+MASTER = configuracao.MASTER_DSS
 
 print("\n" + "=" * 70)
 print("[03.07] MAPEAMENTO DE DEMANDA REATIVA — REDE MT CRELUZ")
 print("=" * 70)
 
 # Carrega e roda 24h
-dss.Text.Command = "Clear"
-dss.Text.Command = f'Redirect "{MASTER}"'
-dss.Text.Command = "Set mode=daily stepsize=1h number=1"
-
-circuit = dss.ActiveCircuit
+circuit = configuracao.inicializar_dss(dss, MASTER)
 
 # Acumula Q por linha ao longo de 24h
 q_max_linha = {}  # {nome_linha: q_max_kvar}

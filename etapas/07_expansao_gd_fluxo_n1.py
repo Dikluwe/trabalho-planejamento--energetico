@@ -4,7 +4,6 @@
 # 6. Análise N-1 (abertura da linha de maior carregamento)
 
 import sys
-import json
 from pathlib import Path
 from collections import deque
 
@@ -16,23 +15,11 @@ if str(ROOT) not in sys.path:
 
 # 2. Imports dependentes
 from dss import dss
+from core import configuracao
 
-# 3. Uso do ROOT para acessar os arquivos na raiz do projeto
-with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
-    config = json.load(f)
-
-MASTER = str(ROOT / config["caminhos"]["dss_file"])
+# 3. Parâmetros centralizados
+config = configuracao.config
 DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
-
-def carregar(loadmult=1.0, cmds=None):
-    dss.Text.Command = "Clear"
-    dss.Text.Command = f'Redirect "{MASTER}"'
-    dss.Text.Command = "Set mode=daily stepsize=1h number=1"
-    dss.Text.Command = f"Set LoadMult={loadmult}"
-    if cmds:
-        for c in cmds:
-            dss.Text.Command = c
-    return dss.ActiveCircuit
 
 
 def metricas_24h(circuit):
@@ -139,7 +126,7 @@ cenarios = [
 ]
 
 for label, escala, cmds in cenarios:
-    circuit = carregar(1.2, cmds if cmds else None)
+    circuit = configuracao.carregar(dss, 1.2, cmds if cmds else None)
     set_gd(circuit, gd_f3, escala)
     m = metricas_24h(circuit)
     print(
@@ -154,7 +141,7 @@ print(f"\n{'=' * 70}")
 print("[07.08] FLUXO DE POTÊNCIA REVERSO NA ENTRADA DO ALIMENTADOR")
 print("=" * 70)
 
-circuit = carregar(1.0)
+circuit = configuracao.carregar(dss, 1.0)
 
 # Linha de entrada: smt_24122 (subestação → 1_rede2_1)
 LINHA_ENTRADA = "smt_24122"
@@ -203,13 +190,6 @@ else:
     print(f"  Sem fluxo reverso — GD não supera carga em nenhuma hora.")
     print(f"  Subestação é importadora líquida durante todo o dia.")
 
-import sys
-from pathlib import Path
-HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
     p_gd_max = max(
         sum(abs(v) for v in [0])  # placeholder
         for _ in [1]
@@ -225,7 +205,7 @@ print("[07.09] ANÁLISE N-1 — ABERTURA DA LINHA DE MAIOR CARREGAMENTO")
 print("=" * 70)
 
 LINHA_N1 = "smt_31408"
-circuit = carregar(1.0)
+circuit = configuracao.carregar(dss, 1.0)
 
 # Dados da linha
 circuit.SetActiveClass("Line")
@@ -292,7 +272,7 @@ while idx > 0:
 print(f"  Transformadores afetados  : {n_trafos}")
 
 # Simula a abertura e lê tensões na hora de pico
-circuit_n1 = carregar(1.0, [f"Open Line.{LINHA_N1} 1"])
+circuit_n1 = configuracao.carregar(dss, 1.0, [f"Open Line.{LINHA_N1} 1"])
 circuit.Solution.dblHour = 0.0
 for h in range(9):
     try:

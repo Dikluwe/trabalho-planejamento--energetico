@@ -1,6 +1,5 @@
 # 04_perfil_tensao_trafos_gd.py
 import sys
-import json
 from pathlib import Path
 
 # 1. Ajuste do PATH absoluto (Sempre no topo)
@@ -11,22 +10,11 @@ if str(ROOT) not in sys.path:
 
 # 2. Imports de módulos
 from dss import dss
+from core import configuracao
 from core.configuracao import calcular_potencia_aparente
 
-# 3. Leitura do JSON apontando para a pasta raiz (ROOT)
-with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
-    config = json.load(f)
-
-# O MASTER também deve usar o ROOT
-MASTER = str(ROOT / config["caminhos"]["dss_file"])
-
-
-def carregar(loadmult=1.0):
-    dss.Text.Command = "Clear"
-    dss.Text.Command = f'Redirect "{MASTER}"'
-    dss.Text.Command = "Set mode=daily stepsize=1h number=1"
-    dss.Text.Command = f"Set LoadMult={loadmult}"
-    return dss.ActiveCircuit
+# 3. Parâmetros centralizados
+config = configuracao.config
 
 
 # ===========================================================================
@@ -36,7 +24,7 @@ print("\n" + "=" * 70)
 print("[04.01] PERFIL DE TENSÃO — CASO BASE (Ano 1, LoadMult=1.0)")
 print("=" * 70)
 
-circuit = carregar(1.0)
+circuit = configuracao.carregar(dss, 1.0)
 all_bus_names = list(circuit.AllBusNames)
 
 v_min_bus = {}  # {nome: (vpu_min, kv_base)}
@@ -121,7 +109,7 @@ print("[04.02] CARREGAMENTO DOS TRANSFORMADORES — ANOS 1, 2 e 3")
 print("=" * 70)
 
 # Lê kVA de cada trafo no caso base
-circuit = carregar(1.0)
+circuit = configuracao.carregar(dss, 1.0)
 kva_trafo = {}
 circuit.SetActiveClass("Transformer")
 trafos = circuit.Transformers
@@ -132,7 +120,7 @@ while idx > 0:
 
 resultado_trafos = {}
 
-circuit = carregar(1.0)  # Carrega do disco apenas uma vez
+circuit = configuracao.carregar(dss, 1.0)  # Carrega do disco apenas uma vez
 for ano, mult in [
     (ano, 1.0 + (ano - 1) * config["simulacao"]["crescimento_carga"])
     for ano in (1, 2, 3)
@@ -203,7 +191,7 @@ print("3. IMPACTO DA GD FOTOVOLTAICA — COM vs SEM GD (Ano 1)")
 print("=" * 70)
 
 # --- COM GD ---
-circuit = carregar(1.0)
+circuit = configuracao.carregar(dss, 1.0)
 all_bus_names = list(circuit.AllBusNames)
 h_perdas_com = {}
 h_vmin_com = {}
@@ -227,7 +215,7 @@ for h in range(24):
     h_vmin_com[h] = vmin if vmin < 999 else 0.0
 
 # --- SEM GD — desabilita via comando DSS direto ---
-circuit = carregar(1.0)
+circuit = configuracao.carregar(dss, 1.0)
 
 # Desabilita generators
 dss.Text.Command = "Disable Generator.*"

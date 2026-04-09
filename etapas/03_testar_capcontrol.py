@@ -5,23 +5,14 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-
-from dss import dss
-
-import json
-
-import sys
-from pathlib import Path
-HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from dss import dss
+from core import configuracao
 
-with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
-    config = json.load(f)
-
-MASTER = str(ROOT / config["caminhos"]["dss_file"])
+MASTER = configuracao.MASTER_DSS
 
 print("\n" + "=" * 60)
 print("[03.04] TESTE DO CAPACITOR AUTOMÁTICO — barra 9051")

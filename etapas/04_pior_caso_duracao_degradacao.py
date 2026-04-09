@@ -4,7 +4,6 @@
 # 3. Horizonte com degradação da GD (0.7% ao ano)
 
 import sys
-import json
 from pathlib import Path
 
 # 1. Ajuste do PATH absoluto sempre no topo
@@ -15,13 +14,12 @@ if str(ROOT) not in sys.path:
 
 # 2. Agora os imports encontram a pasta 'core' e o 'dss'
 from dss import dss
+from core import configuracao
 from core.configuracao import calcular_potencia_aparente
 
-# 3. Uso do ROOT para acessar arquivos na raiz do projeto
-with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
-    config = json.load(f)
-
-MASTER = str(ROOT / config["caminhos"]["dss_file"])
+# 3. Parâmetros centralizados
+config = configuracao.config
+MASTER = configuracao.MASTER_DSS
 DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
 CRESCIMENTO_CARGA = config["simulacao"]["crescimento_carga"]
 ANOS_SIMULACAO = config["simulacao"].get("vida_util_projeto", 3)

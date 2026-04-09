@@ -67,6 +67,18 @@ def calcular_potencia_aparente(circuit, nome_elemento, tipo_elemento="Transforme
     return (p**2 + q**2) ** 0.5
 
 
+def carregar(dss, loadmult=1.0, cmds=None, master=MASTER_DSS):
+    """Reinicializa o circuito e aplica LoadMult e comandos extras opcionais."""
+    dss.Text.Command = "Clear"
+    dss.Text.Command = f'Redirect "{master}"'
+    dss.Text.Command = "Set mode=daily stepsize=1h number=1"
+    dss.Text.Command = f"Set LoadMult={loadmult}"
+    if cmds:
+        for c in cmds:
+            dss.Text.Command = c
+    return dss.ActiveCircuit
+
+
 def ajustar_potencia_gd(circuit, fator):
     """Ajusta a potência nominal (Pmpp e kVA) de todos os sistemas fotovoltaicos (PVSystem)."""
     idx = circuit.PVSystems.First

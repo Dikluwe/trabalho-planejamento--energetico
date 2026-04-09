@@ -4,7 +4,6 @@
 # 3. Sensibilidade do VPL à taxa de desconto (10%, 14%, 18%)
 
 import sys
-import json
 from pathlib import Path
 
 # 1. Ajuste do PATH absoluto (Sempre no topo)
@@ -15,26 +14,14 @@ if str(ROOT) not in sys.path:
 
 # 2. Imports locais e dependências
 from dss import dss
+from core import configuracao
 
-# 3. Uso do ROOT para acessar os arquivos na raiz do projeto
-with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
-    config = json.load(f)
-
-MASTER = str(ROOT / config["caminhos"]["dss_file"])
+# 3. Parâmetros centralizados
+config = configuracao.config
 CUSTO_PERDAS = config["economico"]["preco_compra_usd_mwh"]
 TARIFA_VENDA = config["economico"]["tarifa_venda_usd_mwh"]
 TUSD = config["economico"]["tusd_usd_mwh"]
 VIDA_UTIL = 15
-
-def carregar(loadmult=1.0, cmds=None):
-    dss.Text.Command = "Clear"
-    dss.Text.Command = f'Redirect "{MASTER}"'
-    dss.Text.Command = "Set mode=daily stepsize=1h number=1"
-    dss.Text.Command = f"Set LoadMult={loadmult}"
-    if cmds:
-        for c in cmds:
-            dss.Text.Command = c
-    return dss.ActiveCircuit
 
 
 # ===========================================================================
@@ -44,7 +31,7 @@ print("\n" + "=" * 70)
 print("[07.10] PERFIL DE TENSÃO POR DISTÂNCIA ELÉTRICA DA SUBESTAÇÃO")
 print("=" * 70)
 
-circuit = carregar(1.0)
+circuit = configuracao.carregar(dss, 1.0)
 all_bus_names = list(circuit.AllBusNames)
 
 # Nota: a rede tem 2320 barramentos MT todos a 13,34 kV mas o grafo
@@ -126,7 +113,7 @@ print("[07.11] BALANÇO ENERGÉTICO HORA A HORA — COM GD vs SEM GD (Ano 1)")
 print("=" * 70)
 
 # COM GD
-circuit = carregar(1.0)
+circuit = configuracao.carregar(dss, 1.0)
 h_p_total = {}  # potência total fornecida pela subestação
 h_p_gd = {}  # geração fotovoltaica total
 h_perdas = {}  # perdas totais

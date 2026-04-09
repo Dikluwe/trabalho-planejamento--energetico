@@ -3,7 +3,6 @@
 # 2. Crescimento assimétrico de carga — sensibilidade por ramal
 
 import sys
-import json
 from pathlib import Path
 
 # 1. Ajuste do PATH absoluto (Sempre no topo)
@@ -16,11 +15,8 @@ if str(ROOT) not in sys.path:
 from dss import dss
 from core import configuracao
 
-# 3. Usar ROOT para encontrar arquivos na pasta raiz
-with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
-    config = json.load(f)
-
-MASTER = str(ROOT / config["caminhos"]["dss_file"])
+# 3. Parâmetros centralizados
+config = configuracao.config
 TAXA_DESCONTO = config["economico"]["taxa_desconto"]
 CUSTO_PERDAS = config["economico"]["preco_compra_usd_mwh"]
 TARIFA_VENDA = config["economico"]["tarifa_venda_usd_mwh"]
@@ -28,17 +24,6 @@ TUSD = config["economico"]["tusd_usd_mwh"]
 VIDA_UTIL = 15
 DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
 CRESCIMENTO_CARGA = config["simulacao"]["crescimento_carga"]
-
-
-def carregar(loadmult=1.0, cmds_extras=None):
-    dss.Text.Command = "Clear"
-    dss.Text.Command = f'Redirect "{MASTER}"'
-    dss.Text.Command = "Set mode=daily stepsize=1h number=1"
-    dss.Text.Command = f"Set LoadMult={loadmult}"
-    if cmds_extras:
-        for cmd in cmds_extras:
-            dss.Text.Command = cmd
-    return dss.ActiveCircuit
 
 
 def metricas(circuit):
@@ -152,7 +137,7 @@ for ano, mult, gd_f in [
     (3, 1.2, 1.0 - 2 * DEGRADACAO_GD),
 ]:
     # Sem regulador
-    c = carregar(mult)
+    c = configuracao.carregar(dss, mult)
     if gd_f != 1.0:
         c.SetActiveClass("PVSystem")
         idx = c.ActiveClass.First
@@ -166,7 +151,7 @@ for ano, mult, gd_f in [
     # O regulador eleva a tensão em todos os secundários em BOOST_NECESSARIO
     tap_reg = 1.0 / BOOST_NECESSARIO  # tap no primário para elevar secundário
 
-    c2 = carregar(mult)
+    c2 = configuracao.carregar(dss, mult)
     if gd_f != 1.0:
         c2.SetActiveClass("PVSystem")
         idx = c2.ActiveClass.First
@@ -238,7 +223,7 @@ print(f"  B. Ramal trf_4910a +20%/ano: concentrado no consumidor crítico")
 print(f"  C. Assimétrico geral       : ramais rurais +15%, demais +7%")
 
 # Identifica cargas por barramento
-circuit = carregar(1.0)
+circuit = configuracao.carregar(dss, 1.0)
 cargas_por_bus = {}
 loads = circuit.Loads
 idx = loads.First
@@ -269,7 +254,7 @@ cenarios = [
 ]
 
 for desc, cargas_especiais, mult_geral in cenarios:
-    circuit = carregar(mult_geral)
+    circuit = configuracao.carregar(dss, mult_geral)
 
     # Aplica crescimento diferenciado nas cargas especiais
     if cargas_especiais:
