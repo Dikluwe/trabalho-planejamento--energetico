@@ -4,21 +4,25 @@
 # 6. Análise N-1 (abertura da linha de maior carregamento)
 
 import sys
+import json
 from pathlib import Path
 from collections import deque
 
+# 1. Ajuste do PATH absoluto (Sempre no topo)
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
+# 2. Imports dependentes
 from dss import dss
 
-import json
-
-with open(HERE / "parametros.json", "r") as f:
+# 3. Uso do ROOT para acessar os arquivos na raiz do projeto
+with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
     config = json.load(f)
 
-MASTER = str(HERE / config["caminhos"]["dss_file"])
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
 DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
-
 
 def carregar(loadmult=1.0, cmds=None):
     dss.Text.Command = "Clear"

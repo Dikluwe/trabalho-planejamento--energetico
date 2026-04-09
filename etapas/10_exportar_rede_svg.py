@@ -11,18 +11,24 @@ import sys
 from pathlib import Path
 import math
 
+# 1. Ajuste do PATH absoluto (Sempre no topo)
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
+ROOT = HERE.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 import json
 
-with open(HERE / "parametros.json", "r") as f:
-    config = json.load(f)
-MASTER = str(HERE / config["caminhos"]["dss_file"])
-TRAFO_CRITICO = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
+# 2. Imports dependentes do PATH ajustado
 from dss import dss
 
-COORDS_CSV = HERE / "dss" / "buscoords.csv"
+# 3. Uso do ROOT para acessar os arquivos na raiz do projeto
+with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
+    config = json.load(f)
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
+TRAFO_CRITICO = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
+
+COORDS_CSV = ROOT / "dss" / "buscoords.csv"
 
 # ---------------------------------------------------------------------------
 # 1. Carrega coordenadas
@@ -186,8 +192,8 @@ def gerar_svg(nome_arquivo, camadas_fn, W=1200, H=1200):
 
     linhas_svg.append("</svg>")
 
-    path = HERE / "Resultados" / "graficos" / nome_arquivo
-    with open(path, "w") as f:
+    path = ROOT / "resultados" / "graficos" / nome_arquivo
+    with open(path, "w", encoding="utf-8") as f:
         f.write("\n".join(linhas_svg))
     print(f"  Gerado: {nome_arquivo}")
     return path
@@ -378,4 +384,4 @@ svgs.append(
     )
 )
 
-print(f"\nTodos os SVGs gerados em {HERE}")
+print(f"\nTodos os SVGs gerados em {ROOT / 'resultados' / 'graficos'}")

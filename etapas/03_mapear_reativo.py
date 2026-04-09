@@ -3,25 +3,23 @@
 # para identificar onde um capacitor seria tecnicamente indicado
 
 import sys
-from pathlib import Path
-
-HERE = Path(__file__).resolve().parent
-
-from dss import dss
-
 import json
-
-import sys
 from pathlib import Path
+
+# 1. Ajuste do PATH absoluto (Sempre no topo)
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+# 2. Imports externos
+from dss import dss
 
-with open(HERE / "parametros.json", "r") as f:
+# 3. Leitura de arquivos apontando para a pasta raiz (ROOT)
+with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
     config = json.load(f)
-MASTER = str(HERE / config["caminhos"]["dss_file"])
+
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
 
 print("\n" + "=" * 70)
 print("[03.07] MAPEAMENTO DE DEMANDA REATIVA — REDE MT CRELUZ")

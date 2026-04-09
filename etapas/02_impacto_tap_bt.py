@@ -3,16 +3,15 @@
 # @updated 2026-04-05
 
 import sys
-from dss import dss
-from core import configuracao
-
-import sys
 from pathlib import Path
+
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from dss import dss
+from core import configuracao
 
 MASTER = configuracao.MASTER_DSS
 TRAFO_ALVO = configuracao.TRAFO_CRITICO

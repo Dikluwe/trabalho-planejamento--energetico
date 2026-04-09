@@ -18,9 +18,10 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 
-with open(HERE / "parametros.json", "r") as f:
+with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
     config = json.load(f)
-MASTER = str(HERE / config["caminhos"]["dss_file"])
+
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
 
 print("\n" + "=" * 60)
 print("[03.04] TESTE DO CAPACITOR AUTOMÁTICO — barra 9051")

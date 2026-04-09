@@ -8,14 +8,17 @@ import json
 import pandas as pd
 from pathlib import Path
 
+# 1. Ajuste do PATH absoluto sempre no topo
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
+ROOT = HERE.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 # ---------------------------------------------------------------------------
 # Carregamento de Parâmetros (Arquivo JSON)
 # ---------------------------------------------------------------------------
 
-CONFIG_FILE = HERE / "parametros.json"
+CONFIG_FILE = ROOT / "parametros.json"
 if not CONFIG_FILE.exists():
     print(f"ERRO: Arquivo de configuração {CONFIG_FILE.name} não encontrado.")
     sys.exit(1)
@@ -140,7 +143,8 @@ def svg_fim():
 
 
 def salvar(nome, linhas):
-    pasta_graficos = HERE / "Resultados" / "graficos"
+    # Uso do ROOT e nome da pasta em minúsculo conforme padrão do projeto
+    pasta_graficos = ROOT / "resultados" / "graficos"
     pasta_graficos.mkdir(parents=True, exist_ok=True)
     path = pasta_graficos / nome
     with open(path, "w", encoding="utf-8") as f:
@@ -163,9 +167,10 @@ perfil_vmin = []
 perfil_vmax = []
 
 for ano in [1, 2, 3]:
-    folder = HERE / f"{OUTPUT_FOLDER_BASE}_ano{ano}"
+    # Uso do ROOT para acessar as pastas de resultados geradas pelos passos anteriores
+    folder = ROOT / OUTPUT_FOLDER_BASE / f"ano{ano}"
     if not folder.exists():
-        print(f"ERRO: Pasta {folder.name} não encontrada.")
+        print(f"ERRO: Pasta {folder.name} não encontrada no caminho: {folder}")
         sys.exit(1)
 
     # 1. Carregamento do Transformador Crítico

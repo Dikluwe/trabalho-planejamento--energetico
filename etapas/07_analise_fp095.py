@@ -8,17 +8,19 @@ Refatorado para performance: circuito carregado uma única vez.
 """
 
 import sys
-from dss import dss
-from core import configuracao
-
-import sys
 from pathlib import Path
+
+# 1. Ajuste do PATH absoluto (Sempre no topo)
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+# 2. Imports locais e dependências
+from dss import dss
+from core import configuracao
 
+# 3. Definição de variáveis globais
 MASTER = configuracao.MASTER_DSS
 
 

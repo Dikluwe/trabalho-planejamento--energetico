@@ -7,19 +7,23 @@
 
 import sys
 import csv
+import json
 from pathlib import Path
 from collections import defaultdict
 
+# O ajuste de caminho deve ficar apenas aqui, na linha 1 do arquivo
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from dss import dss
+from core import configuracao
 
-import json
-
-with open(HERE / "parametros.json", "r") as f:
+with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
     config = json.load(f)
-
-MASTER = str(HERE / config["caminhos"]["dss_file"])
+    
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
 TRAFO_ALVO = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
 TAXA_DESCONTO = config["economico"]["taxa_desconto"]
 CUSTO_PERDAS = config["economico"]["preco_compra_usd_mwh"]
@@ -236,7 +240,7 @@ print(f"\n{'=' * 70}")
 print("[07.05] EXPORTANDO CSV CONSOLIDADO")
 print("=" * 70)
 
-csv_path = HERE / "Resultados" / "resultados_consolidados.csv"
+csv_path = ROOT / "resultados" / "resultados_consolidados.csv"
 
 linhas = [
     # Cabeçalho
@@ -346,14 +350,6 @@ def faixas_prodist(vpus):
     Como só simulamos 24h (1 dia típico), aplicamos fator de extrapolação:
     - 24 leituras horárias × 6 (conversão 10min) × 7 (dias) = 1008 leituras equivalentes
     """
-
-import sys
-from pathlib import Path
-HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
     n_total = 1008  # base PRODIST (7 dias × 24h × 6 leituras/h)
     # Fator de correção: escala 24h → 7 dias + conversão hora → 10min
     # 24 leituras × 42 = 1008 leituras equivalentes
@@ -398,7 +394,7 @@ else:
     print(f"  Rede dentro dos limites regulatórios em todas as barras.")
 
 # Exporta CSV PRODIST
-prodist_path = HERE / "Resultados" / "prodist_drp_drc.csv"
+prodist_path = ROOT / "resultados" / "prodist_drp_drc.csv"
 with open(prodist_path, "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f, delimiter=";")
     writer.writerow(

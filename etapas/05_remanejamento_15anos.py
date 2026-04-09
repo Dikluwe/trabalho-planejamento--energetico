@@ -8,23 +8,27 @@ Otimizado para performance: Redirect único inicial fora do loop.
 """
 
 import sys
+from pathlib import Path
+
+# 1. Ajuste do PATH absoluto (Sempre no topo, antes de qualquer importação externa ou interna)
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+# 2. Imports de bibliotecas e pacotes locais
 import pandas as pd
 from dss import dss
 from core import configuracao
+import json
 
+# 3. Definição das variáveis globais
 MASTER = configuracao.MASTER_DSS
 CRESCIMENTO = configuracao.CRESCIMENTO
 DEGRADACAO_GD = 0.007  # 0.7% ao ano
 
-
 def rodar_ano_multi(circuit, fator_carga: float, fator_gd: float) -> pd.DataFrame:
     """Coleta carregamento de todos os trafos para um cenário de carga/geração."""
-
-import sys
-from pathlib import Path
-HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
-if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
     dss.Text.Command = f"Set LoadMult={fator_carga}"

@@ -9,27 +9,24 @@ Refatorado para alta performance: circuito carregado uma única vez.
 """
 
 import sys
-from dss import dss
-from core import configuracao
+from pathlib import Path
 
-# Parâmetros centralizados
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from dss import dss
+from core import configuracao 
+
 MASTER = configuracao.MASTER_DSS
 TRAFO_ALVO = configuracao.TRAFO_CRITICO
 CRESCIMENTO = configuracao.CRESCIMENTO
 LIMITE_PCT = 100.0
 ANOS_MAX = 20
 
-
 def rodar_ano(circuit, fator: float, comandos: list[str]) -> float:
     """Retorna o carregamento máximo do trafo alvo para um dado fator de carga sem recarregar o circuito."""
-
-import sys
-from pathlib import Path
-HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
     # Altera parâmetros dinâmicos sem Clear/Redirect
     dss.Text.Command = f"Set LoadMult={fator}"
     for cmd in comandos:
@@ -45,10 +42,8 @@ if str(ROOT) not in sys.path:
 
     pmax = 0.0
     for h in range(24):
-        # Resolve apenas o fluxo de carga (Daily modo já incrementa o LoadShape)
         circuit.Solution.Solve()
         if not circuit.Solution.Converged:
-            # Sem try/except pass — se não convergir, precisamos saber
             raise RuntimeError(
                 f"FALHA DE CONVERGÊNCIA: Hora {h}, Fator {fator}, Comandos {comandos}"
             )

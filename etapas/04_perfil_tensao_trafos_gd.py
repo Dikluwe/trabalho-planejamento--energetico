@@ -1,25 +1,24 @@
 # 04_perfil_tensao_trafos_gd.py
 import sys
-from pathlib import Path
-from core.configuracao import calcular_potencia_aparente
-
-HERE = Path(__file__).resolve().parent
-
-from dss import dss
-
 import json
-
-import sys
 from pathlib import Path
+
+# 1. Ajuste do PATH absoluto (Sempre no topo)
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+# 2. Imports de módulos
+from dss import dss
+from core.configuracao import calcular_potencia_aparente
 
-with open(HERE / "parametros.json", "r") as f:
+# 3. Leitura do JSON apontando para a pasta raiz (ROOT)
+with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
     config = json.load(f)
-MASTER = str(HERE / config["caminhos"]["dss_file"])
+
+# O MASTER também deve usar o ROOT
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
 
 
 def carregar(loadmult=1.0):

@@ -4,27 +4,24 @@
 # 3. Horizonte com degradação da GD (0.7% ao ano)
 
 import sys
-from pathlib import Path
-from core.configuracao import calcular_potencia_aparente
-
-HERE = Path(__file__).resolve().parent
-
-from dss import dss
-
 import json
-
-import sys
 from pathlib import Path
+
+# 1. Ajuste do PATH absoluto sempre no topo
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+# 2. Agora os imports encontram a pasta 'core' e o 'dss'
+from dss import dss
+from core.configuracao import calcular_potencia_aparente
 
-with open(HERE / "parametros.json", "r") as f:
+# 3. Uso do ROOT para acessar arquivos na raiz do projeto
+with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
     config = json.load(f)
 
-MASTER = str(HERE / config["caminhos"]["dss_file"])
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
 DEGRADACAO_GD = config["simulacao"]["degradacao_gd"]
 CRESCIMENTO_CARGA = config["simulacao"]["crescimento_carga"]
 ANOS_SIMULACAO = config["simulacao"].get("vida_util_projeto", 3)
@@ -32,7 +29,6 @@ TRAFOS_CRITICOS = [
     config.get("graficos", {}).get("trafo_critico", "trf_6_4910a"),
     "trf_11_305a",
 ]
-
 
 def carregar(loadmult=1.0, gd_fator=1.0):
     dss.Text.Command = "Clear"

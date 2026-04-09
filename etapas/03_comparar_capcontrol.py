@@ -4,33 +4,29 @@
 # Opção 3: Controle manual por hora no loop Python
 
 import sys
-from pathlib import Path
-
-HERE = Path(__file__).resolve().parent
-
-from dss import dss
-
-HORAS_NOTURNAS = list(range(0, 6)) + list(range(19, 24))
-
 import json
-
-import sys
 from pathlib import Path
+
+# 1. Ajuste do PATH absoluto sempre no topo
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from dss import dss
+from core import configuracao
 
-config_file = HERE / "parametros.json"
+# 2. Uso do ROOT para acessar o JSON na pasta raiz
+config_file = ROOT / "parametros.json"
 if not config_file.exists():
     print("Execute 03_melhor_ponto_capacitor.py primeiro para gerar config no JSON.")
     sys.exit(1)
 
-with open(config_file, "r") as f:
+with open(config_file, "r", encoding="utf-8") as f:
     config = json.load(f)
 
-MASTER = str(HERE / config["caminhos"]["dss_file"])
+# 3. Uso do ROOT para acessar o DSS
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
 
 c_alvo = config.get("capacitor_alvo", {})
 MELHOR_BUS = c_alvo.get("barramento", "181")
@@ -82,7 +78,6 @@ ligado_op2 = {}
 
 circuit.Solution.dblHour = 0.0
 for h in range(24):
-    # Força o estado conforme o loadshape antes de resolver
     estado = states_op2[h]
     dss.Text.Command = f"Edit Capacitor.CAPX states=[{estado}]"
     circuit.Solution.Solve()
@@ -98,11 +93,7 @@ for h in range(24):
 
 # ---------------------------------------------------------------------------
 # PASSO 3 — Controle manual por Q e horário no loop Python
-# Liga apenas se Q > onsetting E está no período noturno/crepuscular
-# Desliga se Q < offsetting OU está fora da janela de controle
 # ---------------------------------------------------------------------------
-# Janela: horas onde há Q real das cargas (sem GD dominante)
-# GD fotovoltaica: ativa das 7h-18h → fora dessa janela o Q é real
 HORAS_CONTROLE = list(range(0, 7)) + list(range(19, 24))  # sem GD
 
 dss.Text.Command = "Clear"
@@ -115,20 +106,17 @@ dss.Text.Command = (
 q_op3 = {}
 perdas_op3 = {}
 ligado_op3 = {}
-estado_atual = 0  # começa desligado
+estado_atual = 0
 
 circuit.Solution.dblHour = 0.0
 for h in range(24):
-    # Lógica de controle manual:
-    # - Dentro da janela sem GD: usa histerese de Q
-    # - Durante geração solar (7h-18h): força desligado
     if h in HORAS_CONTROLE:
         if estado_atual == 0 and q_ref[h] > ONSETTING:
             estado_atual = 1
         elif estado_atual == 1 and q_ref[h] < OFFSETTING:
             estado_atual = 0
     else:
-        estado_atual = 0  # força desligado durante GD
+        estado_atual = 0 
 
     dss.Text.Command = f"Edit Capacitor.CAPX states=[{estado_atual}]"
     circuit.Solution.Solve()
@@ -169,7 +157,10 @@ for h in range(24):
         lig2 += 1
     if ligado_op3[h] == "SIM":
         lig3 += 1
-    noite = "*" if h in HORAS_NOTURNAS else " "
+        
+    # Correção do erro de variável: uso de HORAS_CONTROLE
+    noite = "*" if h in HORAS_CONTROLE else " "
+    
     print(
         f"  {h + 1:>4}{noite} {q_ref[h]:>7.1f}  "
         f"{q_op2[h]:>7.1f} {ligado_op2[h]:>5} {perdas_op2[h]:>8.2f} {d2:>7.3f}  "

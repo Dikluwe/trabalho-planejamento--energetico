@@ -35,6 +35,8 @@ PIPELINE = [
             "etapas/02_horizonte_tap.py",
             "etapas/02_impacto_tap_bt.py",
             "etapas/02_remanejamento_trafo.py",
+            "etapas/03_mapear_reativo.py",
+            "etapas/03_melhor_ponto_capacitor.py",
             "etapas/03_diagnosticar_capcontrol.py",
             "etapas/03_testar_capcontrol.py",
             "etapas/03_comparar_capcontrol.py",

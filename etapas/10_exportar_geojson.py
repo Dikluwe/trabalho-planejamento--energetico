@@ -2,21 +2,27 @@
 # Gera GeoJSON para importar no QGIS com posicionamento automático
 # Camadas separadas: linhas_mt, linhas_bt, trafos, gd, problemas
 
-import sys, json
+import sys
+import json
 from pathlib import Path
 import math
 
+# 1. Ajuste do PATH absoluto sempre no topo
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
+ROOT = HERE.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+# 2. Imports locais e de pacotes
 from dss import dss
 
-import json
-
-with open(HERE / "parametros.json", "r") as f:
+# 3. Uso do ROOT para acessar os arquivos na raiz do projeto
+with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
     config = json.load(f)
-MASTER = str(HERE / config["caminhos"]["dss_file"])
+
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
 TRAFO_CRITICO = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
-COORDS_CSV = HERE / "dss" / "buscoords.csv"
+COORDS_CSV = ROOT / "dss" / "buscoords.csv"
 
 # ---------------------------------------------------------------------------
 # 1. Coordenadas
@@ -202,7 +208,7 @@ for bus in BUSES_SOBRETENSAO:
 # ---------------------------------------------------------------------------
 def salvar_geojson(nome, features):
     gj = {"type": "FeatureCollection", "features": features}
-    path = HERE / "Resultados" / nome
+    path = ROOT / "resultados" / nome
     with open(path, "w", encoding="utf-8") as f:
         json.dump(gj, f, ensure_ascii=False, indent=2)
     kb = path.stat().st_size / 1024

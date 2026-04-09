@@ -4,31 +4,27 @@
 # 3. Sensibilidade do VPL à taxa de desconto (10%, 14%, 18%)
 
 import sys
-from pathlib import Path
-
-HERE = Path(__file__).resolve().parent
-
-from dss import dss
-
 import json
-
-import sys
 from pathlib import Path
+
+# 1. Ajuste do PATH absoluto (Sempre no topo)
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+# 2. Imports locais e dependências
+from dss import dss
 
-with open(HERE / "parametros.json", "r") as f:
+# 3. Uso do ROOT para acessar os arquivos na raiz do projeto
+with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
     config = json.load(f)
 
-MASTER = str(HERE / config["caminhos"]["dss_file"])
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
 CUSTO_PERDAS = config["economico"]["preco_compra_usd_mwh"]
 TARIFA_VENDA = config["economico"]["tarifa_venda_usd_mwh"]
 TUSD = config["economico"]["tusd_usd_mwh"]
 VIDA_UTIL = 15
-
 
 def carregar(loadmult=1.0, cmds=None):
     dss.Text.Command = "Clear"

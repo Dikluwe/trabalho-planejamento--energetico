@@ -3,19 +3,24 @@
 # 2. Crescimento assimétrico de carga — sensibilidade por ramal
 
 import sys
+import json
 from pathlib import Path
 
+# 1. Ajuste do PATH absoluto (Sempre no topo)
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
+# 2. Agora o Python consegue encontrar 'dss' e 'core'
 from dss import dss
 from core import configuracao
 
-import json
-
-with open(HERE / "parametros.json", "r") as f:
+# 3. Usar ROOT para encontrar arquivos na pasta raiz
+with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
     config = json.load(f)
 
-MASTER = str(HERE / config["caminhos"]["dss_file"])
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
 TAXA_DESCONTO = config["economico"]["taxa_desconto"]
 CUSTO_PERDAS = config["economico"]["preco_compra_usd_mwh"]
 TARIFA_VENDA = config["economico"]["tarifa_venda_usd_mwh"]
@@ -38,14 +43,6 @@ def carregar(loadmult=1.0, cmds_extras=None):
 
 def metricas(circuit):
     """Coleta métricas em 24h: perdas, tensão mínima BT, carregamento trafos."""
-
-import sys
-from pathlib import Path
-HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
     perdas_kwh = 0.0
     vmin_bt = 999.0
     trafo_max = {}
@@ -96,7 +93,6 @@ if str(ROOT) not in sys.path:
         "vmin_bt": vmin_bt if vmin_bt < 999 else 0.0,
         "trafo_max": trafo_max,
     }
-
 
 # ===========================================================================
 # 1. REGULADOR DE TENSÃO

@@ -8,15 +8,16 @@ Refatorado para a nova estrutura de dados dss-python.
 """
 
 import sys
-from dss import dss
-from core import configuracao
-
-import sys
 from pathlib import Path
+
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+import json
+from dss import dss
+from core import configuracao
 
 
 MASTER = configuracao.MASTER_DSS

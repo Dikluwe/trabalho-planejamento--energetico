@@ -3,38 +3,29 @@
 
 import sys
 from pathlib import Path
-
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
+import json
 from dss import dss
 from core import configuracao
-
 
 def carregar():
     dss.Text.Command = "Clear"
     dss.Text.Command = f'Redirect "{MASTER}"'
     dss.Text.Command = "Set mode=daily stepsize=1h number=1"
 
-
-import json
-
-import sys
-from pathlib import Path
-HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
-
-config_file = HERE / "parametros.json"
+config_file = ROOT / "parametros.json"
 if not config_file.exists():
     print("Execute 03_melhor_ponto_capacitor.py primeiro para gerar config no JSON.")
     sys.exit(1)
 
-with open(config_file, "r") as f:
+with open(config_file, "r", encoding="utf-8") as f:
     config = json.load(f)
 
-MASTER = str(HERE / config["caminhos"]["dss_file"])
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
 
 c_alvo = config.get("capacitor_alvo", {})
 MELHOR_BUS = c_alvo.get("barramento", "9051")

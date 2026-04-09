@@ -4,21 +4,26 @@
 # Inkscape (importar com escala geográfica) e qualquer ferramenta GIS
 
 import sys
-from pathlib import Path
-import math
-
-HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
-
 import json
+import math
+from pathlib import Path
 
-with open(HERE / "parametros.json", "r") as f:
-    config = json.load(f)
-MASTER = str(HERE / config["caminhos"]["dss_file"])
-TRAFO_CRITICO = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
-COORDS_CSV = HERE / "dss" / "buscoords.csv"
+# 1. Ajuste do PATH absoluto (Sempre no topo)
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
+# 2. Imports de bibliotecas locais e externas
 from dss import dss
+
+# 3. Uso do ROOT para acessar os arquivos na raiz do projeto
+with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
+    config = json.load(f)
+
+MASTER = str(ROOT / config["caminhos"]["dss_file"])
+TRAFO_CRITICO = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
+COORDS_CSV = ROOT / "dss" / "buscoords.csv"
 
 # ---------------------------------------------------------------------------
 # 1. Carrega coordenadas
@@ -315,7 +320,7 @@ def escrever_svg(nome, camadas, titulo=""):
     for camada in camadas:
         linhas.extend(camada())
     linhas.extend(svg_footer())
-    path = HERE / "Resultados" / "graficos" / nome
+    path = ROOT / "resultados" / "graficos" / nome
     with open(path, "w", encoding="utf-8") as f:
         f.write("\n".join(linhas))
     kb = path.stat().st_size / 1024
@@ -470,7 +475,7 @@ html = f"""<!DOCTYPE html>
 </body>
 </html>"""
 
-html_path = HERE / "Resultados" / "graficos" / "visualizar_rede.html"
+html_path = ROOT / "resultados" / "graficos" / "visualizar_rede.html"
 with open(html_path, "w", encoding="utf-8") as f:
     f.write(html)
 print(f"  {'visualizar_rede.html':<35} {html_path.stat().st_size / 1024:>8.1f} KB")
