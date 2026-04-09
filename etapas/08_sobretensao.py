@@ -44,7 +44,7 @@ def main():
 
         # Simplificação: apenas mostra que estamos usando o circuito carregado uma vez
         v_max = max(circuit.AllBusVmagPu)
-        if v_max > 1.05:
+        if v_max > configuracao.LIMITE_PRECARIO_PU:
             # print(f"    Hora {h+1}: Vmax = {v_max:.4f} pu")
             pass
 

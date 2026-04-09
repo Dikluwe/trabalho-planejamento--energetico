@@ -27,6 +27,8 @@ with open(CONFIG_FILE, "r", encoding="utf-8") as f:
     config = json.load(f)
 
 TRAFO_ALVO = config["graficos"]["trafo_critico"]
+LIMITE_PRECARIO_PU = config["tecnico"]["limite_precario_pu"]
+LIMITE_CRITICO_PU = config["tecnico"]["limite_critico_pu"]
 MEDIDOR_SUB = config["graficos"]["medidor_subestacao"]
 OUTPUT_FOLDER_BASE = config["caminhos"]["output_base"]
 
@@ -363,7 +365,7 @@ ls = svg_base(
 )
 
 ymin, ymax = 0.90, 1.10
-grade_h(ls, [0.90, 0.921, 0.95, 1.00, 1.05, 1.061, 1.10], ymin, ymax, "{:.3f}")
+grade_h(ls, [0.90, 0.921, 0.95, 1.00, LIMITE_PRECARIO_PU, LIMITE_CRITICO_PU, 1.10], ymin, ymax, "{:.3f}")
 
 
 # Faixas PRODIST
@@ -386,11 +388,11 @@ def faixa(ls, y1, y2, cor, alpha, label=""):
 
 faixa(ls, 0.90, 0.871, "#e74c3c", 0.15, "crítica")
 faixa(ls, 0.921, 0.90, "#e67e22", 0.12, "precária")
-faixa(ls, 1.050, 1.061, "#e67e22", 0.12)
-faixa(ls, 1.061, 1.10, "#e74c3c", 0.15)
+faixa(ls, LIMITE_PRECARIO_PU, LIMITE_CRITICO_PU, "#e67e22", 0.12)
+faixa(ls, LIMITE_CRITICO_PU, 1.10, "#e74c3c", 0.15)
 
 # Linha adequada inferior e superior
-for ylim in [0.921, 1.050]:
+for ylim in [0.921, LIMITE_PRECARIO_PU]:
     yp = esc_y(ylim, ymin, ymax)
     ls.append(
         f'<line x1="{PAD["left"]}" y1="{yp:.1f}" '
@@ -687,7 +689,7 @@ for xv in [0.980, 0.990, 1.000, 1.010, 1.020, 1.030, 1.040, 1.050, 1.060, 1.070,
     )
 
 # Limites PRODIST
-for xv, cor, label in [(1.050, "#e67e22", "precária"), (1.061, "#e74c3c", "crítica")]:
+for xv, cor, label in [(LIMITE_PRECARIO_PU, "#e67e22", "precária"), (LIMITE_CRITICO_PU, "#e74c3c", "crítica")]:
     xp = escx(xv)
     ls.append(
         f'<line x1="{xp:.1f}" y1="{PAD["top"]}" '
@@ -704,9 +706,9 @@ for i, (nome, pmpp, vmax) in enumerate(pv_ranking):
     y_bar = PAD["top"] + i * (PH2 / len(pv_ranking)) + 2
     cor = (
         "#e74c3c"
-        if vmax > 1.061
+        if vmax > LIMITE_CRITICO_PU
         else "#e67e22"
-        if vmax > 1.050
+        if vmax > LIMITE_PRECARIO_PU
         else "#27ae60"
         if vmax < 1.000
         else "#3498db"

@@ -21,6 +21,7 @@ Parâmetros fixos do enunciado (podem ser sobrescritos via argumento):
 from __future__ import annotations
 import math
 import pandas as pd
+from .configuracao import LIMITE_PRECARIO_PU, LIMITE_CRITICO_PU
 
 
 # ---------------------------------------------------------------------------
@@ -44,18 +45,49 @@ def faturamento_mensal(
 
 
 def custo_perdas_mensal(
-    perdas_dia_kwh: float,
-    preco_compra_usd_mwh: float = 35.0,
+    df_meter_by_hour: pd.DataFrame,
+    tusd_usd_mwh: float = 90.0,
+    horas_ponta: list[int] | None = None,
+    tarifa_ponta_usd_mwh: float | None = None,
     dias_mes: float = 30.0,
+    meter_name: str | None = None,
 ) -> float:
     """
-    Custo operacional mensal pago pela distribuidora pelas perdas técnicas.
+    Custo operacional mensal pelas perdas técnicas, calculado hora a hora.
 
-    perdas_dia_kwh : totalLossesKWh do EnergySummary do professor (1 dia)
-    Retorna USD.
+    Itera sobre df_meter_by_hour multiplicando deltaActiveLossesKWh de cada
+    hora pela tarifa correspondente. Preparado para tarifas ponta/fora-ponta;
+    inicialmente aplica tusd_usd_mwh para todas as horas.
+
+    df_meter_by_hour     : colunas: hour, meterName, deltaActiveLossesKWh, ...
+    tusd_usd_mwh         : tarifa fora-ponta em USD/MWh (padrão: 90)
+    horas_ponta          : lista de horas inteiras (0-23) consideradas ponta
+    tarifa_ponta_usd_mwh : tarifa para horas de ponta (None → usa tusd_usd_mwh)
+    meter_name           : filtra por nome do medidor (None → MEDIDOR_SUBESTACAO)
+    Retorna USD/mês.
     """
-    perdas_mes_mwh = perdas_dia_kwh * dias_mes / 1000.0
-    return perdas_mes_mwh * preco_compra_usd_mwh
+    if df_meter_by_hour.empty:
+        return 0.0
+
+    from . import configuracao
+
+    nome = (meter_name or configuracao.MEDIDOR_SUBESTACAO).lower()
+    df = df_meter_by_hour[df_meter_by_hour["meterName"].str.lower() == nome]
+    if df.empty:
+        df = df_meter_by_hour  # fallback: usa todas as linhas
+
+    tarifa_fp = tusd_usd_mwh
+    tarifa_p = tarifa_ponta_usd_mwh if tarifa_ponta_usd_mwh is not None else tusd_usd_mwh
+    ponta = set(horas_ponta) if horas_ponta else set()
+
+    custo_dia = 0.0
+    for _, row in df.iterrows():
+        hora = int(row["hour"])
+        perdas_kwh = float(row["deltaActiveLossesKWh"])
+        tarifa = tarifa_p if hora in ponta else tarifa_fp
+        custo_dia += perdas_kwh / 1000.0 * tarifa
+
+    return custo_dia * dias_mes
 
 
 # ---------------------------------------------------------------------------
@@ -67,7 +99,7 @@ def _classificar_violacao_prodist(
     tensao_pu: float,
     nivel: str,
     limite_min_pu: float = 0.92,
-    limite_max_pu: float = 1.05,
+    limite_max_pu: float = LIMITE_PRECARIO_PU,
 ) -> tuple[bool, bool]:
     """
     Classifica uma leitura de tensão como precária ou crítica conforme
@@ -124,7 +156,7 @@ def compensacao_prodist_mensal(
     df_voltages: pd.DataFrame,
     df_meter_by_hour: pd.DataFrame,
     limite_min_pu: float = 0.92,
-    limite_max_pu: float = 1.05,
+    limite_max_pu: float = LIMITE_PRECARIO_PU,
     tusd_usd_mwh: float = 90.0,
     leituras_por_hora: int = 6,
     leituras_mes_prodist: int = 1008,
@@ -345,8 +377,9 @@ def resumo_financeiro_caso_base(
     energia_dia_kwh: float,
     perdas_dia_kwh: float,
     compensacao_mensal_usd: float,
+    df_meter_by_hour: pd.DataFrame | None = None,
     tarifa_usd_mwh: float = 150.0,
-    preco_compra_usd_mwh: float = 35.0,
+    tusd_usd_mwh: float = 90.0,
 ) -> dict:
     """
     Consolida os indicadores financeiros mensais do caso base.
@@ -355,7 +388,11 @@ def resumo_financeiro_caso_base(
     mais energia em MWh/mês para o relatório.
     """
     fat = faturamento_mensal(energia_dia_kwh, tarifa_usd_mwh)
-    custo = custo_perdas_mensal(perdas_dia_kwh, preco_compra_usd_mwh)
+    if df_meter_by_hour is not None and not df_meter_by_hour.empty:
+        custo = custo_perdas_mensal(df_meter_by_hour, tusd_usd_mwh=tusd_usd_mwh)
+    else:
+        # Fallback escalar quando dfMeterByHour não está disponível
+        custo = perdas_dia_kwh * 30.0 / 1000.0 * tusd_usd_mwh
 
     return {
         "energia_fornecida_mwh_mes": energia_dia_kwh * 30.0 / 1000.0,

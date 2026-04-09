@@ -36,12 +36,15 @@ MEDIDOR_SUBESTACAO = config["graficos"]["medidor_subestacao"]
 CRESCIMENTO = config["simulacao"]["crescimento_carga"]
 LIMITE_MIN_PU = config["tecnico"]["limite_min_pu"]
 LIMITE_MAX_PU = config["tecnico"]["limite_max_pu"]
+LIMITE_PRECARIO_PU = config["tecnico"]["limite_precario_pu"]
+LIMITE_CRITICO_PU = config["tecnico"]["limite_critico_pu"]
 
 # Parâmetros econômicos
 ECONOMICO = config["economico"]
 TAXA_DESCONTO = ECONOMICO["taxa_desconto"]
 TARIFA_VENDA = ECONOMICO["tarifa_venda_usd_mwh"]
 PRECO_COMPRA = ECONOMICO["preco_compra_usd_mwh"]
+TUSD = ECONOMICO["tusd_usd_mwh"]
 
 
 # Utilitário para garantir que o OpenDSS está pronto

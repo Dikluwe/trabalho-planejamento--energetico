@@ -22,6 +22,8 @@ with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
 
 MASTER = str(ROOT / config["caminhos"]["dss_file"])
 TRAFO_CRITICO = config.get("graficos", {}).get("trafo_critico", "trf_6_4910a")
+LIMITE_PRECARIO_PU = config["tecnico"]["limite_precario_pu"]
+LIMITE_CRITICO_PU = config["tecnico"]["limite_critico_pu"]
 COORDS_CSV = ROOT / "dss" / "buscoords.csv"
 
 # ---------------------------------------------------------------------------
@@ -66,7 +68,7 @@ for bname in all_bus:
         vmag = circuit.ActiveBus.VMagAngle
         if len(vmag) >= 1:
             vpu = vmag[0] / (kv * 1000)
-            if vpu > 1.050 or vpu < 0.921:
+            if vpu > LIMITE_PRECARIO_PU or vpu < 0.921:
                 BUSES_SOBRETENSAO.append(bname)
 
 TRAFOS_SOBRECARGA = [TRAFO_CRITICO]
@@ -197,7 +199,7 @@ for bus in BUSES_SOBRETENSAO:
                 {
                     "nome": bus,
                     "tipo_problema": "sobretensao_bt",
-                    "descricao": "Vmax > 1.050 pu — violação PRODIST Tabela 5",
+                    "descricao": f"Vmax > {LIMITE_PRECARIO_PU:.3f} pu — violação PRODIST Tabela 5",
                 },
             )
         )

@@ -355,8 +355,8 @@ def faixas_prodist(vpus):
     # 24 leituras × 42 = 1008 leituras equivalentes
     fator = 42  # 6 leituras/h × 7 dias
 
-    n_prec = sum(1 for v in vpus if 0.871 <= v < 0.921 or 1.050 < v <= 1.061) * fator
-    n_crit = sum(1 for v in vpus if v < 0.871 or v > 1.061) * fator
+    n_prec = sum(1 for v in vpus if 0.871 <= v < 0.921 or configuracao.LIMITE_PRECARIO_PU < v <= configuracao.LIMITE_CRITICO_PU) * fator
+    n_crit = sum(1 for v in vpus if v < 0.871 or v > configuracao.LIMITE_CRITICO_PU) * fator
 
     drp = 100 * n_prec / n_total
     drc = 100 * n_crit / n_total
@@ -407,7 +407,7 @@ with open(prodist_path, "w", newline="", encoding="utf-8") as f:
         vmax = max(vpus)
         vmed = sum(vpus) / len(vpus)
         drp, drc = faixas_prodist(vpus)
-        if vmin < 0.921 or vmax > 1.050:
+        if vmin < 0.921 or vmax > configuracao.LIMITE_PRECARIO_PU:
             status = "crítica" if drc > 0 else ("precária" if drp > 0 else "adequada")
         else:
             status = "adequada"

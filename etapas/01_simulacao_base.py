@@ -8,8 +8,10 @@ Substitui os antigos main_trabalho.py e fase_00/expansao.py.
 """
 
 import sys
+import multiprocessing
 from pathlib import Path
 from dataclasses import dataclass
+from concurrent.futures import ProcessPoolExecutor
 
 # Adiciona a raiz ao path para encontrar o pacote 'core'
 HERE = Path(__file__).resolve().parent
@@ -28,6 +30,60 @@ class Alternativa:
     custo_manutencao_anual_usd: float = 0.0
     vida_util_anos: int = 15
 
+
+def _worker_avaliar_alternativa(args: tuple) -> dict:
+    """
+    Worker de topo de módulo para ProcessPoolExecutor (exigido pelo pickle com spawn).
+    Cada processo cria seu próprio engine DSS via rodar_cenario → DSSSimulation.
+    Recebe apenas tipos serializáveis; nenhum objeto DSS trafega entre processos.
+    """
+    dss_file_path, alternativa, indicadores_base, alt_idx = args
+    c = configuracao.CRESCIMENTO
+    fatores = [1.0, 1.0 + c, 1.0 + 2 * c]
+
+    # Pasta temporária única por alternativa para evitar escrita concorrente
+    def _out(fator: float) -> str:
+        fator_str = f"{fator:.2f}".replace(".", "p")
+        return str(configuracao.RESULTADOS_DIR / f"_temp_alt{alt_idx}_{fator_str}")
+
+    print(f"\n>>> Avaliando: {alternativa.descricao}")
+    beneficios = []
+    for fator, base in zip(fatores, indicadores_base):
+        resultado_proposta = rodar_cenario(
+            dss_file_path=dss_file_path,
+            comandos_modificacao=alternativa.comandos_dss,
+            fator_carga=fator,
+            output_folder=_out(fator),
+        )
+        ind_proposta = extrair_indicadores(
+            resultado_proposta,
+            limite_min_pu=configuracao.LIMITE_MIN_PU,
+            limite_max_pu=configuracao.LIMITE_MAX_PU,
+        )
+        ben = financeiro.beneficio_anual(
+            delta_perdas_dia_kwh=base["perdas_dia_kwh"] - ind_proposta["perdas_dia_kwh"],
+            delta_compensacao_mensal_usd=base["compensacao_mensal_usd"] - ind_proposta["compensacao_mensal_usd"],
+            preco_compra_usd_mwh=configuracao.PRECO_COMPRA,
+        )
+        beneficios.append(ben)
+
+    residual = financeiro.valor_residual_linear(alternativa.custo_inicial_usd, alternativa.vida_util_anos, 3)
+    fluxos = financeiro.montar_fluxos(
+        alternativa.custo_inicial_usd,
+        alternativa.custo_manutencao_anual_usd,
+        beneficios[0], beneficios[1], beneficios[2],
+        residual,
+    )
+    vpl_resultado = financeiro.vpl(fluxos, configuracao.TAXA_DESCONTO)
+
+    return {
+        "descricao": alternativa.descricao,
+        "custo_inicial_usd": alternativa.custo_inicial_usd,
+        "vpl_usd": vpl_resultado,
+        "atrativo": vpl_resultado > 0,
+    }
+
+
 def rodar_cenario(
     dss_file_path: str,
     comandos_modificacao: list[str],
@@ -36,7 +92,7 @@ def rodar_cenario(
     total_horas: int = 24,
     limite_bt_kv: float = 1.0,
     limite_min_pu: float = 0.95,
-    limite_max_pu: float = 1.05,
+    limite_max_pu: float = configuracao.LIMITE_MAX_PU,
     output_folder: str | None = None,
 ) -> dict:
     if output_folder is None:
@@ -89,6 +145,7 @@ def extrair_indicadores(resultado: dict, limite_min_pu: float, limite_max_pu: fl
         "energia_dia_kwh": energia_dia_kwh,
         "perdas_dia_kwh": perdas_dia_kwh,
         "compensacao_mensal_usd": compensacao,
+        "df_meter_by_hour": df_meter_hour,
     }
 
 def avaliar_alternativa(dss_file_path: str, alternativa: Alternativa, indicadores_base: list[dict]) -> dict:
@@ -148,7 +205,7 @@ def main():
 
     # 2. Diagnóstico financeiro Ano 1
     ind_1 = indicadores_base[0]
-    resumo = financeiro.resumo_financeiro_caso_base(ind_1["energia_dia_kwh"], ind_1["perdas_dia_kwh"], ind_1["compensacao_mensal_usd"])
+    resumo = financeiro.resumo_financeiro_caso_base(ind_1["energia_dia_kwh"], ind_1["perdas_dia_kwh"], ind_1["compensacao_mensal_usd"], df_meter_by_hour=ind_1["df_meter_by_hour"])
     
     print("\n[01.02] Diagnóstico financeiro (Ano 1):")
     print(f"  Energia Fornecida : {resumo['energia_fornecida_mwh_mes']:.2f} MWh/mês")
@@ -163,8 +220,15 @@ def main():
         print("\n[AVISO] Nenhuma alternativa configurada.")
         return
 
-    print(f"\n[01.03] Avaliando {len(alts)} alternativa(s)...")
-    resultados = [avaliar_alternativa(configuracao.MASTER_DSS, alt, indicadores_base) for alt in alts]
+    print(f"\n[01.03] Avaliando {len(alts)} alternativa(s) em paralelo...")
+    worker_args = [
+        (configuracao.MASTER_DSS, alt, indicadores_base, idx)
+        for idx, alt in enumerate(alts)
+    ]
+    ctx = multiprocessing.get_context("spawn")
+    with ProcessPoolExecutor(max_workers=len(alts), mp_context=ctx) as executor:
+        futures = [executor.submit(_worker_avaliar_alternativa, args) for args in worker_args]
+        resultados = [f.result() for f in futures]
 
     # 4. Tabela Final
     print(f"\n{'=' * 80}\n[01.04] RESULTADOS COMPARATIVOS (VPL)\n{'=' * 80}")

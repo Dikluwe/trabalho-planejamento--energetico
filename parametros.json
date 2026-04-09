@@ -11,7 +11,9 @@
   },
   "tecnico": {
     "limite_min_pu": 0.95,
-    "limite_max_pu": 1.05
+    "limite_max_pu": 1.05,
+    "limite_precario_pu": 1.05,
+    "limite_critico_pu": 1.061
   },
   "simulacao": {
     "crescimento_carga": 0.1,
