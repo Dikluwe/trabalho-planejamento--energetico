@@ -28,9 +28,8 @@ CRESCIMENTO = configuracao.CRESCIMENTO
 DEGRADACAO_GD = 0.007  # 0.7% ao ano
 
 def rodar_ano_multi(circuit, fator_carga: float, fator_gd: float) -> pd.DataFrame:
-    """Coleta carregamento de todos os trafos para um cenário de carga/geração."""
-    sys.path.insert(0, str(ROOT))
-
+    """Coleta pico de carregamento diário de todos os trafos para um cenário de carga/geração."""
+    dss.Text.Command = "Set mode=daily stepsize=1h number=1"
     dss.Text.Command = f"Set LoadMult={fator_carga}"
 
     # Aplica degradação da GD
@@ -38,28 +37,33 @@ def rodar_ano_multi(circuit, fator_carga: float, fator_gd: float) -> pd.DataFram
     idx = circuit.ActiveClass.First
     while idx > 0:
         nome = circuit.ActiveCktElement.Name
-        # Original Pmpp (1.0) * fator_gd
-        # Simplificação: assume que o valor base no DSS é 1.0 ou nominal
         dss.Text.Command = f"Edit PVSystem.{nome} irradiance={fator_gd}"
         idx = circuit.ActiveClass.Next
 
-    circuit.Solution.Solve()
-    if not circuit.Solution.Converged:
-        raise RuntimeError(f"FALHA DE CONVERGÊNCIA: Carga {fator_carga}, GD {fator_gd}")
+    # Simula 24 horas e registra o pico de carregamento por trafo
+    peak_loading: dict = {}
+    circuit.Solution.dblHour = 0.0
 
-    # Coleta dados
-    res = []
-    circuit.SetActiveClass("Transformer")
-    idx = circuit.ActiveClass.First
-    while idx > 0:
-        trafo = circuit.ActiveCktElement
-        nome = trafo.Name
-        kva = float(trafo.Properties("kVA").Val)
-        s = configuracao.calcular_potencia_aparente(circuit, nome)
-        res.append({"trafo": nome, "loading": 100 * s / kva if kva > 0 else 0})
-        idx = circuit.ActiveClass.Next
+    for _ in range(24):
+        circuit.Solution.Solve()
+        if not circuit.Solution.Converged:
+            raise RuntimeError(f"FALHA DE CONVERGÊNCIA: Carga {fator_carga}, GD {fator_gd}")
 
-    return pd.DataFrame(res)
+        circuit.SetActiveClass("Transformer")
+        idx = circuit.ActiveClass.First
+        while idx > 0:
+            trafo = circuit.ActiveCktElement
+            nome = trafo.Name
+            kva = float(trafo.Properties("kVA").Val)
+            s = configuracao.calcular_potencia_aparente(circuit, nome)
+            loading = 100 * s / kva if kva > 0 else 0
+            if loading > peak_loading.get(nome, 0):
+                peak_loading[nome] = loading
+            idx = circuit.ActiveClass.Next
+
+    return pd.DataFrame(
+        [{"trafo": nome, "loading": loading} for nome, loading in peak_loading.items()]
+    )
 
 
 def main():

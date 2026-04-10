@@ -213,10 +213,7 @@ def compensacao_prodist_mensal(
     if not df_medidor.empty:
         energia_total_dia_kwh = df_medidor["deltaActiveEnergyKWh"].sum()
     else:
-        # Fallback se não encontrar o medidor pelo nome
-        energia_total_dia_kwh = df_meter_by_hour["deltaActiveEnergyKWh"].sum() / (
-            1 + df_voltages["bus"].nunique() / 50
-        )  # Heurística se falhar
+        return 0.0
 
     n_nos = df_voltages["bus"].nunique()
     if n_nos == 0:

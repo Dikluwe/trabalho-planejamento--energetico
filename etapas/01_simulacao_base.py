@@ -91,7 +91,7 @@ def rodar_cenario(
     considerar_pv: bool = True,
     total_horas: int = 24,
     limite_bt_kv: float = 1.0,
-    limite_min_pu: float = 0.95,
+    limite_min_pu: float = configuracao.LIMITE_MIN_PU,
     limite_max_pu: float = configuracao.LIMITE_MAX_PU,
     output_folder: str | None = None,
 ) -> dict:
@@ -146,46 +146,6 @@ def extrair_indicadores(resultado: dict, limite_min_pu: float, limite_max_pu: fl
         "perdas_dia_kwh": perdas_dia_kwh,
         "compensacao_mensal_usd": compensacao,
         "df_meter_by_hour": df_meter_hour,
-    }
-
-def avaliar_alternativa(dss_file_path: str, alternativa: Alternativa, indicadores_base: list[dict]) -> dict:
-    print(f"\n>>> Avaliando: {alternativa.descricao}")
-    c = configuracao.CRESCIMENTO
-    fatores = [1.0, 1.0 + c, 1.0 + 2 * c]
-    beneficios = []
-
-    for fator, base in zip(fatores, indicadores_base):
-        resultado_proposta = rodar_cenario(
-            dss_file_path=dss_file_path,
-            comandos_modificacao=alternativa.comandos_dss,
-            fator_carga=fator,
-        )
-        ind_proposta = extrair_indicadores(
-            resultado_proposta,
-            limite_min_pu=configuracao.LIMITE_MIN_PU,
-            limite_max_pu=configuracao.LIMITE_MAX_PU,
-        )
-        ben = financeiro.beneficio_anual(
-            delta_perdas_dia_kwh=base["perdas_dia_kwh"] - ind_proposta["perdas_dia_kwh"],
-            delta_compensacao_mensal_usd=base["compensacao_mensal_usd"] - ind_proposta["compensacao_mensal_usd"],
-            preco_compra_usd_mwh=configuracao.PRECO_COMPRA,
-        )
-        beneficios.append(ben)
-
-    residual = financeiro.valor_residual_linear(alternativa.custo_inicial_usd, alternativa.vida_util_anos, 3)
-    fluxos = financeiro.montar_fluxos(
-        alternativa.custo_inicial_usd,
-        alternativa.custo_manutencao_anual_usd,
-        beneficios[0], beneficios[1], beneficios[2],
-        residual,
-    )
-    vpl_resultado = financeiro.vpl(fluxos, configuracao.TAXA_DESCONTO)
-
-    return {
-        "descricao": alternativa.descricao,
-        "custo_inicial_usd": alternativa.custo_inicial_usd,
-        "vpl_usd": vpl_resultado,
-        "atrativo": vpl_resultado > 0,
     }
 
 def main():

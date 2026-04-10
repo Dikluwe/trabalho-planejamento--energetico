@@ -82,10 +82,21 @@ def carregar(dss, loadmult=1.0, cmds=None, master=MASTER_DSS):
     return dss.ActiveCircuit
 
 
+_gd_valores_originais: dict = {}
+
+
 def ajustar_potencia_gd(circuit, fator):
-    """Ajusta a potência nominal (Pmpp e kVA) de todos os sistemas fotovoltaicos (PVSystem)."""
+    """
+    Ajusta Pmpp e kVA de todos os PVSystems aplicando fator sobre os valores
+    nominais originais (lidos na primeira chamada).
+    Usa cache interno para evitar acúmulo de erro em chamadas sucessivas.
+    """
     idx = circuit.PVSystems.First
     while idx > 0:
-        circuit.PVSystems.Pmpp *= fator
-        circuit.PVSystems.kVA *= fator
+        nome = circuit.PVSystems.Name
+        if nome not in _gd_valores_originais:
+            _gd_valores_originais[nome] = (circuit.PVSystems.Pmpp, circuit.PVSystems.kVA)
+        pmpp_orig, kva_orig = _gd_valores_originais[nome]
+        circuit.PVSystems.Pmpp = pmpp_orig * fator
+        circuit.PVSystems.kVA = kva_orig * fator
         idx = circuit.PVSystems.Next

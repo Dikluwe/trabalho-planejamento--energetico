@@ -63,10 +63,29 @@
       "descricao": "Capacitor automatico 1200 kvar (barra 9051)",
       "comandos_dss": [
         "New Capacitor.CAP2 bus1=9051 phases=3 kvar=1200 kv=23.1",
-        "New CapControl.CC2 element=Line.smt_14449 terminal=1 capacitor=CAP2 type=kvar onsetting=0.12 offsetting=0.05"
+        "New CapControl.CC2 element=Line.smt_14449 terminal=1 capacitor=CAP2 type=kvar onsetting=50 offsetting=30"
       ],
       "custo_inicial_usd": 12246.0,
       "custo_manutencao_anual_usd": 1023.0,
+      "vida_util_anos": 15
+    },
+    {
+      "descricao": "Capacitor fixo 1200 kvar (barra 9051)",
+      "comandos_dss": [
+        "New Capacitor.CAP_F_1200 bus1=9051 phases=3 kvar=1200 kv=23.1"
+      ],
+      "custo_inicial_usd": 9531.0,
+      "custo_manutencao_anual_usd": 398.0,
+      "vida_util_anos": 15
+    },
+    {
+      "descricao": "Capacitor automatico 600 kvar (barra 9051)",
+      "comandos_dss": [
+        "New Capacitor.CAP_A_600 bus1=9051 phases=3 kvar=600 kv=23.1",
+        "New CapControl.CC_A_600 element=Line.smt_14449 terminal=1 capacitor=CAP_A_600 type=kvar onsetting=50 offsetting=30"
+      ],
+      "custo_inicial_usd": 9296.0,
+      "custo_manutencao_anual_usd": 969.0,
       "vida_util_anos": 15
     },
     {
