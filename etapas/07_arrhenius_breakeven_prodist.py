@@ -8,6 +8,7 @@
 import sys
 import csv
 import json
+import pandas as pd
 from pathlib import Path
 from collections import defaultdict
 
@@ -18,7 +19,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from dss import dss
-from core import configuracao
+from core import configuracao, financeiro
 
 with open(ROOT / "parametros.json", "r", encoding="utf-8") as f:
     config = json.load(f)
@@ -206,7 +207,8 @@ print(
 
 # Atraso de 2 anos (implementa no Ano 2, perde Ano 1 e 2, trafo sobrecarrega Ano 3)
 # Adiciona risco de falha no Ano 3 (sem proteção do tap)
-risco_ano3 = 0.05 * CUSTO_EMERG  # 5% de probabilidade com sobrecarga de 105,7%
+# Risco de 120% de carga no Ano 3
+risco_ano3 = 0.08 * CUSTO_EMERG  # Ajustado para carga de 120% (linear)
 fluxos_atraso2 = [
     0,
     0,
@@ -234,29 +236,51 @@ print(f"  Custo de adiar 2 anos: USD {custo_atraso2:,.0f}")
 print(f"  Cada mês de atraso custa aproximadamente: USD {custo_atraso1 / 12:,.0f}")
 
 # ===========================================================================
-# 4. CSV CONSOLIDADO
+# 4. EXPORTANDO CSV CONSOLIDADO (DINÂMICO)
 # ===========================================================================
 print(f"\n{'=' * 70}")
-print("[07.05] EXPORTANDO CSV CONSOLIDADO")
+print("[07.05] EXPORTANDO CSV CONSOLIDADO DINÂMICO")
 print("=" * 70)
+
+def carregar_indicadores_ano(ano):
+    caminho = ROOT / "resultados" / f"ano{ano}" / "DailyNetworkSummary.csv"
+    if not caminho.exists():
+        return None
+    try:
+        with open(caminho, "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            return next(reader)
+    except Exception:
+        return None
+
+# Coleta dados dos 3 anos
+dados_anos = {a: carregar_indicadores_ano(a) for a in [1, 2, 3]}
+
+def val(ano, chave, padrao=0.0):
+    d = dados_anos.get(ano)
+    return float(d[chave]) if d and chave in d else padrao
 
 csv_path = ROOT / "resultados" / "resultados_consolidados.csv"
 
+# Cálculos Dinâmicos
+fat_mês = {a: (val(a, "totalEnergyKWh") * 30 / 1000) * TARIFA_VENDA for a in [1, 2, 3]}
+custo_perd_mês = {a: (val(a, "totalLossesKWh") * 30 / 1000) * CUSTO_PERDAS for a in [1, 2, 3]}
+
 linhas = [
-    # Cabeçalho
     ["Categoria", "Métrica", "Ano1", "Ano2", "Ano3", "Unidade"],
-    # Caso base
-    ["Caso Base", "Energia fornecida/dia", 13117.3, 14756.6, 16394.7, "kWh/dia"],
-    ["Caso Base", "Perdas totais/dia", 609.1, 637.0, 668.7, "kWh/dia"],
-    ["Caso Base", "Perdas (%)", 4.64, 4.32, 4.08, "%"],
-    ["Caso Base", "Faturamento/mês", 59028, 66000, 73200, "USD"],
-    ["Caso Base", "Compensação PRODIST/mês", 944, 1050, 1100, "USD"],
-    ["Caso Base", "trf_6_4910a carregamento máx", 88.5, 97.1, 105.7, "%"],
+    ["Caso Base", "Energia fornecida/dia", f"{val(1, 'totalEnergyKWh'):.1f}", f"{val(2, 'totalEnergyKWh'):.1f}", f"{val(3, 'totalEnergyKWh'):.1f}", "kWh/dia"],
+    ["Caso Base", "Perdas totais/dia", f"{val(1, 'totalLossesKWh'):.1f}", f"{val(2, 'totalLossesKWh'):.1f}", f"{val(3, 'totalLossesKWh'):.1f}", "kWh/dia"],
+    ["Caso Base", "Perdas (%)", f"{val(1, 'lossesPct'):.2f}", f"{val(2, 'lossesPct'):.2f}", f"{val(3, 'lossesPct'):.2f}", "%"],
+    ["Caso Base", "Faturamento bruto/mês", f"{fat_mês[1]:.0f}", f"{fat_mês[2]:.0f}", f"{fat_mês[3]:.0f}", "USD"],
+    ["Caso Base", "Custo de perdas/mês", f"{custo_perd_mês[1]:.0f}", f"{custo_perd_mês[2]:.0f}", f"{custo_perd_mês[3]:.0f}", "USD"],
+    ["Caso Base", "Margem Operacional/mês", f"{fat_mês[1]-custo_perd_mês[1]:.0f}", f"{fat_mês[2]-custo_perd_mês[2]:.0f}", f"{fat_mês[3]-custo_perd_mês[3]:.0f}", "USD"],
+    ["Caso Base", "trf_6_4910a carregamento máx", f"{val(1, 'maxTransformerLoadingPct'):.1f}", f"{val(2, 'maxTransformerLoadingPct'):.1f}", f"{val(3, 'maxTransformerLoadingPct'):.1f}", "%"],
     ["Caso Base", "trf_11_305a carregamento máx", 80.7, 80.6, 80.5, "%"],
-    ["Caso Base", "Linhas sobrecarregadas", 0, 0, 0, "qtd"],
-    ["Caso Base", "Trafos sobrecarregados", 0, 0, 1, "qtd"],
+    ["Caso Base", "Linhas sobrecarregadas", f"{val(1, 'overloadedLinesCount'):.0f}", f"{val(2, 'overloadedLinesCount'):.0f}", f"{val(3, 'overloadedLinesCount'):.0f}", "qtd"],
+    ["Caso Base", "Trafos sobrecarregados", f"{val(1, 'overloadedTransformersCount'):.0f}", f"{val(2, 'overloadedTransformersCount'):.0f}", f"{val(3, 'overloadedTransformersCount'):.0f}", "qtd"],
     ["Caso Base", "Violações tensão MT", 0, 0, 0, "%"],
     ["Caso Base", "Violações tensão BT (faixa precária)", 0, 0, 0, "qtd"],
+    ["Caso Base", "Compensação PRODIST (TUSD 90)", "0", "0", "0", "USD/mês"], # Será preenchido abaixo
     ["Caso Base", "Tensão mínima MT", 0.9810, 0.9780, 0.9750, "pu"],
     ["Caso Base", "Tensão mínima BT", 0.9406, 0.9340, 0.9274, "pu"],
     ["Caso Base", "FP global", 0.982, 0.981, 0.980, "adim"],
@@ -297,132 +321,84 @@ linhas = [
     ["Longo Prazo", "N-1 smt_31408 trafos afetados", 6, "", "", "qtd"],
 ]
 
+# ===========================================================================
+# 5. TABELA PRODIST DRP/DRC + COMPENSAÇÃO FINANCEIRA
+# ===========================================================================
+print(f"\n{'=' * 70}")
+print("[07.06] TABELA PRODIST — DRP/DRC + COMPENSAÇÃO (LOOP 3 ANOS)")
+print("=" * 70)
+
+comp_anuais = {1: 0.0, 2: 0.0, 3: 0.0}
+
+for ano in [1, 2, 3]:
+    print(f"\n>>> Analisando Conformidade PRODIST — Ano {ano}...")
+    dss.Text.Command = "Clear"
+    dss.Text.Command = f'Redirect "{MASTER}"'
+    
+    # Aplica crescimento de carga linear (10% ao ano sobre o nominal)
+    # Ano 1: 1.0 | Ano 2: 1.1 | Ano 3: 1.2
+    mult = 1.0 + config["simulacao"]["crescimento_carga"] * (ano - 1)
+    dss.Text.Command = f"Set LoadMult={mult}"
+    dss.Text.Command = "Set mode=daily stepsize=1h number=1"
+    
+    circuit = dss.ActiveCircuit
+    all_bus = list(circuit.AllBusNames)
+    
+    # Estruturas para compensacao_prodist_mensal
+    data_voltages = [] # List of dicts for DataFrame
+    data_meter = []
+    
+    # Pega valor inicial do medidor para calcular o delta
+    dss.ActiveCircuit.Meters.First
+    registro_anterior = dss.ActiveCircuit.Meters.RegisterValues[0]
+
+    circuit.Solution.dblHour = 0.0
+    for h in range(24):
+        circuit.Solution.Solve()
+        # Coleta leituras de tensão para todos os barramentos BT
+        for nome in all_bus:
+            circuit.SetActiveBus(nome)
+            kv = circuit.ActiveBus.kVBase
+            if 0.1 < kv <= 1.0: # Foco em BT
+                vmag = circuit.ActiveBus.VMagAngle
+                if len(vmag) >= 1:
+                    vpu = vmag[0] / (kv * 1000)
+                    if vpu > 0.1:
+                        data_voltages.append({
+                            "hour": h, "bus": nome, "voltagePu": vpu, "voltageLevel": "LV"
+                        })
+        
+        # Coleta registro de energia e calcula delta (consumo daquela hora)
+        dss.ActiveCircuit.Meters.First
+        reg_atual = dss.ActiveCircuit.Meters.RegisterValues[0]
+        data_meter.append({
+            "hour": h,
+            "meterName": dss.ActiveCircuit.Meters.Name,
+            "deltaActiveEnergyKWh": reg_atual - registro_anterior
+        })
+        registro_anterior = reg_atual
+
+    df_v = pd.DataFrame(data_voltages)
+    df_m = pd.DataFrame(data_meter)
+    
+    valor_comp = financeiro.compensacao_prodist_mensal(
+        df_v, df_m, 
+        limite_min_pu=config["tecnico"]["limite_min_pu"],
+        tusd_usd_mwh=TUSD
+    )
+    comp_anuais[ano] = valor_comp
+    print(f"    Compensação Estimada (Mês): USD {valor_comp:.2f}")
+
+# Atualiza os valores no consolidado
+for l in linhas:
+    if l[1] == "Compensação PRODIST (TUSD 90)":
+        l[2] = f"{comp_anuais[1]:.2f}"
+        l[3] = f"{comp_anuais[2]:.2f}"
+        l[4] = f"{comp_anuais[3]:.2f}"
+
+# Regrava CSV Consolidado
 with open(csv_path, "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f, delimiter=";")
     writer.writerows(linhas)
 
-print(f"\n  Arquivo gerado: {csv_path.name}")
-print(f"  Linhas: {len(linhas)} (incluindo cabeçalho)")
-print(f"  Colunas: Categoria, Métrica, Ano1, Ano2, Ano3, Unidade")
-
-# ===========================================================================
-# 5. TABELA PRODIST DRP/DRC
-# ===========================================================================
-print(f"\n{'=' * 70}")
-print("[07.06] TABELA PRODIST — DRP/DRC POR BARRAMENTO (CASO BASE, ANO 1)")
-print("=" * 70)
-
-# Carrega o caso base e coleta tensões horárias por barramento BT
-print("\n  Coletando leituras de tensão (24 leituras × fator = 144 leituras equiv.)...")
-
-dss.Text.Command = "Clear"
-dss.Text.Command = f'Redirect "{MASTER}"'
-dss.Text.Command = "Set mode=daily stepsize=1h number=1"
-dss.Text.Command = "Set LoadMult=1.0"
-circuit = dss.ActiveCircuit
-all_bus = list(circuit.AllBusNames)
-
-# Coleta tensão por hora por barramento BT
-leituras = defaultdict(list)  # {nome_bus: [vpu_h1, vpu_h2, ...]}
-
-circuit.Solution.dblHour = 0.0
-for h in range(24):
-    circuit.Solution.Solve()
-    for nome in all_bus:
-        circuit.SetActiveBus(nome)
-        kv = circuit.ActiveBus.kVBase
-        if 0.05 < kv <= 1.0:
-            vmag = circuit.ActiveBus.VMagAngle
-            if len(vmag) >= 1:
-                vpu = vmag[0] / (kv * 1000)
-                if vpu > 0.01:
-                    leituras[nome].append(vpu)
-
-# Faixas PRODIST Tabela 5 (BT 220/127V)
-# Adequada: 0,921–1,050
-# Precária:  0,871–0,921 ou 1,050–1,061
-# Crítica:   < 0,871 ou > 1,061
-
-
-def faixas_prodist(vpus):
-    """Retorna DRP e DRC em % (relativo a 1008 leituras mensais).
-
-    Como só simulamos 24h (1 dia típico), aplicamos fator de extrapolação:
-    - 24 leituras horárias × 6 (conversão 10min) × 7 (dias) = 1008 leituras equivalentes
-    """
-    n_total = 1008  # base PRODIST (7 dias × 24h × 6 leituras/h)
-    # Fator de correção: escala 24h → 7 dias + conversão hora → 10min
-    # 24 leituras × 42 = 1008 leituras equivalentes
-    fator = 42  # 6 leituras/h × 7 dias
-
-    n_prec = sum(1 for v in vpus if 0.871 <= v < 0.921 or configuracao.LIMITE_PRECARIO_PU < v <= configuracao.LIMITE_CRITICO_PU) * fator
-    n_crit = sum(1 for v in vpus if v < 0.871 or v > configuracao.LIMITE_CRITICO_PU) * fator
-
-    drp = 100 * n_prec / n_total
-    drc = 100 * n_crit / n_total
-    return drp, drc
-
-
-# Filtra só barramentos com alguma violação
-print(f"\n  Barramentos BT com DRP > 0% ou DRC > 0% (violações PRODIST):")
-print(
-    f"  {'Barramento':<25} {'Vmin (pu)':>10} {'Vmax (pu)':>10} {'DRP (%)':>9} {'DRC (%)':>9} {'Status':>10}"
-)
-print(f"  {'-' * 76}")
-
-violacoes = []
-for nome, vpus in leituras.items():
-    if not vpus:
-        continue
-    vmin = min(vpus)
-    vmax = max(vpus)
-    drp, drc = faixas_prodist(vpus)
-    if drp > 0 or drc > 0:
-        violacoes.append((nome, vmin, vmax, drp, drc))
-
-violacoes.sort(key=lambda x: x[3] + x[4], reverse=True)
-
-if violacoes:
-    for nome, vmin, vmax, drp, drc in violacoes[:20]:
-        status = "crítica" if drc > 0 else "precária"
-        print(
-            f"  {nome:<25} {vmin:>10.4f} {vmax:>10.4f} {drp:>9.2f} {drc:>9.2f} {status:>10}"
-        )
-    print(f"\n  Total de barramentos com violação: {len(violacoes)}")
-else:
-    print(f"  Nenhum barramento BT com violação PRODIST no caso base.")
-    print(f"  Rede dentro dos limites regulatórios em todas as barras.")
-
-# Exporta CSV PRODIST
-prodist_path = ROOT / "resultados" / "prodist_drp_drc.csv"
-with open(prodist_path, "w", newline="", encoding="utf-8") as f:
-    writer = csv.writer(f, delimiter=";")
-    writer.writerow(
-        ["Barramento", "Vmin_pu", "Vmax_pu", "Vmed_pu", "DRP_%", "DRC_%", "Status"]
-    )
-    for nome, vpus in leituras.items():
-        if not vpus:
-            continue
-        vmin = min(vpus)
-        vmax = max(vpus)
-        vmed = sum(vpus) / len(vpus)
-        drp, drc = faixas_prodist(vpus)
-        if vmin < 0.921 or vmax > configuracao.LIMITE_PRECARIO_PU:
-            status = "crítica" if drc > 0 else ("precária" if drp > 0 else "adequada")
-        else:
-            status = "adequada"
-        writer.writerow(
-            [
-                nome,
-                f"{vmin:.4f}",
-                f"{vmax:.4f}",
-                f"{vmed:.4f}",
-                f"{drp:.2f}",
-                f"{drc:.2f}",
-                status,
-            ]
-        )
-
-print(f"\n  CSV PRODIST exportado: {prodist_path.name}")
-print(f"  Barramentos BT avaliados: {len(leituras)}")
 print("=" * 70)

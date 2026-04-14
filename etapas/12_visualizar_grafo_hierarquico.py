@@ -36,22 +36,26 @@ def gerar_arvore_com_ativos():
         # No grafo não-direcionado, preservamos se é chave (is_switch)
         # Se uma linha aparecer duas vezes (raro), o is_switch prevalece se algum for True
         is_sw = dss.ActiveCircuit.Lines.IsSwitch
+        nome_ln = dss.ActiveCircuit.Lines.Name.lower()
         if G.has_edge(b1, b2):
             is_sw = is_sw or G[b1][b2].get('is_switch', False)
-        G.add_edge(b1, b2, is_switch=is_sw)
+        G.add_edge(b1, b2, is_switch=is_sw, name=nome_ln)
         if not dss.ActiveCircuit.Lines.Next > 0: break
 
     # Extrai transformadores (Conecta todos os enrolamentos ao primário)
     dss.ActiveCircuit.Transformers.First
     while True:
+        nome_trf = dss.ActiveCircuit.Transformers.Name.lower()
         b = dss.ActiveCircuit.ActiveCktElement.BusNames
         if len(b) >= 2:
             bus0 = b[0].split('.')[0].lower()
             for i in range(1, len(b)):
                 bus_i = b[i].split('.')[0].lower()
-                G.add_edge(bus0, bus_i, is_switch=False)
+                G.add_edge(bus0, bus_i, is_switch=False, name=nome_trf)
                 # O segundo barramento (enrolamento 2) marca o início do transformador nos ativos
-                if i == 1: tipos[bus_i] = 'transformador'
+                if i == 1: 
+                    tipos[bus_i] = 'transformador'
+                    G.nodes[bus_i]['equip_name'] = nome_trf
         if not dss.ActiveCircuit.Transformers.Next > 0: break
 
     # 2. Coleta de Metadados de Equipamentos e Níveis de Tensão
@@ -91,7 +95,8 @@ def gerar_arvore_com_ativos():
     nx.set_node_attributes(arvore, niveis, "nivel")
     
     for u, v in arvore.edges():
-        arvore[u][v]['is_switch'] = G[u][v].get('is_switch', False)
+        for attr_k, attr_v in G[u][v].items():
+            arvore[u][v][attr_k] = attr_v
         # Nível da aresta (MT se o nó de origem for MT)
         arvore[u][v]['nivel'] = niveis.get(u, 'bt')
     

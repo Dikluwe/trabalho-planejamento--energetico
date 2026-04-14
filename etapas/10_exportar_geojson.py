@@ -27,6 +27,38 @@ LIMITE_CRITICO_PU = config["tecnico"]["limite_critico_pu"]
 COORDS_CSV = ROOT / "dss" / "buscoords.csv"
 
 # ---------------------------------------------------------------------------
+# 0. Inteligência Térmica (Lê 3 anos de resultados)
+# ---------------------------------------------------------------------------
+def mapear_vulnerabilidades():
+    vulnerabilidades = {} # {nome: {"max_pct": float, "ano": int}}
+    for ano in [1, 2, 3]:
+        # Linhas
+        path_l = ROOT / "resultados" / f"ano{ano}" / "LineSummary.csv"
+        if path_l.exists():
+            with open(path_l, "r", encoding="utf-8") as f:
+                import csv
+                reader = csv.DictReader(f)
+                for row in reader:
+                    nome = row["line"].lower()
+                    pct = float(row["maxLoadingPct"])
+                    if nome not in vulnerabilidades or pct > vulnerabilidades[nome]["max_pct"]:
+                        vulnerabilidades[nome] = {"max_pct": pct, "ano": ano}
+        # Transformadores
+        path_t = ROOT / "resultados" / f"ano{ano}" / "TransformerSummary.csv"
+        if path_t.exists():
+            with open(path_t, "r", encoding="utf-8") as f:
+                import csv
+                reader = csv.DictReader(f)
+                for row in reader:
+                    nome = row["transformer"].lower()
+                    pct = float(row["maxLoadingPct"])
+                    if nome not in vulnerabilidades or pct > vulnerabilidades[nome]["max_pct"]:
+                        vulnerabilidades[nome] = {"max_pct": pct, "ano": ano}
+    return vulnerabilidades
+
+VULN = mapear_vulnerabilidades()
+
+# ---------------------------------------------------------------------------
 # 1. Coordenadas
 # ---------------------------------------------------------------------------
 coords = {}
@@ -104,12 +136,16 @@ while idx > 0:
         c1, c2 = coords[b1], coords[b2]
         circuit.SetActiveBus(b1)
         kv = circuit.ActiveBus.kVBase
+        v = VULN.get(circuit.Lines.Name.lower(), {"max_pct": 0.0, "ano": 1})
         props = {
             "nome": circuit.Lines.Name,
             "is_switch": circuit.Lines.IsSwitch,
             "normAmps": circuit.Lines.NormAmps,
             "length_m": round(circuit.Lines.Length * 1000, 1),
             "kVBase": round(kv, 3),
+            "max_loading_pct": round(v["max_pct"], 1),
+            "ano_saturacao": v["ano"] if v["max_pct"] > 100 else 0,
+            "status": "sobrecarga" if v["max_pct"] > 100 else ("alerta" if v["max_pct"] > 80 else "normal")
         }
         line = feature_line([[c1[0], c1[1]], [c2[0], c2[1]]], props)
         if kv > 1.0:
@@ -135,9 +171,10 @@ while idx > 0:
         p = sum(powers[0 : n * 2 : 2])
         q = sum(powers[1 : n * 2 + 1 : 2])
         pct = round(100 * (p**2 + q**2) ** 0.5 / kva, 1)
+    v = VULN.get(nome.lower(), {"max_pct": pct, "ano": 1})
     pos = coords.get(bus_bt) or coords.get(bus_mt)
     if pos:
-        status = "sobrecarga" if pct > 100 else ("alerta" if pct > 80 else "normal")
+        status = "sobrecarga" if v["max_pct"] > 100 else ("alerta" if v["max_pct"] > 80 else "normal")
         feat_trafos.append(
             feature_point(
                 pos[0],
@@ -145,7 +182,8 @@ while idx > 0:
                 {
                     "nome": nome,
                     "kVA": kva,
-                    "loading_pct": pct,
+                    "loading_pct": round(v["max_pct"], 1),
+                    "ano_saturacao": v["ano"] if v["max_pct"] > 100 else 0,
                     "status": status,
                     "bus_mt": bus_mt,
                     "bus_bt": bus_bt,
@@ -177,17 +215,17 @@ while idx > 0:
         )
     idx = circuit.PVSystems.Next
 
-# Problemas: trafos sobrecarregados + barramentos com sobretensão
+# Problemas: ativos sobrecarregados + barramentos com violação de tensão
 feat_prob = []
-for t in feat_trafos:
-    if t["properties"]["nome"].lower() in TRAFOS_SOBRECARGA:
-        p = dict(t["properties"])
-        p["tipo_problema"] = "sobrecarga_trafo"
-        feat_prob.append(
-            feature_point(
-                t["geometry"]["coordinates"][0], t["geometry"]["coordinates"][1], p
-            )
-        )
+# 1. Sobrecargas (Linhas e Trafos)
+for feat_list in [feat_mt, feat_bt, feat_trafos]:
+    for f in feat_list:
+        if f["properties"]["status"] == "sobrecarga":
+            p = dict(f["properties"])
+            p["tipo_problema"] = "sobrecarga"
+            p["descricao"] = f"Carregamento {p['loading_pct']}% no Ano {p['ano_saturacao']}"
+            feat_prob.append(dict(f))
+            feat_prob[-1]["properties"] = p
 
 for bus in BUSES_SOBRETENSAO:
     pos = coords.get(bus)

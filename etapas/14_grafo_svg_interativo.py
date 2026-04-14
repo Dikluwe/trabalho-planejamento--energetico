@@ -21,6 +21,23 @@ except ImportError:
     print("Erro: Não foi possível importar o script 12.")
     sys.exit(1)
 
+def mapear_vulnerabilidades():
+    vulnerabilidades = {} # {nome: {"max_pct": float, "ano": int}}
+    for ano in [1, 2, 3]:
+        import csv
+        for ftype, col in [("LineSummary.csv", "line"), ("TransformerSummary.csv", "transformer")]:
+            path = ROOT / "resultados" / f"ano{ano}" / ftype
+            if path.exists():
+                with open(path, "r", encoding="utf-8") as f:
+                    reader = csv.DictReader(f)
+                    for row in reader:
+                        nome, pct = row[col].lower(), float(row["maxLoadingPct"])
+                        if nome not in vulnerabilidades or pct > vulnerabilidades[nome]["max_pct"]:
+                            vulnerabilidades[nome] = {"max_pct": pct, "ano": ano}
+    return vulnerabilidades
+
+VULN = mapear_vulnerabilidades()
+
 def exportar_svg_high_performance():
     print(">>> Extraindo ativos e calculando layout hierárquico (Graphviz)...")
     arvore = gerar_arvore_com_ativos()
@@ -74,6 +91,8 @@ def exportar_svg_high_performance():
         }
         .btn-toggle { cursor: pointer; }
         .layer-off { opacity: 0.2 !important; text-decoration: line-through; }
+        .sobrecarga { stroke: #ff0000 !important; stroke-width: 5px !important; stroke-opacity: 1 !important; }
+        .sobrecarga-node { stroke: #ff0000 !important; stroke-width: 3px !important; }
     """))
 
     # Criando Camadas
@@ -87,8 +106,9 @@ def exportar_svg_high_performance():
         'transformador':dwg.add(dwg.g(id='layer_transformador')),
         'gd':           dwg.add(dwg.g(id='layer_gd')),
         'capacitor':    dwg.add(dwg.g(id='layer_capacitor')),
-        'carga':        dwg.add(dwg.g(id='layer_carga')), # A chave que faltava
-        'default':      dwg.add(dwg.g(id='layer_default'))
+        'carga':        dwg.add(dwg.g(id='layer_carga')), 
+        'default':      dwg.add(dwg.g(id='layer_default')),
+        'sobrecarga':   dwg.add(dwg.g(id='layer_sobrecarga'))
     }
 
     # 4. Desenhar Arestas e Chaves
@@ -109,6 +129,17 @@ def exportar_svg_high_performance():
             nome_sw = f"Chave: {u}->{v}"
             g_sw.add(dwg.rect(insert=(pm[0]+12, pm[1]-15), size=(len(nome_sw)*9, 20), rx=5, class_='bg-texto'))
             g_sw.add(dwg.text(nome_sw, insert=(pm[0]+15, pm[1]), class_='nome-ativo'))
+        
+        # Destaque de Sobrecarga em Linhas
+        nome_ln = d.get('name', '').lower()
+        if nome_ln in VULN and VULN[nome_ln]['max_pct'] > 100:
+            vinfo = VULN[nome_ln]
+            g_vuln = layers_ativos['sobrecarga'].add(dwg.g(class_='no-grupo'))
+            ln_v = g_vuln.add(dwg.line(p1, p2, class_='sobrecarga'))
+            
+            tooltip = f"ALERTA: {nome_ln} | {vinfo['max_pct']:.1f}% no Ano {vinfo['ano']}"
+            g_vuln.add(dwg.rect(insert=(p2[0]+12, p2[1]-15), size=(len(tooltip)*9, 20), rx=5, class_='bg-texto'))
+            g_vuln.add(dwg.text(tooltip, insert=(p2[0]+15, p2[1]), class_='nome-ativo'))
 
     # 5. Desenhar Nós (Ativos e de Passagem)
     estilos = {
@@ -131,7 +162,7 @@ def exportar_svg_high_performance():
         
         # Grupo para o nó (ícone + texto hover)
         g_no = layers_ativos[tipo].add(dwg.g(class_='no-grupo'))
-        g_no.add(dwg.circle(center=p, r=cfg['size'], fill=cfg['color']))
+        c_node = g_no.add(dwg.circle(center=p, r=cfg['size'], fill=cfg['color']))
         
         # Nomeação Interativa (Hover)
         if tipo != 'default':
@@ -145,6 +176,17 @@ def exportar_svg_high_performance():
                               class_='bg-texto'))
             
             # Texto do Nome (Z-index superior dentro do grupo)
+            # Se for vulnerável, adiciona info extra no hover
+            # Tenta pelo nome do equipamento (equip_name) ou pelo barramento (n)
+            v_nome = attr.get('equip_name', n).lower()
+            v_node = VULN.get(v_nome)
+            
+            if v_node and v_node['max_pct'] > 100:
+                nome_node += f" | {v_node['max_pct']:.1f}% (Ano {v_node['ano']})"
+                c_node.add_class('sobrecarga-node')
+                # Move para camada de sobrecarga para facilitar toggle único
+                layers_ativos['sobrecarga'].add(g_no)
+
             g_no.add(dwg.text(nome_node, insert=(p[0]+15, p[1]), class_='nome-ativo'))
 
     # 6. Construir Legenda Interativa Manual
@@ -163,6 +205,7 @@ def exportar_svg_high_performance():
         ('capacitor', estilos['capacitor']['label'], estilos['capacitor']['color']),
         ('carga', estilos['carga']['label'], estilos['carga']['color']),
         ('default', estilos['default']['label'], estilos['default']['color']),
+        ('sobrecarga', '⚠️ SOBRECARGAS > 100%', '#ff0000'),
     ]
 
     for i, (cat_id, label, cor) in enumerate(categorias):
