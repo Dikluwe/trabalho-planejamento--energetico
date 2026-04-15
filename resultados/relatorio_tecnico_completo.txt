@@ -1,14 +1,14 @@
 ================================================================================
-PIPELINE DE PLANEJAMENTO ENERGÉTICO — 2026-04-09 01:01
+PIPELINE DE PLANEJAMENTO ENERGÉTICO — 2026-04-15 10:30
 ================================================================================
-Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigravity/planejamento-energetico/trabalho-planejamento-energetico/resultados/relatorio_tecnico_completo.txt
+Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigravity/planejamento-energetico/trabalho-planejamento -energetico/resultados/relatorio_tecnico_completo.txt
 
 
 ================================================================================
    [00.01] FASE 1: SIMULAÇÃO BASE E MÓDULOS NUCLEARES
 ================================================================================
 
-[01:01:34] >>> Executando etapas/01_simulacao_base.py ...
+[10:30:37] >>> Executando etapas/01_simulacao_base.py ...
       ================================================================================
       ETAPA 01 — SIMULAÇÃO BASE E ALTERNATIVAS (CRELUZ)
       ================================================================================
@@ -23,19 +23,23 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Perdas            : 13.72 MWh/mês (3.80%)
         Resultado Operac. : USD -164,543.10/mês
       
-      [01.03] Avaliando 6 alternativa(s) em paralelo...
-      
-      >>> Avaliando: Ajuste de tap — trf_6_4910a (+1 derivacao)
-      
-      >>> Avaliando: Recondutoramento smt_29422 — 336,4 CA
+      [01.03] Avaliando 8 alternativa(s) em paralelo...
       
       >>> Avaliando: Ajuste de tap — trf_6_4910a + trf_11_305a
       
-      >>> Avaliando: Recondutoramento smt_29422 — 4/0 CA
+      >>> Avaliando: Recondutoramento smt_29422 — 336,4 CA
       
       >>> Avaliando: Capacitor fixo 600 kvar (barra 9051)
       
+      >>> Avaliando: Ajuste de tap — trf_6_4910a (+1 derivacao)
+      
       >>> Avaliando: Capacitor automatico 1200 kvar (barra 9051)
+      
+      >>> Avaliando: Recondutoramento smt_29422 — 4/0 CA
+      
+      >>> Avaliando: Capacitor automatico 600 kvar (barra 9051)
+      
+      >>> Avaliando: Capacitor fixo 1200 kvar (barra 9051)
       
       ================================================================================
       [01.04] RESULTADOS COMPARATIVOS (VPL)
@@ -43,17 +47,19 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Ajuste de tap — trf_6_4910a + trf_11_305a | VPL: USD     3,793.24
         Recondutoramento smt_29422 — 4/0 CA      | VPL: USD      -985.30
         Recondutoramento smt_29422 — 336,4 CA    | VPL: USD    -1,064.44
+        Capacitor automatico 600 kvar (barra 9051) | VPL: USD    -6,526.04
+        Capacitor automatico 1200 kvar (barra 9051) | VPL: USD    -8,008.43
         Ajuste de tap — trf_6_4910a (+1 derivacao) | VPL: USD    -9,641.80
         Capacitor fixo 600 kvar (barra 9051)     | VPL: USD  -436,155.61
-        Capacitor automatico 1200 kvar (barra 9051) | VPL: USD  -874,252.44
+        Capacitor fixo 1200 kvar (barra 9051)    | VPL: USD -1,729,358.09
       ================================================================================
-      [OK] Finalizado etapas/01_simulacao_base.py em 16.90s
+      [OK] Finalizado etapas/01_simulacao_base.py em 18.16s
 
 ================================================================================
    [00.02] FASE 2: ORQUESTRAÇÃO DE SOLUÇÕES (ATUALIZAÇÃO DE BANCO)
 ================================================================================
 
-[01:01:51] >>> Executando etapas/03_melhor_ponto_capacitor.py ...
+[10:30:55] >>> Executando etapas/03_melhor_ponto_capacitor.py ...
       
       ================================================================================
       [03.01] ANÁLISE NOTURNA DE REATIVO — MELHOR PONTO PARA CAPACITOR AUTOMÁTICO
@@ -66,13 +72,13 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Economia de energia estimada: 0.56 MWh/ano
       ================================================================================
       
-      [OK] Finalizado etapas/03_melhor_ponto_capacitor.py em 1.93s
+      [OK] Finalizado etapas/03_melhor_ponto_capacitor.py em 1.95s
 
 ================================================================================
    [00.03] FASE 3: ESTUDOS E DIMENSIONAMENTOS (LENDO JSON)
 ================================================================================
 
-[01:01:53] >>> Executando etapas/02_analisar_trafo.py ...
+[10:30:57] >>> Executando etapas/02_analisar_trafo.py ...
       
       ================================================================================
       [02.04] ANÁLISE DINÂMICA — TRF_6_4910A
@@ -85,7 +91,7 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
       
       [OK] Finalizado etapas/02_analisar_trafo.py em 0.76s
 
-[01:01:54] >>> Executando etapas/02_analisar_linha.py ...
+[10:30:58] >>> Executando etapas/02_analisar_linha.py ...
       
       ================================================================================
       [02.05] ANÁLISE DE LINHAS — CARREGAMENTO MÁXIMO
@@ -94,9 +100,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Carregamento: 9.59%
       ================================================================================
       
-      [OK] Finalizado etapas/02_analisar_linha.py em 0.43s
+      [OK] Finalizado etapas/02_analisar_linha.py em 0.45s
 
-[01:01:54] >>> Executando etapas/02_horizonte_tap.py ...
+[10:30:59] >>> Executando etapas/02_horizonte_tap.py ...
       
       ================================================================================
       [02.03] ANÁLISE DE HORIZONTE — TRF_6_4910A
@@ -122,9 +128,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Derivação 5 (tap=1.1299): sobrecarga no Ano 4 (fator 1.30) | ganho: +1 ano(s)
       ================================================================================
       
-      [OK] Finalizado etapas/02_horizonte_tap.py em 13.01s
+      [OK] Finalizado etapas/02_horizonte_tap.py em 13.26s
 
-[01:02:07] >>> Executando etapas/02_impacto_tap_bt.py ...
+[10:31:12] >>> Executando etapas/02_impacto_tap_bt.py ...
       
       ================================================================================
       [02.06] IMPACTO DO TAP NA TENSÃO BT — TRF_6_4910A
@@ -137,7 +143,7 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
       
       [OK] Finalizado etapas/02_impacto_tap_bt.py em 0.44s
 
-[01:02:07] >>> Executando etapas/02_remanejamento_trafo.py ...
+[10:31:12] >>> Executando etapas/02_remanejamento_trafo.py ...
       
       ================================================================================
       [02.07] ANÁLISE DE REMANEJAMENTO — TRF_6_4910A
@@ -149,7 +155,7 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
       
       [OK] Finalizado etapas/02_remanejamento_trafo.py em 0.41s
 
-[01:02:08] >>> Executando etapas/03_mapear_reativo.py ...
+[10:31:13] >>> Executando etapas/03_mapear_reativo.py ...
       
       ======================================================================
       [03.07] MAPEAMENTO DE DEMANDA REATIVA — REDE MT CRELUZ
@@ -892,9 +898,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Q médio na linha: 97.0 kvar
         Q máximo na linha: 235.7 kvar
         Capacitor sugerido: 0 kvar (80% da demanda média)
-      [OK] Finalizado etapas/03_mapear_reativo.py em 1.49s
+      [OK] Finalizado etapas/03_mapear_reativo.py em 1.50s
 
-[01:02:09] >>> Executando etapas/03_melhor_ponto_capacitor.py ...
+[10:31:14] >>> Executando etapas/03_melhor_ponto_capacitor.py ...
       
       ================================================================================
       [03.01] ANÁLISE NOTURNA DE REATIVO — MELHOR PONTO PARA CAPACITOR AUTOMÁTICO
@@ -907,9 +913,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Economia de energia estimada: 0.56 MWh/ano
       ================================================================================
       
-      [OK] Finalizado etapas/03_melhor_ponto_capacitor.py em 2.03s
+      [OK] Finalizado etapas/03_melhor_ponto_capacitor.py em 2.00s
 
-[01:02:11] >>> Executando etapas/03_diagnosticar_capcontrol.py ...
+[10:31:16] >>> Executando etapas/03_diagnosticar_capcontrol.py ...
       
       ============================================================
       [03.02] DIAGNÓSTICO DO TAP — trf_6_4910a
@@ -953,9 +959,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
       
         Comando alternativo para CapControl baseado em kvar:
         New CapControl.CC2 element=Line.smt_6110 terminal=1 capacitor=CAP2 type=kvar onsetting=200 offsetting=150
-      [OK] Finalizado etapas/03_diagnosticar_capcontrol.py em 0.97s
+      [OK] Finalizado etapas/03_diagnosticar_capcontrol.py em 0.96s
 
-[01:02:12] >>> Executando etapas/03_testar_capcontrol.py ...
+[10:31:17] >>> Executando etapas/03_testar_capcontrol.py ...
       
       ============================================================
       [03.04] TESTE DO CAPACITOR AUTOMÁTICO — barra 9051
@@ -1014,9 +1020,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         "New Capacitor.CAP2 bus1=9051 phases=3 kvar=1200 kv=23.1",
         "New CapControl.CC2 element=Line.smt_14449 terminal=1 capacitor=CAP2 type=kvar onsetting=50 offsetting=30",
         "Set maxcontroliter=100",
-      [OK] Finalizado etapas/03_testar_capcontrol.py em 1.45s
+      [OK] Finalizado etapas/03_testar_capcontrol.py em 1.41s
 
-[01:02:14] >>> Executando etapas/03_comparar_capcontrol.py ...
+[10:31:19] >>> Executando etapas/03_comparar_capcontrol.py ...
       
       ==========================================================================================
       [03.06] COMPARAÇÃO DE ESTRATÉGIAS — CAPACITOR 50 kvar NO BARRAMENTO 181
@@ -1061,9 +1067,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Opção 3: capacitor ligado só fora do horário de GD, com histerese de Q
                  onsetting=53 kvar / offsetting=6 kvar
       ==========================================================================================
-      [OK] Finalizado etapas/03_comparar_capcontrol.py em 1.50s
+      [OK] Finalizado etapas/03_comparar_capcontrol.py em 1.45s
 
-[01:02:15] >>> Executando etapas/04_perfil_tensao_trafos_gd.py ...
+[10:31:20] >>> Executando etapas/04_perfil_tensao_trafos_gd.py ...
       
       ======================================================================
       [04.01] PERFIL DE TENSÃO — CASO BASE (Ano 1, LoadMult=1.0)
@@ -1135,9 +1141,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Redução de perdas anual           : 15.39 MWh/ano
         Valor da GD para a rede (35 USD): USD 538.59/ano
       ======================================================================
-      [OK] Finalizado etapas/04_perfil_tensao_trafos_gd.py em 2.22s
+      [OK] Finalizado etapas/04_perfil_tensao_trafos_gd.py em 2.05s
 
-[01:02:17] >>> Executando etapas/04_pior_caso_duracao_degradacao.py ...
+[10:31:22] >>> Executando etapas/04_pior_caso_duracao_degradacao.py ...
       
       ======================================================================
       [04.04] PIOR CASO DIÁRIO — LoadMult no pico (hora 12, máximo do perfil)
@@ -1281,9 +1287,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Degradação GD: 0.7%/ano (painel cristalino típico)
         Carga: +10.0%/ano conforme enunciado
       ======================================================================
-      [OK] Finalizado etapas/04_pior_caso_duracao_degradacao.py em 7.98s
+      [OK] Finalizado etapas/04_pior_caso_duracao_degradacao.py em 8.59s
 
-[01:02:25] >>> Executando etapas/05_montecarlo_despacho_gd.py ...
+[10:31:31] >>> Executando etapas/05_montecarlo_despacho_gd.py ...
       
       ======================================================================
       [05.01] MONTE CARLO — ANO DE SOBRECARGA DO trf_6_4910a
@@ -1344,9 +1350,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Resultado define se o controle de Q dos inversores é benéfico
         para esta rede sem custo adicional de equipamento.
       ======================================================================
-      [OK] Finalizado etapas/05_montecarlo_despacho_gd.py em 11.45s
+      [OK] Finalizado etapas/05_montecarlo_despacho_gd.py em 11.24s
 
-[01:02:37] >>> Executando etapas/05_regulador_crescimento_assimetrico.py ...
+[10:31:42] >>> Executando etapas/05_regulador_crescimento_assimetrico.py ...
       
       ======================================================================
       [05.03] REGULADOR DE TENSÃO
@@ -1395,9 +1401,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         a sobrecarga ocorre mais cedo e o tap pode não ser suficiente.
         O remanejamento torna-se prioritário antes do Ano 3.
       ======================================================================
-      [OK] Finalizado etapas/05_regulador_crescimento_assimetrico.py em 4.21s
+      [OK] Finalizado etapas/05_regulador_crescimento_assimetrico.py em 4.19s
 
-[01:02:41] >>> Executando etapas/05_remanejamento_15anos.py ...
+[10:31:46] >>> Executando etapas/05_remanejamento_15anos.py ...
       
       ================================================================================
       [05.05] ESTUDO DE LONGUÍSSIMO PRAZO — 15 ANOS
@@ -1405,17 +1411,20 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
       ================================================================================
       
       Transformadores que atingirão Alerta (>80%) ou Sobrecarga (>100%):
-      ano                        1     2     3     4   ...    12    13    14    15
-      trafo                                            ...                        
-      Transformer.trf_6_3509a  16.9  17.8  18.3  17.9  ...  35.4  37.4  38.3  37.3
-      Transformer.trf_6_4910a  26.5  27.9  28.8  28.2  ...  55.5  58.8  60.0  58.6
+      ano                         1     2      3      4   ...     12     13     14     15
+      trafo                                               ...                            
+      Transformer.trf_11_305a   80.7  80.6   80.5   80.4  ...   79.5   79.4   79.3   79.2
+      Transformer.trf_11_4955a  43.1  47.3   51.4   55.6  ...   87.9   91.8   95.8   99.7
+      Transformer.trf_16_2195a  36.6  40.2   43.7   47.2  ...   75.0   78.4   81.8   85.2
+      Transformer.trf_6_3509a   56.1  61.5   67.0   72.4  ...  115.4  120.7  126.0  131.3
+      Transformer.trf_6_4910a   88.5  97.1  105.7  114.2  ...  181.0  189.3  197.5  205.7
       
-      [2 rows x 15 columns]
+      [5 rows x 15 columns]
       ================================================================================
       
-      [OK] Finalizado etapas/05_remanejamento_15anos.py em 0.93s
+      [OK] Finalizado etapas/05_remanejamento_15anos.py em 3.05s
 
-[01:02:42] >>> Executando etapas/06_novo_trafo_paralelo.py ...
+[10:31:49] >>> Executando etapas/06_novo_trafo_paralelo.py ...
       
       ================================================================================
       [06.01] MODELAGEM DE TRAFO PARALELO — TRF_6_4910A
@@ -1425,9 +1434,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Carregamento Trafo Novo  : 252.42%
       ================================================================================
       
-      [OK] Finalizado etapas/06_novo_trafo_paralelo.py em 0.44s
+      [OK] Finalizado etapas/06_novo_trafo_paralelo.py em 0.42s
 
-[01:02:42] >>> Executando etapas/06_recondutoramento.py ...
+[10:31:50] >>> Executando etapas/06_recondutoramento.py ...
       
       ================================================================================
       [06.04] ANÁLISE DE RECONDUTORAMENTO
@@ -1437,9 +1446,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Simulação concluída com sucesso.
       ================================================================================
       
-      [OK] Finalizado etapas/06_recondutoramento.py em 0.45s
+      [OK] Finalizado etapas/06_recondutoramento.py em 0.42s
 
-[01:02:43] >>> Executando etapas/07_analise_fp095.py ...
+[10:31:50] >>> Executando etapas/07_analise_fp095.py ...
       
       ================================================================================
       [07.01] ANÁLISE DE IMPACTO DE FATOR DE POTÊNCIA (FP 0.95 CAP)
@@ -1449,9 +1458,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Redução de Tensão  : 0.0636 pu
       ================================================================================
       
-      [OK] Finalizado etapas/07_analise_fp095.py em 0.64s
+      [OK] Finalizado etapas/07_analise_fp095.py em 0.63s
 
-[01:02:44] >>> Executando etapas/07_arrhenius_breakeven_prodist.py ...
+[10:31:51] >>> Executando etapas/07_arrhenius_breakeven_prodist.py ...
       
       ======================================================================
       [07.02] CUSTO ESPERADO DE FALHA — MODELO DE ARRHENIUS
@@ -1514,43 +1523,33 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         -----------------------------------------------------------------
         Implementação imediata (Ano 0)    1,500      9,515             —
         Atraso 1 ano (impl. Ano 1)        1,500      5,883         3,632
-        Atraso 2 anos (impl. Ano 2)       1,500      2,322         7,193
+        Atraso 2 anos (impl. Ano 2)       1,500      2,119         7,396
         Sem ação (risco de falha)             0       -337         9,853
       
         Custo de adiar 1 ano: USD 3,632
-        Custo de adiar 2 anos: USD 7,193
+        Custo de adiar 2 anos: USD 7,396
         Cada mês de atraso custa aproximadamente: USD 303
       
       ======================================================================
-      [07.05] EXPORTANDO CSV CONSOLIDADO
+      [07.05] EXPORTANDO CSV CONSOLIDADO DINÂMICO
       ======================================================================
       
-        Arquivo gerado: resultados_consolidados.csv
-        Linhas: 45 (incluindo cabeçalho)
-        Colunas: Categoria, Métrica, Ano1, Ano2, Ano3, Unidade
-      
       ======================================================================
-      [07.06] TABELA PRODIST — DRP/DRC POR BARRAMENTO (CASO BASE, ANO 1)
+      [07.06] TABELA PRODIST — DRP/DRC + COMPENSAÇÃO (LOOP 3 ANOS)
       ======================================================================
       
-        Coletando leituras de tensão (24 leituras × fator = 144 leituras equiv.)...
+      >>> Analisando Conformidade PRODIST — Ano 1...
+          Compensação Estimada (Mês): USD 178.33
       
-        Barramentos BT com DRP > 0% ou DRC > 0% (violações PRODIST):
-        Barramento                 Vmin (pu)  Vmax (pu)   DRP (%)   DRC (%)     Status
-        ----------------------------------------------------------------------------
-        uc1607347                     0.9852     1.0789      4.17     25.00    crítica
-        bt56881                       0.9853     1.0760      8.33     20.83    crítica
-        uc606147                      0.9864     1.0545     16.67      0.00   precária
-        bt71761                       0.9873     1.0501      4.17      0.00   precária
+      >>> Analisando Conformidade PRODIST — Ano 2...
+          Compensação Estimada (Mês): USD 218.75
       
-        Total de barramentos com violação: 4
-      
-        CSV PRODIST exportado: prodist_drp_drc.csv
-        Barramentos BT avaliados: 844
+      >>> Analisando Conformidade PRODIST — Ano 3...
+          Compensação Estimada (Mês): USD 254.87
       ======================================================================
-      [OK] Finalizado etapas/07_arrhenius_breakeven_prodist.py em 0.70s
+      [OK] Finalizado etapas/07_arrhenius_breakeven_prodist.py em 3.28s
 
-[01:02:44] >>> Executando etapas/07_expansao_gd_fluxo_n1.py ...
+[10:31:54] >>> Executando etapas/07_expansao_gd_fluxo_n1.py ...
       
       ======================================================================
       [07.07] IMPACTO DA EXPANSÃO DA GD — +20% de capacidade no Ano 3
@@ -1621,21 +1620,21 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Amostra de barramentos downstream após abertura (hora 9):
         Barramento                 Tensão (pu)     Status
         --------------------------------------------------
-        71921                           0.0000 SEM TENSÃO (Isolado)
-        mrt_13941trf_16_2916a           0.0000 SEM TENSÃO (Isolado)
-        13851                           0.0000 SEM TENSÃO (Isolado)
-        640601                          0.0000 SEM TENSÃO (Isolado)
-        553721                          0.0000 SEM TENSÃO (Isolado)
-        17911                           0.0000 SEM TENSÃO (Isolado)
-        427371                          0.0000 SEM TENSÃO (Isolado)
-        13861                           0.0000 SEM TENSÃO (Isolado)
-        641961                          0.0000 SEM TENSÃO (Isolado)
+        71881                           0.0000 SEM TENSÃO (Isolado)
+        553791                          0.0000 SEM TENSÃO (Isolado)
+        553691                          0.0000 SEM TENSÃO (Isolado)
+        13951                           0.0000 SEM TENSÃO (Isolado)
+        17891                           0.0000 SEM TENSÃO (Isolado)
+        27741                           0.0000 SEM TENSÃO (Isolado)
+        553801                          0.0000 SEM TENSÃO (Isolado)
         553871                          0.0000 SEM TENSÃO (Isolado)
-        641921                          0.0000 SEM TENSÃO (Isolado)
-        7311                            0.0000 SEM TENSÃO (Isolado)
-        71941                           0.0000 SEM TENSÃO (Isolado)
-        13941                           0.0000 SEM TENSÃO (Isolado)
-        7231                            0.0000 SEM TENSÃO (Isolado)
+        553861                          0.0000 SEM TENSÃO (Isolado)
+        799351                          0.0000 SEM TENSÃO (Isolado)
+        13871                           0.0000 SEM TENSÃO (Isolado)
+        13851                           0.0000 SEM TENSÃO (Isolado)
+        750631                          0.0000 SEM TENSÃO (Isolado)
+        553771                          0.0000 SEM TENSÃO (Isolado)
+        17932                           0.0000 SEM TENSÃO (Isolado)
       
         Total sem tensão (<0,1 pu): 15 (de 15 amostrados)
       
@@ -1644,9 +1643,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         e 6 transformadores de distribuição.
         Recomendação: chave seccionadora de emergência no ramal adjacente.
       ======================================================================
-      [OK] Finalizado etapas/07_expansao_gd_fluxo_n1.py em 1.87s
+      [OK] Finalizado etapas/07_expansao_gd_fluxo_n1.py em 1.90s
 
-[01:02:46] >>> Executando etapas/07_perfil_tensao_balanco_sensibilidade.py ...
+[10:31:56] >>> Executando etapas/07_perfil_tensao_balanco_sensibilidade.py ...
       
       ======================================================================
       [07.10] PERFIL DE TENSÃO POR DISTÂNCIA ELÉTRICA DA SUBESTAÇÃO
@@ -1748,9 +1747,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         taxa de desconto abaixo de 54% (TIR aproximada).
         TIR aproximada: 54%
       ======================================================================
-      [OK] Finalizado etapas/07_perfil_tensao_balanco_sensibilidade.py em 1.04s
+      [OK] Finalizado etapas/07_perfil_tensao_balanco_sensibilidade.py em 1.07s
 
-[01:02:47] >>> Executando etapas/08_sobretensao.py ...
+[10:31:57] >>> Executando etapas/08_sobretensao.py ...
       
       ================================================================================
       [08.01] INVESTIGAÇÃO DE SOBRETENSÕES — CASO BASE
@@ -1766,9 +1765,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         1.00       1.0486
       ================================================================================
       
-      [OK] Finalizado etapas/08_sobretensao.py em 0.94s
+      [OK] Finalizado etapas/08_sobretensao.py em 0.98s
 
-[01:02:48] >>> Executando etapas/09_ranking_gd.py ...
+[10:31:58] >>> Executando etapas/09_ranking_gd.py ...
       
       ================================================================================
       [09.01] RANKING DE GD — MELHOR LOCAL PARA INJEÇÃO
@@ -1788,21 +1787,21 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
           56961                0.648 kW
       ================================================================================
       
-      [OK] Finalizado etapas/09_ranking_gd.py em 13.95s
+      [OK] Finalizado etapas/09_ranking_gd.py em 14.10s
 
 ================================================================================
    [00.04] FASE 4: EXPORTADORES E RENDERIZADORES GRAFICOS
 ================================================================================
 
-[01:03:02] >>> Executando etapas/10_exportar_geojson.py ...
+[10:32:12] >>> Executando etapas/10_exportar_geojson.py ...
       Coordenadas: 2757 barramentos
       
       Gerando GeoJSONs...
-        rede_linhas_mt.geojson               2226 features    1030.3 KB
-        rede_linhas_bt.geojson                409 features     188.8 KB
-        rede_trafos.geojson                   136 features      51.5 KB
+        rede_linhas_mt.geojson               2226 features    1221.6 KB
+        rede_linhas_bt.geojson                409 features     223.9 KB
+        rede_trafos.geojson                   136 features      55.3 KB
         rede_gd.geojson                         6 features       1.9 KB
-        rede_problemas.geojson                 19 features       6.7 KB
+        rede_problemas.geojson                 19 features       6.8 KB
       
       Como importar no QGIS:
         1. Layer > Add Layer > Add Vector Layer
@@ -1815,9 +1814,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
       
       Dica: arraste todos os .geojson de uma vez para a janela do QGIS.
       
-      [OK] Finalizado etapas/10_exportar_geojson.py em 0.65s
+      [OK] Finalizado etapas/10_exportar_geojson.py em 0.66s
 
-[01:03:03] >>> Executando etapas/10_exportar_rede_svg.py ...
+[10:32:13] >>> Executando etapas/10_exportar_rede_svg.py ...
       Coordenadas carregadas: 2757 barramentos
       Linhas MT com coords: 2226
       Linhas BT com coords: 409
@@ -1832,10 +1831,10 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         Gerado: rede_gd.svg
         Gerado: rede_problemas.svg
       
-      Todos os SVGs gerados em /home/dikluwe/Documentos/Antigravity/planejamento-energetico/trabalho-planejamento-energetico/resultados/graficos
+      Todos os SVGs gerados em /home/dikluwe/Documentos/Antigravity/planejamento-energetico/trabalho-planejamento -energetico/resultados/graficos
       [OK] Finalizado etapas/10_exportar_rede_svg.py em 0.53s
 
-[01:03:03] >>> Executando etapas/10_exportar_rede_svg_geo.py ...
+[10:32:13] >>> Executando etapas/10_exportar_rede_svg_geo.py ...
       Coordenadas: 2757 barramentos
       Bounding box:
         Longitude: -53.772925 → -53.536368  (Δ=0.236558°)
@@ -1869,9 +1868,9 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
       Para usar no Inkscape com georreferenciamento:
         Abra qualquer *_geo.svg — o viewBox já está em lon/lat
       
-      [OK] Finalizado etapas/10_exportar_rede_svg_geo.py em 0.54s
+      [OK] Finalizado etapas/10_exportar_rede_svg_geo.py em 0.50s
 
-[01:03:04] >>> Executando etapas/11_graficos_svg.py ...
+[10:32:14] >>> Executando etapas/11_graficos_svg.py ...
       Carregando resultados dos arquivos CSV...
         Dados carregados.
       
@@ -1884,8 +1883,48 @@ Os relatórios e prints estão sendo salvos em: /home/dikluwe/Documentos/Antigra
         grafico_ranking_pvsystems.svg              10 KB
       
       Todos os gráficos gerados.
-      [OK] Finalizado etapas/11_graficos_svg.py em 0.40s
+      [OK] Finalizado etapas/11_graficos_svg.py em 0.37s
+
+[10:32:14] >>> Executando etapas/12_visualizar_grafo_hierarquico.py ...
+      >>> Extraindo árvore hierárquica e ativos da rede...
+      >>> Árvore salva em: /home/dikluwe/Documentos/Antigravity/planejamento-energetico/trabalho-planejamento -energetico/resultados/arvore_estilizada_completa.png
+      >>> Árvore salva em: /home/dikluwe/Documentos/Antigravity/planejamento-energetico/trabalho-planejamento -energetico/resultados/arvore_estilizada_mt.png
+      [OK] Finalizado etapas/12_visualizar_grafo_hierarquico.py em 56.00s
+
+[10:33:10] >>> Executando etapas/13_visualizar_mapa_interativo.py ...
+      >>> Extraindo ativos e gerando estrutura para o Pyvis...
+      
+      >>> Mapa interativo gerado com sucesso: /home/dikluwe/Documentos/Antigravity/planejamento-energetico/trabalho-planejamento -energetico/resultados/mapa_interativo_ativos.html
+      >>> Dica: Use o menu 'selection' no rodapé do HTML para buscar barramentos específicos.
+      [OK] Finalizado etapas/13_visualizar_mapa_interativo.py em 1.60s
+
+[10:33:12] >>> Executando etapas/14_grafo_svg_interativo.py ...
+      >>> Extraindo ativos e calculando layout hierárquico (Graphviz)...
+      
+      >>> Mapa Final Gerado: /home/dikluwe/Documentos/Antigravity/planejamento-energetico/trabalho-planejamento -energetico/resultados/mapa_ativos_camadas.svg
+      [OK] Finalizado etapas/14_grafo_svg_interativo.py em 27.51s
 
 ================================================================================
-PIPELINE CONCLUÍDA COM SUCESSO EM 90.26 SEGUNDOS
+   [00.05] FASE 5: ANÁLISE FINANCEIRA E RELATÓRIOS
+================================================================================
+
+[10:33:39] >>> Executando etapas/15_balanco_financeiro_mensal.py ...
+      ======================================================================
+      ETAPA 15 — BALANÇO FINANCEIRO DINÂMICO (CRELUZ)
+      ======================================================================
+      
+      Ano   | Energia (MWh/m) | Faturamento (USD)  | Perdas (USD) | Margem Oper.
+      ---------------------------------------------------------------------------
+      Ano 1 |          393.52 |          59,027.98 |       639.59 |       98.92%
+      Ano 2 |          442.70 |          66,404.68 |       668.81 |       98.99%
+      Ano 3 |          491.84 |          73,776.33 |       702.09 |       99.05%
+      ---------------------------------------------------------------------------
+      
+      Premissas: Venda = 150.0 USD/MWh | Compra Perdas = 35.0 USD/MWh
+      Ref: Módulo Financeiro Crystalline L1
+      ======================================================================
+      [OK] Finalizado etapas/15_balanco_financeiro_mensal.py em 0.02s
+
+================================================================================
+PIPELINE CONCLUÍDA COM SUCESSO EM 181.89 SEGUNDOS
 ================================================================================

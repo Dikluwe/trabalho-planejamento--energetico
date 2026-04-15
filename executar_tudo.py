@@ -1,5 +1,6 @@
 import sys
 import subprocess
+import locale
 from pathlib import Path
 import time
 from datetime import datetime
@@ -62,6 +63,15 @@ PIPELINE = [
             "etapas/10_exportar_rede_svg.py",
             "etapas/10_exportar_rede_svg_geo.py",
             "etapas/11_graficos_svg.py",
+            "etapas/12_visualizar_grafo_hierarquico.py",
+            "etapas/13_visualizar_mapa_interativo.py",
+            "etapas/14_grafo_svg_interativo.py",
+        ],
+    ),
+    (
+        "[00.05] FASE 5: ANÁLISE FINANCEIRA E RELATÓRIOS",
+        [
+            "etapas/15_balanco_financeiro_mensal.py",
         ],
     ),
 ]
@@ -101,13 +111,17 @@ def rodar_script(nome_script):
     comando = [sys.executable, nome_script]
 
     try:
+        # Identifica automaticamente se é Linux (utf-8) ou Windows (cp1252)
+        codificacao = locale.getpreferredencoding()
+
         processo = subprocess.Popen(
             comando,
             cwd=str(HERE),
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
-            encoding="utf-8",
+            encoding=codificacao,
+            errors="replace" # Substitui caracteres problemáticos por ? em vez de travar
         )
 
         for linha in processo.stdout:
