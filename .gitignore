@@ -31,6 +31,9 @@ ENV/
 .idea/
 
 # Project Specific - Results & Blobs
+resultados/
+Resultados/
+Resultados_ano*/
 _temp_cenario_*/
 debug/
 !Finais/buscoords.csv  # Mantendo coordenadas se forem fonte
@@ -38,6 +41,15 @@ debug/
 *.tar.gz
 *.pdf
 out.txt
+
+# Exceções para gráficos do relatório (importante: não ignorar a pasta resultados recursivamente para que as exceções funcionem)
+!resultados/
+resultados/*
+!resultados/graficos/
+!resultados/graficos/*.svg
+!resultados/*.svg
+!resultados/*.png
+!resultados/mapa_ativos_camadas.svg
 
 # OpenDSS temporary files
 *.DSV

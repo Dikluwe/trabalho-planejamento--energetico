@@ -63,6 +63,7 @@ distributed generation, tap changer, power quality, PRODIST, NPV, rural distribu
 - Modelo de envelhecimento: IEEE C57.91 (Arrhenius), FAA por temperatura de ponto quente
 
 **Figura sugerida:** fluxograma da metodologia de avaliação (pequeno, 1 coluna)
+![Metodologia](../resultados/arvore_estilizada_completa.png)
 
 ---
 
@@ -75,6 +76,8 @@ distributed generation, tap changer, power quality, PRODIST, NPV, rural distribu
 
 **Tabela sugerida:** parâmetros principais do alimentador (compacta, 1 coluna)
 
+![Topologia da Rede](../resultados/graficos/rede_completa.svg)
+
 ---
 
 ### IV. Análise do caso base (~0,5 pág)
@@ -85,6 +88,8 @@ distributed generation, tap changer, power quality, PRODIST, NPV, rural distribu
 - Monte Carlo: P50=Ano 3, P90=Ano 4 — 100% de probabilidade de sobrecarga até Ano 15
 
 **Tabela sugerida:** resumo caso base Anos 1–3 (perdas, Vmin, trafos sobrecarregados)
+
+![Carregamento do Transformador](../resultados/graficos/grafico_carregamento_trafo.svg)
 
 ---
 
@@ -128,6 +133,7 @@ distributed generation, tap changer, power quality, PRODIST, NPV, rural distribu
 - Recomendação complementar: FP 0,95 nos inversores (custo zero, USD 13/ano)
 
 **Figura sugerida:** gráfico VPL × taxa de desconto (6%–25%) mostrando robustez
+![Sensibilidade VPL](../resultados/graficos/grafico_vpl_sensibilidade.svg)
 
 ---
 
@@ -160,6 +166,7 @@ distributed generation, tap changer, power quality, PRODIST, NPV, rural distribu
 - Recomendação: curtailment por tensão nos 2 inversores identificados
 
 **Tabela sugerida:** 4 barramentos com DRP/DRC (compacta)
+![Ranking PV Systems](../resultados/graficos/grafico_ranking_pvsystems.svg)
 
 ---
 
@@ -215,3 +222,9 @@ Total: 2 figuras + 4 tabelas — razoável para 5 páginas IEEE.
 - [ ] Conclusões em forma de lista numerada (IEEE aceita)
 - [ ] Referências no formato IEEE (sobrenome, inicial, título em aspas, revista em itálico)
 - [ ] Verificar limite de 5 páginas antes de submeter
+
+---
+
+### Anexos Digitais
+- **Mapa Interativo de Ativos:** [mapa_ativos_camadas.svg](../resultados/mapa_ativos_camadas.svg) (Abrir em navegador para interatividade)
+- **Gráficos de Balanço e Tensão:** [grafico_balanco_energetico.svg](../resultados/graficos/grafico_balanco_energetico.svg), [grafico_tensao_bt.svg](../resultados/graficos/grafico_tensao_bt.svg)
