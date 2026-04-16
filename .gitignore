@@ -31,15 +31,8 @@ ENV/
 .idea/
 
 # Project Specific - Results & Blobs
-Resultados/
-Resultados_ano*/
 _temp_cenario_*/
-graficos/
-mapa/
 debug/
-*.svg
-*.geojson
-*.csv
 !Finais/buscoords.csv  # Mantendo coordenadas se forem fonte
 *.zip
 *.tar.gz
